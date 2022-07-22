@@ -15,10 +15,12 @@ void Block::notify(Subject &whoFrom) {
         it = ownership.find(wF.boardIndex);
         it->second = wF.owner;
     } else if (wF.notifType == StateType::Landed) {
-        if (wF.property == PropertyType::Academic) {
-            academicBlock(whoFrom);
-        } else {
-            resgymBlock(whoFrom);
+        if (wF.owner != wF.justLanded) {
+            if (wF.property == PropertyType::Academic) {
+                academicBlock(whoFrom);
+            } else {
+                resgymBlock(whoFrom);
+            }
         }
     }
 }

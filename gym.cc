@@ -3,6 +3,8 @@
 #include "state.h"
 #include "player.h"
 
+Gym::Gym(int boardIndex, int purchaseCost) : Property{boardIndex, purchaseCost} {}
+
 void Gym::land(Player &p) {
     struct State s;
     s.notifType = StateType::Landed;
@@ -14,14 +16,12 @@ void Gym::land(Player &p) {
     payFee(p);
 }
 void Gym::payFee(Player &p) {
-    if (&p != this->getOwner()) {
-        int numOfBuildings = this->getState().condition;
-        int cost;
-        if (numOfBuildings == 1) {
-            cost *= 4;
-        } else {
-            cost *= 10;
-        }
-        p.changeBal(cost);
+    int numOfBuildings = this->getState().condition;
+    int cost;
+    if (numOfBuildings == 1) {
+        cost *= 4;
+    } else {
+        cost *= 10;
     }
+    p.changeBal(cost);
 }

@@ -1,6 +1,6 @@
 #ifndef __STATE__
 #define __STATE__
-enum class StateType { Landed, Improvements, ChangeOwner };
+enum class StateType { Landed, BuyImprovements, SellImprovements, ChangeOwner };
 enum class PropertyType { Academic, Residence, Gym};
 
 struct State {

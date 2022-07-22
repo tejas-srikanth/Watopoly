@@ -31,9 +31,11 @@ void Property::setOwner(Player *p) {
 void Property::mortgage(Player &p) {
     mortgaged = true;
     p.changeBal(this->getPurchaseCost() / 2);
+    this->notifyObservers();
 }
 
-void Property::mortgage(Player &p) {
+void Property::unmortgage(Player &p) {
     mortgaged = false;
     p.changeBal(this->getPurchaseCost() * (-0.6));
+    this->notifyObservers();
 } 

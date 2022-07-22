@@ -7,6 +7,7 @@ class Player;
 
 class Gym : public Property{
 public:
+    Gym(int boardIndex, int purchaseCost);
     void land(Player &p);
     void payFee(Player &p);
 };

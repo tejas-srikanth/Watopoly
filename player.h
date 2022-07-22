@@ -9,9 +9,11 @@ class Player {
     std::vector<int> assets;
     char piece;
 public:
+    Player(char p);
     int getPos();
     int getBal();
     std::vector<int> getAssets();
+    char getPiece();
     void changePos(int pos);
     void changeBal(int bal);
     void addAssets(int p);
