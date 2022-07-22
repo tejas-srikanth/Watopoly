@@ -14,6 +14,7 @@ int Academic::getImprovement() {
 }
 
 void Academic::land(Player &p) {
+    p.changePos(this->getBoardIndex());
     // setting State s
     struct State s;
     s.notifType = StateType::Landed;

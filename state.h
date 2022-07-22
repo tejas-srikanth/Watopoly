@@ -1,5 +1,6 @@
 #ifndef __STATE__
 #define __STATE__
+class Player;
 enum class StateType { Landed, BuyImprovements, SellImprovements, ChangeOwner, Mortgage, 
     Unmortgage };
 enum class PropertyType { Academic, Residence, Gym};

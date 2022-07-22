@@ -13,6 +13,8 @@ Residence::Residence(int boardIndex, int purchaseCost) : Property{boardIndex, pu
 }
 
 void Residence::land(Player &p) {
+    p.changePos(this->getBoardIndex());
+    // setting State s
     struct State s;
     s.notifType = StateType::Landed;
     s.justLanded = &p;
