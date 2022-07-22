@@ -1,5 +1,7 @@
 #ifndef __STATE__
 #define __STATE__
+#include "player.h"
+
 enum class StateType { Landed, Improvements, ChangeOwner };
 enum class PropertyType { Academic, Residence, Gym};
 
