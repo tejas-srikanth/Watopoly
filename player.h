@@ -8,12 +8,15 @@ class Player {
     int balance;
     std::vector<int> assets;
     char piece;
+    bool inJail;
 public:
     Player(char p);
     int getPos();
     int getBal();
     std::vector<int> getAssets();
     char getPiece();
+    bool getJail();
+    bool setJail(bool b);
     void changePos(int pos);
     void changeBal(int bal);
     void addAssets(int p);
