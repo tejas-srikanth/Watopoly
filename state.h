@@ -1,8 +1,7 @@
 #ifndef __STATE__
 #define __STATE__
-#include "player.h"
-
-enum class StateType { Landed, Improvements, ChangeOwner };
+enum class StateType { Landed, BuyImprovements, SellImprovements, ChangeOwner, Mortgage, 
+    Unmortgage };
 enum class PropertyType { Academic, Residence, Gym};
 
 struct State {
