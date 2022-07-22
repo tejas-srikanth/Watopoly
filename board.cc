@@ -1,3 +1,0 @@
-
-ptr->buyImprovements();
-ptr->sellImprovements();
