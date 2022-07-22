@@ -8,6 +8,7 @@ class Player;
 class Residence : public Property{
     std::map<int,int> costs;
 public:
+    Residence(int boardIndex, int purchaseCost);
     void land(Player &p);
     void payFee(Player &p);
 };

@@ -9,9 +9,12 @@ class Academic : public Property {
     int improvement;
     std::map<int,int> improvements;
 public:
-    Academic(int boardIndex, int purchaseCost);
+    Academic(int boardIndex, int purchaseCost, std::map<int,int> imp);
+    int getImprovement();
     void land(Player &p);
     void payFee(Player &p);
+    void buyImprovements();
+    void sellImprovements();
 };
 
 #endif

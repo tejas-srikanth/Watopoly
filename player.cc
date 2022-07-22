@@ -1,6 +1,11 @@
 #include "player.h"
 #include <vector>
 
+Player::Player(char p): piece{p} {
+    balance = 1500;
+    inJail = false;
+}
+
 int Player::getPos() {
     return position;
 }
@@ -10,6 +15,18 @@ int Player::getBal() {
 std::vector<int> Player::getAssets() {
     return assets;
 }
+char Player::getPiece() {
+    return piece;
+}
+
+bool Player::getJail(){
+    return inJail;
+}
+
+bool Player::setJail(bool b) {
+    inJail = b;
+}
+
 void Player::changePos(int pos) {
     position = pos;
 }
