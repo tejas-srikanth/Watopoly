@@ -1,5 +1,4 @@
 #include "needlesHall.h"
-#include "player.h"
 
 void SLC::getEffect(Player& p) {
     int random = rand() % 18 + 1;
