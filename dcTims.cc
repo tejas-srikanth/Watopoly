@@ -6,7 +6,6 @@ void DCTims::land(Player p) {
     struct State s;
     s.notifType = StateType::Landed;
     s.justLanded = &p;
-    s.owner = this->getOwner();
     s.property = PropertyType::Special;
     this->setState(s);
 
@@ -15,7 +14,7 @@ void DCTims::land(Player p) {
 
 void DCTims::goToJail(Player p) {
     roundChecker[p] = 0;
-    p.changePos(boardIndex());
+    p.changePos(this->getBoardIndex());
 }
 
 int DCTims::getRound(Player p) {
