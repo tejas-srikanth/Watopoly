@@ -4,7 +4,7 @@
 
 class STC : public Chance {
     public:
-    void getEffect() override;
+    void getEffect(Player &p) override;
 };
 
 #endif
