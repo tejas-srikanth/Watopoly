@@ -2,6 +2,7 @@
 #define __PLAYER__
 #include <vector>
 #include "property.h"
+#include <iostream>
 
 class Player {
     int position;
