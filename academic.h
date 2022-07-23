@@ -6,7 +6,7 @@
 #include "property.h"
 
 class Academic : public Property {
-    int improvement;
+    int improvement = 0;
     std::map<int,int> improvements;
 public:
     Academic(int boardIndex, int purchaseCost, std::map<int,int> imp);

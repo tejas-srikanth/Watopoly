@@ -5,9 +5,7 @@
 #include "property.h"
 
 Academic::Academic(int boardIndex, int purchaseCost, std::map<int,int>imp) :
-    Property{boardIndex, purchaseCost}, improvements{imp} {
-        improvement = 0;
-}
+    Property{boardIndex, purchaseCost}, improvements{imp} {}
 
 int Academic::getImprovement() {
     return improvement;

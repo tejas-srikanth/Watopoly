@@ -1,7 +1,15 @@
 #include "square.h"
 
-Square::Square(int bi) : boardIndex{bi} {}
+Square::Square(int bi, bool prop) : boardIndex{bi}, property{prop} {}
 
 int Square::getBoardIndex() {
     return boardIndex;
+}
+
+int Square::getBoardIndex() {
+    return boardIndex;
+}
+
+bool Square::isProperty() {
+    return property;
 }

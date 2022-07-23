@@ -1,0 +1,34 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+    string file;
+    ofstream myfile; 
+    myfile.open(file); // opens the file
+    /*if( !myfile ) { // file couldn't be opened
+        cerr << "Error: file could not be opened" << endl;
+        exit(1);
+    }*/
+
+    myfile << players.size() << endl;
+
+    for (auto p : players) {
+        myfile<<p->getName()<<" "<<p->getPiece()<<" "<<p->getCups()<<" "<<p->getBal()<<" ";
+        int pos = p->getPos();
+        myfile<<pos;
+        if (pos == 30 && p->getJail()) {
+            myfile<<" 1"<<p->getTimesInJail();
+        } else {
+            myfile<<" 0";
+        }
+    }
+
+    for (auto s : sq) {
+        if (s->isProperty()) {
+            if(s->getOwner()) {
+                myfile<<s->getOwner()->getName()<<" "<<s->getImprovement();
+            } else {
+                myfile<<"BANK 0";
+            }
+        }
+    }
