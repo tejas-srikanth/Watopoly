@@ -4,11 +4,15 @@
 #include "player.h"
 #include "property.h"
 
-Academic::Academic(int boardIndex, int purchaseCost, std::map<int,int>imp) :
-    Property{boardIndex, purchaseCost}, improvements{imp} {}
+Academic::Academic(int boardIndex, int purchaseCost, int ic, std::vector<int>imp) :
+    Property{boardIndex, purchaseCost}, improvementCost{ic}, improvements{imp} {}
 
 int Academic::getImprovement() {
     return improvement;
+}
+
+int Academic::getImprovementCost() {
+    return improvementCost;
 }
 
 void Academic::land(Player &p) {
@@ -20,7 +24,7 @@ void Academic::land(Player &p) {
     s.owner = this->getOwner();
     s.property = PropertyType::Academic;
     this->setState(s);
-
+    // notify Observers
     this->notifyObservers();
     payFee(p);
 }
@@ -38,7 +42,7 @@ void Academic::payFee(Player &p) {
 
 void Academic::buyImprovements() {
     improvement++;
-    this->getOwner()->changeBal(improvements[improvement]*(-1));
+    this->getOwner()->changeBal(improvementCost*(-1));
     struct State s;
     s.notifType = StateType::BuyImprovements;
     this->setState(s);
@@ -46,7 +50,7 @@ void Academic::buyImprovements() {
 }
 void Academic::sellImprovements() {
     improvement--;
-    this->getOwner()->changeBal(improvements[improvement]/2);
+    this->getOwner()->changeBal(improvementCost/2);
     struct State s;
     s.notifType = StateType::SellImprovements;
     this->setState(s);
