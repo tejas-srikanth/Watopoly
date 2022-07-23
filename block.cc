@@ -8,6 +8,12 @@
 #include <iostream>
 using namespace std;
 
+Block::Block(std::vector<int> bis) {
+    for (auto b : bis) {
+        ownership.insert(pair<int, Player *>(b, nullptr));
+    }
+}
+
 void Block::notify(Subject &whoFrom) {
     struct State wF = whoFrom.getState();
     if (wF.notifType == StateType::ChangeOwner) {
