@@ -1,6 +1,6 @@
 #include "coopFee.h"
 
-void CoopFee::land(Player p) {
+void CoopFee::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
     struct State s;
