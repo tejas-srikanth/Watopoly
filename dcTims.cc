@@ -1,6 +1,6 @@
 #include "dcTims.h"
 
-void DCTims::land(Player p) {
+void DCTims::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
     struct State s;
@@ -12,24 +12,24 @@ void DCTims::land(Player p) {
     return;
 }
 
-void DCTims::goToJail(Player p) {
+void DCTims::goToJail(Player& p) {
     roundChecker[p] = 0;
     p.changePos(this->getBoardIndex());
 }
 
-int DCTims::getRound(Player p) {
+int DCTims::getRound(Player& p) {
     round = roundChecker[p];
     return round;
 }
 
-void DCTims::newRound(Player p) {
+void DCTims::newRound(Player& p) {
     roundChecker[p]++;
 }
 
-void DCTims::sendOut(Player p) {
+void DCTims::sendOut(Player& p) {
     roundChecker.erase(p);
 }
 
-int DCTims::getJailRounds(Player p) {
+int DCTims::getJailRounds(Player& p) {
     return roundChecker[p];
 }

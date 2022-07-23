@@ -1,6 +1,6 @@
 #include "gooseNesting.h"
 
-void GooseNesting::land(Player p) {
+void GooseNesting::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
     struct State s;
