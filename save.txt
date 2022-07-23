@@ -13,11 +13,11 @@ using namespace std;
     myfile << players.size() << endl;
 
     for (auto p : players) {
-        myfile<<p->getName()<<" "<<p->getPiece()<<" "<<p->getCups()<<" "<<p->getBal()<<" ";
+        myfile<<p->getName()<<" "<<p->getPiece()<<" "<<getTimsCups(p)<<" "<<p->getBal()<<" ";
         int pos = p->getPos();
         myfile<<pos;
         if (pos == 30 && p->getJail()) {
-            myfile<<" 1"<<p->getTimesInJail();
+            myfile<<" 1"<<getJailRounds(p);
         } else {
             myfile<<" 0";
         }
