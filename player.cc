@@ -41,6 +41,7 @@ void Player::delAssets(int p) {
     for (auto b : assets) {
         if (b == p) {
             assets.erase(assets.begin() + index);
+            break;
         }
         index++;
     }
