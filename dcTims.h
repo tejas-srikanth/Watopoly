@@ -5,7 +5,7 @@
 #include "player.h"
 
 class DCTims : public Square {
-    std::map<Player, int> roundChecker;
+    std::map<Player&, int> roundChecker;
     public:
     DCTims(int bi, bool prop, Square& tims);
     void land(Player& p) override;
