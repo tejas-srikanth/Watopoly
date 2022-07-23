@@ -8,7 +8,6 @@ void GoToTims::land(Player& p) {
     struct State s;
     s.notifType = StateType::Landed;
     s.justLanded = &p;
-    s.property = PropertyType::Special;
     this->setState(s);
     this->notifyObservers();
 
