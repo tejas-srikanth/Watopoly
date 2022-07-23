@@ -2,7 +2,7 @@
 
 SLC::SLC(int bi, bool prop, Square& tims) : Square{bi}, tims(tims) {}
 
-void SLC::getEffect() {
+void SLC::getEffect(Player& p) {
     int random = rand() % 24 + 1;
     int position = p.getPos();
     if (random <= 3) {
