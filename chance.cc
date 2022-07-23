@@ -1,6 +1,6 @@
 #include "chance.h"
 
-int Chance::getTimsCup(Player p) {
+int Chance::getTimsCup(Player& p) {
     int timsCup = 0;
     for (int i = 0; i < totalCups; i++) {
         if (cups[i] == p) {
@@ -10,7 +10,7 @@ int Chance::getTimsCup(Player p) {
     return timsCup;
 }
 
-bool Chance::useCup(Player p) {
+bool Chance::useCup(Player& p) {
     for (int i = 0; i < totalCups; i++) {
         if (cups[i] == p) {
             cups.erase(cups.begin() + i);
@@ -21,7 +21,7 @@ bool Chance::useCup(Player p) {
     return false;
 }
 
-void Chance::land(Player p) {
+void Chance::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
     struct State s;
