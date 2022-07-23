@@ -7,7 +7,7 @@ class Player;
 
 class Gym : public Property{
 public:
-    Gym(int boardIndex, int purchaseCost);
+    Gym(int boardIndex, int purchaseCost, std::string name);
     void land(Player &p);
     void payFee(Player &p);
 };

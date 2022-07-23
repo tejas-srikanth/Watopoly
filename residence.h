@@ -8,7 +8,7 @@ class Player;
 class Residence : public Property{
     std::map<int,int> costs;
 public:
-    Residence(int boardIndex, int purchaseCost);
+    Residence(int boardIndex, int purchaseCost, std::string name);
     void land(Player &p);
     void payFee(Player &p);
 };

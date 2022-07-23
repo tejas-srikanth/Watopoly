@@ -5,7 +5,7 @@
 #include <iostream>
 using namespace std;
 
-Residence::Residence(int boardIndex, int purchaseCost) : Property{boardIndex, purchaseCost} {
+Residence::Residence(int boardIndex, int purchaseCost, std::string name) : Property{boardIndex, purchaseCost, name} {
     costs.insert(pair<int, int>(1, 25));
     costs.insert(pair<int, int>(2, 50));
     costs.insert(pair<int, int>(3, 100));

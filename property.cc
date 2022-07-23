@@ -3,7 +3,7 @@
 #include "state.h"
 class Player;
 
-Property::Property(int bi, int pc) : Square{bi, true}, purchaseCost{pc} {}
+Property::Property(int bi, int pc, std::string name) : Square{bi, name, true}, purchaseCost{pc} {}
 
 Player *Property::getOwner() {
     return owner;

@@ -8,7 +8,7 @@ class Property : public Square {
     int purchaseCost;
     bool mortgaged = false;
 public:
-    Property(int bi, int pc);
+    Property(int bi, int pc, std::string name);
     Player *getOwner();
     Block *getBlock();
     int getPurchaseCost();

@@ -3,7 +3,7 @@
 #include "state.h"
 #include "player.h"
 
-Gym::Gym(int boardIndex, int purchaseCost) : Property{boardIndex, purchaseCost} {}
+Gym::Gym(int boardIndex, int purchaseCost, std::string name) : Property{boardIndex, purchaseCost, name} {}
 
 void Gym::land(Player &p) {
     p.changePos(this->getBoardIndex());

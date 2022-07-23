@@ -11,6 +11,7 @@ class Player {
     char piece;
     std::string name;
     bool inJail = false;
+    int jailRounds = 0;
 public:
     Player(std::string n, char p);
     int getPos();

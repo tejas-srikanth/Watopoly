@@ -10,7 +10,7 @@ class Square : public Subject {
     bool property;
     std::string name;
 public:
-    Square(int bi, bool prop = false);
+    Square(int bi, string name, bool prop = false);
     virtual void land(Player &p) = 0;
     int getBoardIndex();
     std::string getName();
