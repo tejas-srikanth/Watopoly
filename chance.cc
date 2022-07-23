@@ -27,9 +27,9 @@ void Chance::land(Player& p) {
     struct State s;
     s.notifType = StateType::Landed;
     s.justLanded = &p;
-    s.owner = this->getOwner();
     s.property = PropertyType::Special;
     this->setState(s);
+    this->notifyObservers();
 
     if (totalCups < 4) {
         int random = rand() % 100;
