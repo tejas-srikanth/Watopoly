@@ -17,7 +17,7 @@ using namespace std;
         int pos = p->getPos();
         myfile<<pos;
         if (pos == 30 && p->getJail()) {
-            myfile<<" 1"<<getJailRounds(p);
+            myfile<<" 1 "<<getJailRounds(p);
         } else {
             myfile<<" 0";
         }
