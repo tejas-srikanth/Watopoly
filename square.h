@@ -1,15 +1,19 @@
 #ifndef __SQUARE__
 #define __SQUARE__
 #include "subject.h"
+#include <iostream>
+using namespace std;
 class Player;
 
 class Square : public Subject {
     int boardIndex;
     bool property;
+    std::string name;
 public:
     Square(int bi, bool prop = false);
     virtual void land(Player &p) = 0;
     int getBoardIndex();
+    std::string getName();
     bool isProperty();
 };
 

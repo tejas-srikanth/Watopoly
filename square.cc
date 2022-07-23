@@ -13,3 +13,7 @@ int Square::getBoardIndex() {
 bool Square::isProperty() {
     return property;
 }
+
+std::string Square::getName() {
+    return name;
+}
