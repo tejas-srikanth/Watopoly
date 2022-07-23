@@ -8,6 +8,7 @@ void DCTims::land(Player& p) {
     s.justLanded = &p;
     s.property = PropertyType::Special;
     this->setState(s);
+    this->notifyObservers();
 
     return;
 }
