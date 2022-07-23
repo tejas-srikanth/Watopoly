@@ -5,7 +5,7 @@
 
 class Tuition : public Square {
     public:
-    void land(Player p) override;
+    void land(Player& p) override;
 };
 
 #endif
