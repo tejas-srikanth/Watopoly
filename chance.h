@@ -8,10 +8,10 @@ class Chance : public Square {
     int totalCups = 0;
     std::vector<Player> cups;
     public:
-    bool useCup(Player p);
-    void land(Player p) override;
+    bool useCup(Player& p);
+    void land(Player& p) override;
     virtual void getEffect();
-    int getTimsCup();
+    int getTimsCup(Player& p);
 };
 
 #endif
