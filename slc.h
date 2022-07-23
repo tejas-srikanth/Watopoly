@@ -6,7 +6,7 @@ class SLC : public Chance {
     Square& tims;
     public:
     SLC(int bi, bool prop, Square& tims);
-    void getEffect() override;
+    void getEffect(Player& p) override;
 };
 
 #endif
