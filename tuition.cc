@@ -2,7 +2,7 @@
 #include "property.h"
 #include <iostream>
 
-void Tuition::land(Player p) {
+void Tuition::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
     struct State s;
