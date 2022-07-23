@@ -7,7 +7,7 @@ class GoToTims : public Square {
     Square& tims;
     public:
     GoToTims(int bi, bool prop, Square& tims);
-    void land(Player p) override;
+    void land(Player& p) override;
 };
 
 #endif
