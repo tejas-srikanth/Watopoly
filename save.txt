@@ -23,6 +23,7 @@ void saveGame(std::string filename="watopoly.txt"){
     }
 
     for (auto s : property) {
+        myfile<<s.getName();
         if(s->getOwner()) {
             myfile<<s->getOwner()->getName()<<" "<<s->getImprovement();
         } else {
