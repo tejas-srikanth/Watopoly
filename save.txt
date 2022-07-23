@@ -1,10 +1,9 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
-    string file;
+void saveGame(std::string filename="watopoly.txt"){
     ofstream myfile; 
-    myfile.open(file); // opens the file
+    myfile.open(filename); // opens the file
     /*if( !myfile ) { // file couldn't be opened
         cerr << "Error: file could not be opened" << endl;
         exit(1);
@@ -23,12 +22,12 @@ using namespace std;
         }
     }
 
-    for (auto s : sq) {
-        if (s->isProperty()) {
-            if(s->getOwner()) {
-                myfile<<s->getOwner()->getName()<<" "<<s->getImprovement();
-            } else {
-                myfile<<"BANK 0";
-            }
+    for (auto s : property) {
+        if(s->getOwner()) {
+            myfile<<s->getOwner()->getName()<<" "<<s->getImprovement();
+        } else {
+            myfile<<"BANK 0";
         }
+        
     }
+}
