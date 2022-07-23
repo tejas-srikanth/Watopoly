@@ -1,6 +1,6 @@
 #include "needlesHall.h"
 
-void SLC::getEffect() {
+void SLC::getEffect(Player& p) {
     int random = rand() % 18 + 1;
     int balance = p.getBal();
     if (random == 1) {
