@@ -10,7 +10,7 @@ class Chance : public Square {
     public:
     bool useCup(Player& p);
     void land(Player& p) override;
-    virtual void getEffect();
+    virtual void getEffect(Player &p);
     int getTimsCup(Player& p);
 };
 
