@@ -3,7 +3,6 @@
 #include "observer.h"
 #include <map>
 
-class Property;
 class Player;
 
 class Block : public Observer {
