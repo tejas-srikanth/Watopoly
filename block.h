@@ -13,6 +13,7 @@ public:
     void notify(Subject &whoFrom);
     void academicBlock(Subject &whoFrom);
     void resgymBlock(Subject &whoFrom);
+    std::map<int, Player*> getOwnership();
 };
 
 #endif

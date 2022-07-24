@@ -65,3 +65,7 @@ void Block::resgymBlock(Subject &whoFrom) {
     wF.condition = num;
     whoFrom.setState(wF);
 }
+
+std::map<int, Player*> Block::getOwnership() {
+    return ownership;
+}
