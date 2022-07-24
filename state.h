@@ -3,7 +3,7 @@
 class Player;
 enum class StateType { Landed, BuyImprovements, SellImprovements, ChangeOwner, Mortgage, 
     Unmortgage };
-enum class PropertyType { Academic, Residence, Gym};
+enum class PropertyType { Academic, Residence, Gym, Special};
 
 struct State {
     StateType notifType;
