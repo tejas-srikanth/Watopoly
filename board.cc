@@ -27,14 +27,14 @@ void Board::initalizeSquares(){
     squares.push_back( new SLC{"SLC", 2} );
     squares.push_back( new Academic{"ML", 3, 60, 50, MLt} );
     squares.push_back( new Tuition{"Tuition", 4});
-    squares.push_back( new Residence{"MKV", 5, 200});
+    squares.push_back( new Residence{"MKV", 5});
     squares.push_back( new Academic{"ECH", 6, 100, 50, ECHt});
     squares.push_back( new NeedlesHall{"NH", 7});
     squares.push_back( new Academic("PAS", 8, 100, 50, PASt));
     squares.push_back( new Academic("HH", 9, 120, 50, HHt));
     squares.push_back( new DCTims{"DCTims", 10});
     squares.push_back( new Academic{"RCH", 11, 140, 100, RCHt });
-    squares.push_back( new Gym{"PAC", 12, 150 });
+    squares.push_back( new Gym{"PAC", 12 });
 
     squares.push_back( new Academic("DWE", 13, 140, 100, DWEt));
     squares.push_back( new Academic("CPH", 14, 160, 100, CPHt));
@@ -71,12 +71,12 @@ void Board::initalizeSquares(){
 
     properties.push_back(new Academic{"AL", 1, 40, 50, ALt});
     properties.push_back( new Academic{"ML", 3, 60, 50, MLt} );
-    properties.push_back( new Residence{"MKV", 5, 200});
+    properties.push_back( new Residence{"MKV", 5});
     properties.push_back( new Academic{"ECH", 6, 100, 50, ECHt});
     properties.push_back( new Academic("PAS", 8, 100, 50, PASt));
     properties.push_back( new Academic("HH", 9, 120, 50, HHt));
     properties.push_back( new Academic{"RCH", 11, 140, 100, RCHt });
-    properties.push_back( new Gym{"PAC", 12, 150 });
+    properties.push_back( new Gym{"PAC", 12});
     properties.push_back( new Academic("DWE", 13, 140, 100, DWEt));
     properties.push_back( new Academic("CPH", 14, 160, 100, CPHt));
     properties.push_back( new Residence{"UWP", 15});
@@ -228,10 +228,13 @@ void Board::initialize(){
     Block* Sci1 = new Block{vector<int>{26, 27, 29}};
     Block* Sci2 = new Block{vector<int>{31, 32, 34}};
     Block* Math = new Block{vector<int>{37, 39}};
+    Block* Res = new Block{vector<int>{5, 15, 25, 35}};
+    Block* Gyms = new Block{vector<int>{12, 28}};
 
+    allblocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math, Res, Gyms};
     blocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math};
 
-    for (Block* block: blocks){
+    for (Block* block: allblocks){
         for (auto blockPair: block->getOwnership()){ // iterates through the properties in block
             int boardIndex = blockPair.first;
             squares[boardIndex]->attach(block);

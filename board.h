@@ -47,6 +47,7 @@ class Board{
     std::vector<int> MCt = { 35, 175, 500, 1100, 1300, 1500 };
     std::vector<int> DCt = {50, 200, 600 ,1400 ,1700 ,2000};
     std::vector<Block*> blocks;
+    std::vector<Block*> allblocks;
 
     public:
         Board(int numPlayers);

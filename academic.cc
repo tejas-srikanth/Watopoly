@@ -4,7 +4,7 @@
 #include "player.h"
 #include "property.h"
 
-Academic::Academic(int boardIndex, int purchaseCost, int ic, std::vector<int>imp, std::string name) :
+Academic::Academic(std::string name, int boardIndex, int purchaseCost, int ic, std::vector<int>imp) :
     Property{boardIndex, purchaseCost, name}, improvementCost{ic}, improvements{imp} {}
 
 int Academic::getImprovement() {
