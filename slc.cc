@@ -1,6 +1,7 @@
 #include "slc.h"
+#include "chance.h"
 
-SLC::SLC(int bi, bool prop, Square& tims) : Square{bi}, tims(tims) {}
+SLC::SLC(int bi, string name, bool prop, DCTims& tims) : Chance{bi, name, prop}, tims(tims) {}
 
 void SLC::getEffect(Player& p) {
     int random = rand() % 24 + 1;
