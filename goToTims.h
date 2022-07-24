@@ -2,11 +2,12 @@
 #define _GOTOTIMS_H_
 #include "square.h"
 #include "player.h"
+#include "dcTims.h"
 
 class GoToTims : public Square {
-    Square& tims;
+    DCTims& tims;
     public:
-    GoToTims(int bi, bool prop, Square& tims);
+    GoToTims(int bi, string name, bool prop, DCTims& tims);
     void land(Player& p) override;
 };
 
