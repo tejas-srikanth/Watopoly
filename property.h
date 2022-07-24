@@ -11,6 +11,7 @@ public:
     Property(int bi, int pc, std::string name);
     Player *getOwner();
     Block *getBlock();
+    void setBlock(Block* newBlock);
     int getPurchaseCost();
     bool getMortgaged();
     void setOwner(Player *p);

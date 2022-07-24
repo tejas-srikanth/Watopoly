@@ -46,3 +46,7 @@ void Property::unmortgage(Player &p) {
     this->setState(s);
     this->notifyObservers();
 } 
+
+void Property::setBlock(Block* b){
+    block = b;
+}
