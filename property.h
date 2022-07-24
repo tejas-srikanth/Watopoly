@@ -15,7 +15,7 @@ public:
     int getPurchaseCost();
     bool getMortgaged();
     void setOwner(Player *p);
-    void mortgage(Player &p);
-    void unmortgage(Player &p);
+    void mortgage(Player *p);
+    void unmortgage(Player *p);
     virtual void payFee(Player &p) = 0;
 };
