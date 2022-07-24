@@ -1,12 +1,12 @@
 #ifndef __BLOCK__
 #define __BLOCK__
-#include "subject.h"
+#include "observer.h"
 #include <map>
 
 class Property;
 class Player;
 
-class Block {
+class Block : public Observer {
     std::map<int, Player*> ownership;
 public:
     Block(std::vector<int> bis);
