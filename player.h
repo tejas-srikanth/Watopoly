@@ -19,6 +19,7 @@ public:
     int getPos();
     int getBal();
     std::vector<int> getAssets();
+    std::vector<Academic *> getAcads();
     char getPiece();
     std::string getName();
     bool getJail();

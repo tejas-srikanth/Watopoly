@@ -73,3 +73,7 @@ void Player::payTenPercent() {
     }
     this->changeBal(netWorth * (-1));
 }
+
+std::vector<Academic *> Player::getAcads() {
+    return listOfAcads;
+}
