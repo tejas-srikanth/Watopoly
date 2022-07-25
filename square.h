@@ -16,7 +16,7 @@ public:
     std::string getName();
     bool isProperty();
     void bankrupt(Player *p);
-    ~Square();
+    virtual ~Square();
 };
 
 #endif
