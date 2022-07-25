@@ -15,7 +15,7 @@ void saveGame(std::string filename="watopoly.txt"){
         myfile<<p->getName()<<" "<<p->getPiece()<<" "<<p->getCups()><<" "<<p->getBal()<<" ";
         int pos = p->getPos();
         myfile<<pos;
-        if (pos == 30 && p->getJail()) {
+        if (pos == 10 && p->getJail()) {
             myfile<<" 1 "<<p->getJailRounds;
         } else {
             myfile<<" 0";
@@ -31,4 +31,5 @@ void saveGame(std::string filename="watopoly.txt"){
         }
         
     }
+    myfile.close();
 }
