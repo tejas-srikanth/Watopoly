@@ -6,7 +6,6 @@
 
 class Chance : public Square {
     int totalCups = 0;
-    std::vector<Player> cups;
     public:
     Chance(int bi, string name);
     bool useCup(Player& p);
