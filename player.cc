@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-Player::Player(std::string n, char p): name{n}, piece{p} {}
+Player::Player(std::string n, char p): piece{p}, name{n} {}
 
 int Player::getPos() {
     return position;
