@@ -20,7 +20,7 @@ void Tuition::land(Player& p) {
         std::cout << std::endl;
 
         if (choice == 'a') {
-            p.changeBal(-150);
+            p.changeBal(-300);
             return;
         } else if (choice == 'b') {
             p.payTenPercent();
