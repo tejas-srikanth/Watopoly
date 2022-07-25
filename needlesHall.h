@@ -5,7 +5,7 @@
 
 class NeedlesHall : public Chance {
     public:
-    NeedlesHall(string name, int bi);
+    NeedlesHall(string name, int bi, DCTims& tims);
     void getEffect(Player &p) override;
 };
 
