@@ -96,7 +96,7 @@ void Board::initalizeSquares(){
     squares.push_back( new Tuition{"Tuition", 4});
     squares.push_back( properties[2]);
     squares.push_back(properties[3]);
-    squares.push_back( new NeedlesHall{"NH", 7});
+    squares.push_back( new NeedlesHall{"NH", 7, *dcTims});
     squares.push_back( properties[4]);
     squares.push_back( properties[5]);
     squares.push_back( dcTims );
@@ -113,7 +113,7 @@ void Board::initalizeSquares(){
     squares.push_back( properties[13]);
     squares.push_back( new GooseNesting{"Goose Nesting", 20});
     squares.push_back( properties[14]);
-    squares.push_back( new NeedlesHall{"NH", 22 });
+    squares.push_back( new NeedlesHall{"NH", 22, *dcTims });
 
     squares.push_back( properties[15]);
     squares.push_back( properties[16]);
@@ -130,7 +130,7 @@ void Board::initalizeSquares(){
     squares.push_back( new SLC{"SLC", 33, *dcTims});
     squares.push_back( properties[24]);
     squares.push_back( properties[25]);
-    squares.push_back( new NeedlesHall{"NH", 36 });
+    squares.push_back( new NeedlesHall{"NH", 36, *dcTims });
 
     squares.push_back( properties[26]);
     squares.push_back( new CoopFee{"Coop Fee", 38});
@@ -838,9 +838,8 @@ void Board::play(){
                     cout << "You have a cup, would you like to use it (y/n): ";
                     cin >> yn;
                     if (yn == 'y'){
-                        currPlayer->setCups(currPlayer->getCups() - 1);
                         currPlayer->setJail(false);
-                        dcTims->useCup();
+                        dcTims->useCup(*currPlayer);
                         cout << "You're out of jail, you can roll on the next turn. Press enter to continue." << endl;
                         endTurn = true;
                         break;
