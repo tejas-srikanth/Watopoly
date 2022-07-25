@@ -22,9 +22,10 @@ int Board::getNumPlayers(){ return numPlayers; }
 bool Board::getTesting(){ return testing; }
 
 void Board::initalizeSquares(){
+    DCTims* tims = new DCTims{"DCTims", 10};
     squares.push_back( new Osap{"OSAP", 0} );
     squares.push_back( new Academic{"AL", 1, 40, 50, ALt} );
-    squares.push_back( new SLC{"SLC", 2} );
+    squares.push_back( new SLC{"SLC", 2, *tims} );
     squares.push_back( new Academic{"ML", 3, 60, 50, MLt} );
     squares.push_back( new Tuition{"Tuition", 4});
     squares.push_back( new Residence{"MKV", 5});
@@ -32,7 +33,7 @@ void Board::initalizeSquares(){
     squares.push_back( new NeedlesHall{"NH", 7});
     squares.push_back( new Academic("PAS", 8, 100, 50, PASt));
     squares.push_back( new Academic("HH", 9, 120, 50, HHt));
-    squares.push_back( new DCTims{"DCTims", 10});
+    squares.push_back( tims );
     squares.push_back( new Academic{"RCH", 11, 140, 100, RCHt });
     squares.push_back( new Gym{"PAC", 12 });
 
@@ -40,7 +41,7 @@ void Board::initalizeSquares(){
     squares.push_back( new Academic("CPH", 14, 160, 100, CPHt));
     squares.push_back( new Residence{"UWP", 15});
     squares.push_back( new Academic{"LHI", 16, 180, 100, LHIt });
-    squares.push_back( new SLC{"SLC", 17 });
+    squares.push_back( new SLC{"SLC", 17, *tims});
 
     squares.push_back( new Academic("BMH", 18, 180, 100, BMHt));
     squares.push_back( new Academic("OPT", 19, 200, 100, OPTt));
@@ -56,11 +57,11 @@ void Board::initalizeSquares(){
     squares.push_back( new Academic("B1", 27, 260, 150, B1t));
     squares.push_back( new Gym{"CIF", 28});
     squares.push_back( new Academic{"B2", 29, 280, 150, B2t });
-    squares.push_back( new GoToTims{"GoToTims", 30 });
+    squares.push_back( new GoToTims{"GoToTims", 30, *tims});
 
     squares.push_back( new Academic("EIT", 31, 300, 200, EITt));
     squares.push_back( new Academic("ESC", 32, 300, 200, ESCt));
-    squares.push_back( new SLC{"SLC", 33});
+    squares.push_back( new SLC{"SLC", 33, *tims});
     squares.push_back( new Academic{"C2", 34, 320, 200, C2t });
     squares.push_back( new Residence{"REV", 35});
     squares.push_back( new NeedlesHall{"NH", 36 });
