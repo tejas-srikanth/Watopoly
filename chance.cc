@@ -1,6 +1,6 @@
 #include "chance.h"
 
-Chance::Chance(int bi, string name, bool prop) : Square{bi, name, prop} {}
+Chance::Chance(int bi, string name) : Square{bi, name, false} {}
 
 int Chance::getTimsCup(Player& p) {
     int timsCup = 0;
