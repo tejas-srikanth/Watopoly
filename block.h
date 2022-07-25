@@ -2,6 +2,7 @@
 #define __BLOCK__
 #include "observer.h"
 #include <map>
+#include <vector>
 
 class Player;
 
