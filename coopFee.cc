@@ -10,5 +10,5 @@ void CoopFee::land(Player& p) {
     this->notifyObservers();
 
     int balance = p.getBal();
-    p.changeBal(balance - 150);
+    p.changeBal(-150);
 }
