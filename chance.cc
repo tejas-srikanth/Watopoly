@@ -2,19 +2,6 @@
 
 Chance::Chance(int bi, string name) : Square{bi, name, false} {}
 
-int Chance::getTimsCup(Player& p) {
-    return p.getCups();
-}
-
-bool Chance::useCup(Player& p) {
-    int timsCup = this->getTimsCup(p);
-    if (timsCup > 0) {
-        p.setCups(timsCup - 1);
-        return true;
-    }
-    return false;
-}
-
 void Chance::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
