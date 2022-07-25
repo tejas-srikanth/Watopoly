@@ -1,5 +1,7 @@
 #include "dcTims.h"
 
+DCTims::DCTims(string name, int bi) : Square(bi, name, true) {}
+
 void DCTims::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
@@ -13,23 +15,28 @@ void DCTims::land(Player& p) {
 }
 
 void DCTims::goToJail(Player& p) {
-    roundChecker[&p] = 0;
+    p.setJail(true);
+    p.setJailRounds(0);
     p.changePos(this->getBoardIndex());
+
+    // setting State s
+    struct State s;
+    s.notifType = StateType::Landed;
+    s.justLanded = &p;
+    this->setState(s);
+    this->notifyObservers();
 }
 
 int DCTims::getRound(Player& p) {
-    int round = roundChecker[&p];
-    return round;
+    return p.getJailRounds();
 }
 
 void DCTims::newRound(Player& p) {
-    roundChecker[&p]++;
+    int round = p.getJailRounds() + 1;
+    p.setJailRounds(round);
 }
 
 void DCTims::sendOut(Player& p) {
-    roundChecker.erase(&p);
-}
-
-int DCTims::getJailRounds(Player& p) {
-    return roundChecker[&p];
+    p.setJail(false);
+    p.setJailRounds(0);
 }
