@@ -24,7 +24,7 @@ public:
     char getPiece();
     std::string getName();
     bool getJail();
-    bool setJail(bool b);
+    void setJail(bool b);
     void changePos(int pos);
     void changeBal(int bal);
     void addAssets(int p);
@@ -34,6 +34,8 @@ public:
     void payTenPercent();
     int getCups();
     void setCups(int c);
+    int getJailRounds();
+    void setJailRounds(int r);
 };
 
 #endif

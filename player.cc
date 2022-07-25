@@ -25,7 +25,7 @@ bool Player::getJail(){
     return inJail;
 }
 
-bool Player::setJail(bool b) {
+void Player::setJail(bool b) {
     inJail = b;
 }
 
@@ -83,4 +83,11 @@ int Player::getCups() {
 }
 void Player::setCups(int c) {
     cups = c;
+}
+
+int Player::getJailRounds() {
+    return jailRounds;
+}
+void Player::setJailRounds(int r) {
+    jailRounds = r;
 }

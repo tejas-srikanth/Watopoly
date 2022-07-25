@@ -19,8 +19,10 @@ int Property::getPurchaseCost() {
 void Property::setOwner(Player *p) {
     int bi = this->getBoardIndex();
     owner->delAssets(bi);
+    owner->delAssets(this);
     owner = p;
-    p->addAssets(bi);
+    owner->addAssets(bi);
+    owner->addAssets(this);
     struct State s;
     s.notifType = StateType::ChangeOwner;
     s.owner = owner;
