@@ -13,7 +13,6 @@ void Tuition::land(Player& p) {
     this->setState(s);
     this->notifyObservers();
     
-    char choice;
     while (true) {
         std::cout << "Please choose between paying: a.$300 or b.10% of total worth" << std::endl;
         std::cout << "Enter \"a\" or \"b\" here:";
