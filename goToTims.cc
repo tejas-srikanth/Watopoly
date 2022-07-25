@@ -1,6 +1,6 @@
 #include "goToTims.h"
 
-GoToTims::GoToTims(int bi, string name, bool prop, DCTims& tims) : Square{bi, name, prop}, tims(tims) {}
+GoToTims::GoToTims(string name, int bi, DCTims& tims) : Square{bi, name, false}, tims(tims) {}
 
 void GoToTims::land(Player& p) {
     p.changePos(this->getBoardIndex());
