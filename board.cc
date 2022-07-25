@@ -279,6 +279,18 @@ int Board::getBlockImprovements(Block* b){
     }
     return totalImprovements;
 }
+
+bool Board::isAcademic(Property* p){
+    for (auto acadProp: academicProperties){
+        if (acadProp->getBoardIndex() == p->getBoardIndex()){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 bool Board::trade(Player* p1, Player* p2, Property* b1, Property* b2){
     if (b1->getOwner() != p1){
         cout << b1->getName() << " is not owned by you. You cannot trade this" << endl;
@@ -317,6 +329,9 @@ bool Board::trade(Player* p1, Player* p2, Property* b1, Property* b2){
         }
     }
     if (hasAccepted){
+        if (isAcademic(b1)){
+
+        }
         b1->setOwner(p2);
         b2->setOwner(p1);
         cout << "The trade has gone through!" << endl;
@@ -637,7 +652,7 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
         }
     }
 
-    else if (boardIndex == 2 || boardIndex == 33){
+    else if (boardIndex == 2 || boardIndex == 33){ // landed on SLC (or NH, whichever moves)
         landedSquare->land(*currPlayer);
         int newPos = currPlayer->getPos();
         if (newPos < 0){
@@ -656,9 +671,9 @@ void Board::raiseMoney(Player* p){
         for (auto property: academicProperties){
             if (property->getBoardIndex() == asset){
                 for (int i=0; i<property->getImprovement(); ++i){
-                    improve(p, property, 's');
+                    improve(p, property, 's'); // sell improvements
                 }
-                mortgage(p, property);
+                mortgage(p, property); // mortgage property
             }
         }
     }
@@ -694,7 +709,7 @@ void Board::play(){
 
         if (move[0].compare("roll") == 0){
             if (currPlayer->getJail()){
-                cout << "You can't roll, you're in jail. To move on to the next person, type in next" << endl;
+                cout << "You can't roll, you're in jail. Typing in next will take you through the jail steps." << endl;
                 continue;
             }
             int num1 = -1; int num2 = -1;
@@ -784,7 +799,7 @@ void Board::play(){
 
                         auction(theProp);
                     }
-                    delete currPlayer;
+                    
                 } 
                 
                 else {
@@ -797,9 +812,14 @@ void Board::play(){
             if (roll1 != roll2 || currPlayer->getBal() < 0 || currPlayer->getJail()){
                 numDoubles = 0;
                 if (currPlayer->getBal() < 0){
+                    delete currPlayer;
+                    playerIndex = playerIndex % players.size();
                     currPlayer = players[playerIndex];
+                    
+                    
                 } else {
-                    currPlayer = players[(playerIndex + 1) % players.size()];
+                    playerIndex = (playerIndex + 1) % players.size();
+                    currPlayer = players[playerIndex];
                 }
                 cout << "It is now the next person's turn. Hit enter to continue." << endl;
                 cout << *(td);
@@ -957,18 +977,21 @@ void Board::play(){
                             Property* theProp;
                             for (auto prop: properties){
                                 if (prop->getBoardIndex() == asset){
-                                    prop->setOwner(nullptr);
                                     theProp = prop;
                                 }
                             }
 
                             for (auto acadProp: academicProperties){
                                 if (acadProp->getBoardIndex() == asset){
-                                    acadProp->setMortgage(false);
-                                    acadProp->setImprovement(0);
+                                    acadProp->unmortgage(currPlayer);
+                                    int numImprovements = acadProp->getImprovement();
+                                    for (int i=0; i<numImprovements; ++i){
+                                        acadProp->sellImprovements();
+                                    }
                                 }
                             }
 
+                            theProp->setOwner(nullptr);
                             auction(theProp);
                         }
                         delete currPlayer;

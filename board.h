@@ -84,6 +84,7 @@ class Board{
         void negativeBalance(Player* p, Square* sq, int playerIndex);
         void all();
         bool isInt(string s);
+        bool isAcademic(Property* p);
 
 
 };
