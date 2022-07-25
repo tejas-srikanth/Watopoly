@@ -1,6 +1,6 @@
 #include "needlesHall.h"
 
-NeedlesHall::NeedlesHall(string name, int bi, DCTims& tims) : Chance{bi, name}, tims(tims) {}
+NeedlesHall::NeedlesHall(string name, int bi, DCTims& tims) : Chance{bi, name, tims} {}
 
 void NeedlesHall::getEffect(Player& p) {
     int random = rand() % 18 + 1;
