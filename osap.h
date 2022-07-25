@@ -5,6 +5,7 @@
 
 class Osap : public Square {
     public:
+    Osap(std::string name, int index);
     void land(Player& p) override;
 };
 
