@@ -5,6 +5,7 @@
 
 class Tuition : public Square {
     public:
+    Tuition(std::string name, int index);
     void land(Player& p) override;
 };
 
