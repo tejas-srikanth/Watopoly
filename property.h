@@ -10,8 +10,9 @@ class Property : public Square {
     Block *block;
     int purchaseCost;
     bool mortgaged = false;
+    bool acad;
 public:
-    Property(int bi, int pc, std::string name);
+    Property(int bi, int pc, std::string name, bool acad = false);
     Player *getOwner();
     Block *getBlock();
     void setBlock(Block* newBlock);
@@ -22,6 +23,7 @@ public:
     void unmortgage(Player *p);
     void setMortgage(bool m);
     virtual void payFee(Player &p) = 0;
+    bool isAcad();
 };
 
 #endif

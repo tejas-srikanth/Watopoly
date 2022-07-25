@@ -3,7 +3,7 @@
 #include "state.h"
 class Player;
 
-Property::Property(int bi, int pc, std::string name) : Square{bi, name, true}, purchaseCost{pc} {}
+Property::Property(int bi, int pc, std::string name, bool a) : Square{bi, name, true}, purchaseCost{pc} {}
 
 Player *Property::getOwner() {
     return owner;
@@ -22,8 +22,10 @@ void Property::setMortgage(bool m){
 
 void Property::setOwner(Player *p) {
     int bi = this->getBoardIndex();
-    owner->delAssets(bi);
-    owner->delAssets(this);
+    if (!owner) {
+        owner->delAssets(bi);
+        owner->delAssets(this);
+    }    
     owner = p;
     owner->addAssets(bi);
     owner->addAssets(this);
@@ -55,4 +57,8 @@ void Property::unmortgage(Player *p) {
 
 void Property::setBlock(Block* b){
     block = b;
+}
+
+bool Property::isAcad() {
+    return acad;
 }

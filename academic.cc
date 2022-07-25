@@ -5,7 +5,7 @@
 #include "property.h"
 
 Academic::Academic(std::string name, int boardIndex, int purchaseCost, int ic, std::vector<int>imp) :
-    Property{boardIndex, purchaseCost, name}, improvementCost{ic}, improvements{imp} {}
+    Property{boardIndex, purchaseCost, name, true}, improvementCost{ic}, improvements{imp} {}
 
 int Academic::getImprovement() {
     return improvement;

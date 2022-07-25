@@ -4,6 +4,7 @@
 #include <iostream>
 class Academic;
 class Property;
+
 class Player {
     int position;
     int balance = 1500;
@@ -31,6 +32,8 @@ public:
     void delAssets(int p);
     void addAssets(Property *p);
     void delAssets(Property *p);
+    void addAcad(Academic *p);
+    void delAcad(Academic *p);
     void payTenPercent();
     int getCups();
     void setCups(int c);
