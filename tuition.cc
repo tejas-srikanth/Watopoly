@@ -2,6 +2,8 @@
 #include "property.h"
 #include <iostream>
 
+Tuition::Tuition(std::string name, int index) : Square(index, name, false) {}
+
 void Tuition::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
