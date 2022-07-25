@@ -19,7 +19,7 @@ public:
     void setBlock(Block* newBlock);
     int getPurchaseCost();
     bool getMortgaged();
-    void setOwner(Player *p);
+    virtual void setOwner(Player *p);
 
     void mortgage(Player *p);
     void unmortgage(Player *p);

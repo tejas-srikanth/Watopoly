@@ -18,7 +18,7 @@ public:
     void payFee(Player &p);
     void buyImprovements();
     void sellImprovements();
-    void setOwner(Player *p) virtual;
+    void setOwner(Player *p) override;
 };
 
 #endif
