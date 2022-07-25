@@ -50,7 +50,7 @@ void Player::delAssets(int p) {
 }
 
 void Player::addAssets(Property *p) {
-    assets.emplace_back(p);
+    listOfAssets.emplace_back(p);
 }
 void Player::delAssets(Property *p) {
     int index = 0;
