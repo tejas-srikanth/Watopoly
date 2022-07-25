@@ -3,22 +3,14 @@
 Chance::Chance(int bi, string name) : Square{bi, name, false} {}
 
 int Chance::getTimsCup(Player& p) {
-    int timsCup = 0;
-    for (int i = 0; i < totalCups; i++) {
-        if (&cups[i] == &p) {
-            timsCup++;
-        }
-    }
-    return timsCup;
+    return p.getCups();
 }
 
 bool Chance::useCup(Player& p) {
-    for (int i = 0; i < totalCups; i++) {
-        if (&cups[i] == &p) {
-            cups.erase(cups.begin() + i);
-            totalCups--;
-            return true;
-        }
+    int timsCup = this->getTimsCup(p);
+    if (timsCup > 0) {
+        p.setCups(timsCup - 1);
+        return true;
     }
     return false;
 }
@@ -36,7 +28,7 @@ void Chance::land(Player& p) {
     if (totalCups < 4) {
         int random = rand() % 100;
         if (random == 99) {
-            cups.push_back(p);
+            p.setCups(p.getCups() + 1);
             totalCups++;
         }
     }
