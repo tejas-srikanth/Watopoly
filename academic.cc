@@ -5,7 +5,7 @@
 #include "property.h"
 
 Academic::Academic(std::string name, int boardIndex, int purchaseCost, int ic, std::vector<int>imp) :
-    Property{boardIndex, purchaseCost, name}, improvementCost{ic}, improvements{imp} {}
+    Property{boardIndex, purchaseCost, name, true}, improvementCost{ic}, improvements{imp} {}
 
 int Academic::getImprovement() {
     return improvement;
@@ -57,6 +57,25 @@ void Academic::sellImprovements() {
     this->getOwner()->changeBal(improvementCost/2);
     struct State s;
     s.notifType = StateType::SellImprovements;
+    this->setState(s);
+    this->notifyObservers();
+}
+
+void Academic::setOwner(Player *p) {
+    int bi = this->getBoardIndex();
+    if (!owner) {
+        owner->delAssets(bi);
+        owner->delAssets(this);
+        owner->delAcad(this);
+    }
+    owner = p;
+    owner->addAssets(bi);
+    owner->addAssets(this);       
+    owner->addAcad(this);
+    struct State s;
+    s.notifType = StateType::ChangeOwner;
+    s.owner = owner;
+    s.boardIndex = bi;
     this->setState(s);
     this->notifyObservers();
 }

@@ -8,10 +8,6 @@ int Square::getBoardIndex() {
     return boardIndex;
 }
 
-int Square::getBoardIndex() {
-    return boardIndex;
-}
-
 bool Square::isProperty() {
     return property;
 }

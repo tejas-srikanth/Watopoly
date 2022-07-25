@@ -12,10 +12,7 @@ class DCTims : public Square {
     bool useCup(Player& p);
     void goToJail(Player& p);
     void newRound(Player& p);
-    int getRound(Player& p);
     void sendOut(Player& p);
-    int getTimsCup(Player& p);
-
 };
 
 #endif

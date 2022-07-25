@@ -2,12 +2,8 @@
 
 DCTims::DCTims(string name, int bi) : Square(bi, name, true) {}
 
-int DCTims::getTimsCup(Player& p) {
-    return p.getCups();
-}
-
 bool DCTims::useCup(Player& p) {
-    int timsCup = this->getTimsCup(p);
+    int timsCup = p.getCups();
     if (timsCup > 0) {
         p.setCups(timsCup - 1);
         return true;
@@ -39,10 +35,6 @@ void DCTims::goToJail(Player& p) {
     s.justLanded = &p;
     this->setState(s);
     this->notifyObservers();
-}
-
-int DCTims::getRound(Player& p) {
-    return p.getJailRounds();
 }
 
 void DCTims::newRound(Player& p) {

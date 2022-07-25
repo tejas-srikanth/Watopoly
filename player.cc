@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-Player::Player(std::string n, char p): name{n}, piece{p} {}
+Player::Player(std::string n, char p): piece{p}, name{n} {}
 
 int Player::getPos() {
     return position;
@@ -50,7 +50,7 @@ void Player::delAssets(int p) {
 }
 
 void Player::addAssets(Property *p) {
-    assets.emplace_back(p);
+    listOfAssets.emplace_back(p);
 }
 void Player::delAssets(Property *p) {
     int index = 0;
