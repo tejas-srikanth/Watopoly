@@ -14,6 +14,7 @@ class Player {
     std::string name;
     bool inJail = false;
     int jailRounds = 0;
+    int cups = 0;
 public:
     Player(std::string n, char p);
     int getPos();
@@ -31,6 +32,8 @@ public:
     void addAssets(Property *p);
     void delAssets(Property *p);
     void payTenPercent();
+    int getCups();
+    void setCups(int c);
 };
 
 #endif

@@ -77,3 +77,10 @@ void Player::payTenPercent() {
 std::vector<Academic *> Player::getAcads() {
     return listOfAcads;
 }
+
+int Player::getCups() {
+    return cups;
+}
+void Player::setCups(int c) {
+    cups = c;
+}
