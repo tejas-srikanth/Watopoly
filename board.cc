@@ -228,7 +228,7 @@ void Board::initialize(){
         }
         players.push_back(new Player{name, piece});
     }
-
+    initalizeSquares();
     td = new TextDisplay{players};
 
     for (auto square: squares){
@@ -263,6 +263,7 @@ void Board::initialize(){
         }
     }
 }
+
 int Board::getBlockImprovements(Block* b){
     int totalImprovements = 0;
     vector<int> props;
