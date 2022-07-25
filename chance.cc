@@ -1,9 +1,11 @@
 #include "chance.h"
 
+Chance::Chance(int bi, string name, bool prop) : Square{bi, name, prop} {}
+
 int Chance::getTimsCup(Player& p) {
     int timsCup = 0;
     for (int i = 0; i < totalCups; i++) {
-        if (cups[i] == p) {
+        if (&cups[i] == &p) {
             timsCup++;
         }
     }
@@ -12,7 +14,7 @@ int Chance::getTimsCup(Player& p) {
 
 bool Chance::useCup(Player& p) {
     for (int i = 0; i < totalCups; i++) {
-        if (cups[i] == p) {
+        if (&cups[i] == &p) {
             cups.erase(cups.begin() + i);
             totalCups--;
             return true;
@@ -27,6 +29,7 @@ void Chance::land(Player& p) {
     struct State s;
     s.notifType = StateType::Landed;
     s.justLanded = &p;
+    s.property = PropertyType::Special;
     this->setState(s);
     this->notifyObservers();
 

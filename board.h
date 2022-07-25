@@ -12,6 +12,7 @@
 #include "square.h"
 #include "textdisplay.h"
 #include "property.h"
+#include "dcTims.h"
 
 class Board{
     std::vector<Square*> squares;
@@ -48,7 +49,8 @@ class Board{
     std::vector<int> MCt = { 35, 175, 500, 1100, 1300, 1500 };
     std::vector<int> DCt = {50, 200, 600 ,1400 ,1700 ,2000};
     std::vector<Block*> blocks;
-    DcTims* dcTims;
+    std::vector<Block*> allblocks;
+    DCTims* dcTims;
     TextDisplay* td;
     public:
         Board(int numPlayers);

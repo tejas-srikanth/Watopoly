@@ -13,23 +13,23 @@ void DCTims::land(Player& p) {
 }
 
 void DCTims::goToJail(Player& p) {
-    roundChecker[p] = 0;
+    roundChecker[&p] = 0;
     p.changePos(this->getBoardIndex());
 }
 
 int DCTims::getRound(Player& p) {
-    int round = roundChecker[p];
+    int round = roundChecker[&p];
     return round;
 }
 
 void DCTims::newRound(Player& p) {
-    roundChecker[p]++;
+    roundChecker[&p]++;
 }
 
 void DCTims::sendOut(Player& p) {
-    roundChecker.erase(p);
+    roundChecker.erase(&p);
 }
 
 int DCTims::getJailRounds(Player& p) {
-    return roundChecker[p];
+    return roundChecker[&p];
 }

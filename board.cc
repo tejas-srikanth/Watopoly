@@ -23,84 +23,11 @@ int Board::getNumPlayers(){ return numPlayers; }
 bool Board::getTesting(){ return testing; }
 
 void Board::initalizeSquares(){
-    squares.push_back( new Osap{"OSAP", 0} );
-    squares.push_back( new Academic{"AL", 1, 40, 50, ALt} );
-    squares.push_back( new SLC{"SLC", 2} );
-    squares.push_back( new Academic{"ML", 3, 60, 50, MLt} );
-    squares.push_back( new Tuition{"Tuition", 4});
-    squares.push_back( new Residence{"MKV", 5, 200});
-    squares.push_back( new Academic{"ECH", 6, 100, 50, ECHt});
-    squares.push_back( new NeedlesHall{"NH", 7});
-    squares.push_back( new Academic("PAS", 8, 100, 50, PASt));
-    squares.push_back( new Academic("HH", 9, 120, 50, HHt));
-    squares.push_back( new DCTims{"DCTims", 10});
-    squares.push_back( new Academic{"RCH", 11, 140, 100, RCHt });
-    squares.push_back( new Gym{"PAC", 12, 150 });
 
-    squares.push_back( new Academic("DWE", 13, 140, 100, DWEt));
-    squares.push_back( new Academic("CPH", 14, 160, 100, CPHt));
-    squares.push_back( new Residence{"UWP", 15, 200});
-    squares.push_back( new Academic{"LHI", 16, 180, 100, LHIt });
-    squares.push_back( new SLC{"SLC", 17 });
+    DCTims* dcTims = new DCTims{"DC Tims", 10};
 
-    squares.push_back( new Academic("BMH", 18, 180, 100, BMHt));
-    squares.push_back( new Academic("OPT", 19, 200, 100, OPTt));
-    squares.push_back( new GooseNesting{"Goose Nesting", 20});
-    squares.push_back( new Academic{"EV1", 21, 220, 150, EV1t });
-    squares.push_back( new NeedlesHall{"NH", 22 });
-
-    squares.push_back( new Academic("EV2", 23, 220, 150, EV2t));
-    squares.push_back( new Academic("EV3", 24, 240, 150, EV3t));
-    squares.push_back( new Residence{"V1", 25, 200});
-
-    squares.push_back( new Academic("PHYS", 26, 260, 150, PHYSt));
-    squares.push_back( new Academic("B1", 27, 260, 150, B1t));
-    squares.push_back( new Gym{"CIF", 28, 150});
-    squares.push_back( new Academic{"B2", 29, 280, 150, B2t });
-    squares.push_back( new GoToTims{"GoToTims", 30 });
-
-    squares.push_back( new Academic("EIT", 31, 300, 200, EITt));
-    squares.push_back( new Academic("ESC", 32, 300, 200, ESCt));
-    squares.push_back( new SLC{"SLC", 33});
-    squares.push_back( new Academic{"C2", 34, 320, 200, C2t });
-    squares.push_back( new Residence{"REV", 35, 200});
-    squares.push_back( new NeedlesHall{"NH", 36 });
-
-    squares.push_back( new Academic("MC", 37, 350, 200, MCt));
-    squares.push_back( new CoopFee{"Coop Fee", 38});
-    squares.push_back( new Academic{"DC", 39, 400, 200, DCt });
-
-    properties.push_back(new Academic{"AL", 1, 40, 50, ALt});
-    properties.push_back( new Academic{"ML", 3, 60, 50, MLt} );
-    properties.push_back( new Residence{"MKV", 5, 200});
-    properties.push_back( new Academic{"ECH", 6, 100, 50, ECHt});
-    properties.push_back( new Academic("PAS", 8, 100, 50, PASt));
-    properties.push_back( new Academic("HH", 9, 120, 50, HHt));
-    properties.push_back( new Academic{"RCH", 11, 140, 100, RCHt });
-    properties.push_back( new Gym{"PAC", 12, 150 });
-    properties.push_back( new Academic("DWE", 13, 140, 100, DWEt));
-    properties.push_back( new Academic("CPH", 14, 160, 100, CPHt));
-    properties.push_back( new Residence{"UWP", 15, 200});
-    properties.push_back( new Academic{"LHI", 16, 180, 100, LHIt });
-    properties.push_back( new Academic("BMH", 18, 180, 100, BMHt));
-    properties.push_back( new Academic("OPT", 19, 200, 100, OPTt));
-    properties.push_back( new Academic{"EV1", 21, 220, 150, EV1t });
-    properties.push_back( new Academic("EV2", 23, 220, 150, EV2t));
-    properties.push_back( new Academic("EV3", 24, 240, 150, EV3t));
-    properties.push_back( new Residence{"V1", , 200});
-    properties.push_back( new Academic("PHYS", 26, 260, 150, PHYSt));
-    properties.push_back( new Academic("B1", 27, 260, 150, B1t));
-    properties.push_back( new Gym{"CIF", 28, 150});
-    properties.push_back( new Academic{"B2", 29, 280, 150, B2t });
-    properties.push_back( new Academic("EIT", 31, 300, 200, EITt));
-    properties.push_back( new Academic("ESC", 32, 300, 200, ESCt));
-    properties.push_back( new Academic{"C2", 34, 320, 200, C2t });
-    properties.push_back( new Residence{"REV", 35, 200});
-    properties.push_back( new Academic("MC", 37, 350, 200, MCt));
-    properties.push_back( new Academic{"DC", 39, 400, 200, DCt });
-
-    academicProperties.push_back( new Academic("MC", 37, 350, 200, MCt));
-    academicProperties.push_back( new Academic{"DC", 39, 400, 200, DCt });
+    academicProperties.push_back( new Academic("ML", 1, 40, 50, MLt));
+    academicProperties.push_back( new Academic{"AL", 2, 60, 50, ALt });
     academicProperties.push_back( new Academic{"ECH", 6, 100, 50, ECHt});
     academicProperties.push_back( new Academic("PAS", 8, 100, 50, PASt));
     academicProperties.push_back( new Academic("HH", 9, 120, 50, HHt));
@@ -121,7 +48,83 @@ void Board::initalizeSquares(){
     academicProperties.push_back( new Academic{"C2", 34, 320, 200, C2t });
     academicProperties.push_back( new Academic("MC", 37, 350, 200, MCt));
     academicProperties.push_back( new Academic{"DC", 39, 400, 200, DCt });
-    dcTims = squares[10];
+
+    properties.push_back( academicProperties[0] );
+    properties.push_back( academicProperties[1] );
+    properties.push_back( new Residence{"MKV", 5, 200});
+    properties.push_back( academicProperties[2] );
+    properties.push_back( academicProperties[3]);
+    properties.push_back( academicProperties[4]);
+    properties.push_back( academicProperties[5]);
+    properties.push_back( new Gym{"PAC", 12, 150});
+    properties.push_back( academicProperties[6]);
+    properties.push_back( academicProperties[7]);
+    properties.push_back( new Residence{"UWP", 15, 200});
+    properties.push_back( academicProperties[8]);
+    properties.push_back( academicProperties[9]);
+    properties.push_back( academicProperties[10]);
+    properties.push_back( academicProperties[11]);
+    properties.push_back( academicProperties[12]);
+    properties.push_back( academicProperties[13]);
+    properties.push_back( new Residence{"V1", 25, 200});
+    properties.push_back( academicProperties[14]);
+    properties.push_back( academicProperties[15]);
+    properties.push_back( new Gym{"CIF", 28, 150});
+    properties.push_back( academicProperties[16]);
+    properties.push_back( academicProperties[17]);
+    properties.push_back( academicProperties[18]);
+    properties.push_back(academicProperties[19]);
+    properties.push_back( new Residence{"REV", 35, 200});
+    properties.push_back( academicProperties[20]);
+    properties.push_back( academicProperties[21]);
+
+    squares.push_back( new Osap{"OSAP", 0} );
+    squares.push_back( properties[0] );
+    squares.push_back( new SLC{"SLC", 2} );
+    squares.push_back(properties[1] );
+    squares.push_back( new Tuition{"Tuition", 4});
+    squares.push_back( properties[2]);
+    squares.push_back(properties[3]);
+    squares.push_back( new NeedlesHall{"NH", 7});
+    squares.push_back( properties[4]);
+    squares.push_back( properties[5]);
+    squares.push_back( dcTims );
+    squares.push_back( properties[6]);
+    squares.push_back( properties[7]);
+
+    squares.push_back( properties[8]);
+    squares.push_back( properties[9]);
+    squares.push_back(properties[10]);
+    squares.push_back( properties[11]);
+    squares.push_back( new SLC{"SLC", 17} );
+
+    squares.push_back(properties[12]);
+    squares.push_back( properties[13]);
+    squares.push_back( new GooseNesting{"Goose Nesting", 20});
+    squares.push_back( properties[14]);
+    squares.push_back( new NeedlesHall{"NH", 22 });
+
+    squares.push_back( properties[15]);
+    squares.push_back( properties[16]);
+    squares.push_back(properties[17]);
+
+    squares.push_back( properties[18]);
+    squares.push_back( properties[19]);
+    squares.push_back( properties[20]);
+    squares.push_back( properties[21]);
+    squares.push_back( new GoToTims{"GoToTims", 30 });
+
+    squares.push_back(properties[22]);
+    squares.push_back( properties[23]);
+    squares.push_back( new SLC{"SLC", 33});
+    squares.push_back( properties[24]);
+    squares.push_back( properties[25]);
+    squares.push_back( new NeedlesHall{"NH", 36 });
+
+    squares.push_back( properties[26]);
+    squares.push_back( new CoopFee{"Coop Fee", 38});
+    squares.push_back( properties[27]);
+
 }
 
 void Board::initialize(){
@@ -230,10 +233,13 @@ void Board::initialize(){
     Block* Sci1 = new Block{vector<int>{26, 27, 29}};
     Block* Sci2 = new Block{vector<int>{31, 32, 34}};
     Block* Math = new Block{vector<int>{37, 39}};
+    Block* Res = new Block{vector<int>{5, 15, 25, 35}};
+    Block* Gyms = new Block{vector<int>{12, 28}};
 
+    allblocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math, Res, Gyms};
     blocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math};
 
-    for (Block* block: blocks){
+    for (Block* block: allblocks){
         for (auto blockPair: block->getOwnership()){ // iterates through the properties in block
             int boardIndex = blockPair.first;
             squares[boardIndex]->attach(block);

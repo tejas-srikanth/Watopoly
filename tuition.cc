@@ -20,16 +20,10 @@ void Tuition::land(Player& p) {
         std::cout << std::endl;
 
         if (choice == 'a') {
-            int balance = p.getBal();
-            p.changeBal(balance - 150);
+            p.changeBal(-300);
             return;
         } else if (choice == 'b') {
-            int balance = p.getBal();
-            vector<Property> property = p.getAsset();
-            for (Property v : property){
-                balance += v.getPurchaseCost();
-            }
-            p.changeBal(balance * 0.9);
+            p.payTenPercent();
             return;
         }
     }

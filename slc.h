@@ -2,11 +2,12 @@
 #define _SLC_H_
 #include "chance.h"
 #include "player.h"
+#include "dcTims.h"
 
 class SLC : public Chance {
-    Square& tims;
+    DCTims& tims;
     public:
-    SLC(int bi, bool prop, Square& tims);
+    SLC(int bi, string name, bool prop, DCTims& tims);
     void getEffect(Player& p) override;
 };
 

@@ -1,4 +1,6 @@
 #include "player.h"
+#include "property.h"
+#include "academic.h"
 #include <vector>
 #include <iostream>
 
@@ -23,7 +25,7 @@ bool Player::getJail(){
     return inJail;
 }
 
-bool Player::setJail(bool b) {
+void Player::setJail(bool b) {
     inJail = b;
 }
 
@@ -45,4 +47,47 @@ void Player::delAssets(int p) {
         }
         index++;
     }
+}
+
+void Player::addAssets(Property *p) {
+    assets.emplace_back(p);
+}
+void Player::delAssets(Property *p) {
+    int index = 0;
+    for (auto b : listOfAssets) {
+        if (b == p) {
+            assets.erase(assets.begin() + index);
+            break;
+        }
+        index++;
+    }
+}
+
+void Player::payTenPercent() {
+    int netWorth = balance;
+    for (auto p : listOfAssets) {
+        netWorth += p->getPurchaseCost();
+    }
+    for (auto a : listOfAcads) {
+        netWorth += a->getImprovement() * a->getImprovementCost();
+    }
+    this->changeBal(netWorth * (-1));
+}
+
+std::vector<Academic *> Player::getAcads() {
+    return listOfAcads;
+}
+
+int Player::getCups() {
+    return cups;
+}
+void Player::setCups(int c) {
+    cups = c;
+}
+
+int Player::getJailRounds() {
+    return jailRounds;
+}
+void Player::setJailRounds(int r) {
+    jailRounds = r;
 }

@@ -3,7 +3,7 @@
 #include "chance.h"
 #include "player.h"
 
-class STC : public Chance {
+class NeedlesHall : public Chance {
     public:
     void getEffect(Player &p) override;
 };
