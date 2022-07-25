@@ -9,6 +9,6 @@ void Osap::land(Player& p) {
     this->setState(s);
     this->notifyObservers();
 
-    int balance = p.getBal();
-    p.changeBal(balance + 200);
+    // int balance = p.getBal();
+    // p.changeBal(balance + 200);
 }

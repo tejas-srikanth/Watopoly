@@ -16,6 +16,10 @@ int Property::getPurchaseCost() {
     return purchaseCost;
 }
 
+void Property::setMortgage(bool m){
+    mortgaged = m;
+}
+
 void Property::setOwner(Player *p) {
     int bi = this->getBoardIndex();
     owner->delAssets(bi);

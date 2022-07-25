@@ -18,7 +18,7 @@ void DCTims::goToJail(Player& p) {
 }
 
 int DCTims::getRound(Player& p) {
-    round = roundChecker[p];
+    int round = roundChecker[p];
     return round;
 }
 

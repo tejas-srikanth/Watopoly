@@ -19,9 +19,10 @@ class Board{
     std::vector<Property*> properties;
     std::vector<Academic*> academicProperties;
     int numPlayers;
-    bool testing;
+    bool testing = false;
     int round = 0;
     int numDoubles = 0;
+    int numSquares = 40;
     std::vector<int> ALt = {2, 10, 30, 90, 160, 250};
     std::vector<int> MLt = {4, 20, 60, 180, 320, 450};
     std::vector<int> ECHt = {6, 30, 90, 270, 400, 550};
@@ -47,7 +48,8 @@ class Board{
     std::vector<int> MCt = { 35, 175, 500, 1100, 1300, 1500 };
     std::vector<int> DCt = {50, 200, 600 ,1400 ,1700 ,2000};
     std::vector<Block*> blocks;
-
+    DcTims* dcTims;
+    TextDisplay* td;
     public:
         Board(int numPlayers);
         bool getTesting();
@@ -68,10 +70,16 @@ class Board{
         void loadGame(std::string filename="watopoly.txt");
         std::vector<Academic*> getBuildings(Block* b);
         void play();
-        void auction();
+        void auction(Property* building);
         void setTesting(bool t);
         bool mortgage(Player* p, Property* b);
         bool unmortgage(Player* p, Property* b);
+        void assets(Player* p);
+        void showOptions(Player* p);
+        void landOn(Player* p, Square* sq);
+        void raiseMoney(Player* p);
+        void negativeBalance(Player* p, Square* sq, int playerIndex);
+        void all();
 
 
 };

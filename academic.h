@@ -10,8 +10,9 @@ class Academic : public Property {
     int improvementCost;
     std::vector<int> improvements;
 public:
-    Academic(int boardIndex, int purchaseCost, int ic, std::vector<int> imp, std::string name);
+    Academic(std::string name, int boardIndex, int purchaseCost, int ic, std::vector<int> imp);
     int getImprovement();
+    void setImprovement(int newimp);
     int getImprovementCost();
     void land(Player &p);
     void payFee(Player &p);

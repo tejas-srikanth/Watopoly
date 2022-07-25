@@ -17,5 +17,6 @@ public:
     void setOwner(Player *p);
     void mortgage(Player *p);
     void unmortgage(Player *p);
+    void setMortgage(bool m);
     virtual void payFee(Player &p) = 0;
 };

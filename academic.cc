@@ -40,6 +40,10 @@ void Academic::payFee(Player &p) {
     }
 }
 
+void Academic::setImprovement(int imp){
+    improvement = imp;
+}
+
 void Academic::buyImprovements() {
     improvement++;
     this->getOwner()->changeBal(improvementCost*(-1));
