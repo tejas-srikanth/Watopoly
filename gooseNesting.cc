@@ -1,5 +1,7 @@
 #include "gooseNesting.h"
 
+GooseNesting::GooseNesting(std::string name, int index) : Square(index, name, false) {}
+
 void GooseNesting::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s

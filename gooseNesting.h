@@ -5,6 +5,7 @@
 
 class GooseNesting : public Square {
     public:
+    GooseNesting(std::string name, int index);
     void land(Player& p) override;
 };
 

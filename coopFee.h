@@ -1,10 +1,11 @@
-#ifndef _COOPFEE_H_
-#define _COOPFEE_H_
+#ifndef _COOP_H_
+#define _COOP_H_
 #include "square.h"
 #include "player.h"
 
 class CoopFee : public Square {
     public:
+    CoopFee(std::string name, int index);
     void land(Player& p) override;
 };
 

@@ -6,9 +6,8 @@
 
 class Chance : public Square {
     int totalCups = 0;
-    std::vector<Player> cups;
     public:
-    Chance(int bi, string name, bool prop);
+    Chance(int bi, string name);
     bool useCup(Player& p);
     void land(Player& p) override;
     virtual void getEffect(Player &p);
