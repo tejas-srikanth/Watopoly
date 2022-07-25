@@ -56,7 +56,7 @@ void Player::delAssets(Property *p) {
     int index = 0;
     for (auto b : listOfAssets) {
         if (b == p) {
-            assets.erase(assets.begin() + index);
+            listOfAssets.erase(listOfAssets.begin() + index);
             break;
         }
         index++;
@@ -91,3 +91,19 @@ int Player::getJailRounds() {
 void Player::setJailRounds(int r) {
     jailRounds = r;
 }
+
+void Player::addAcad(Academic *p) {
+    listOfAcads.emplace_back(p);
+}
+
+void Player::delAcad(Academic *p) {
+    int index = 0;
+    for (auto b : listOfAcads) {
+        if (b == p) {
+            listOfAcads.erase(listOfAcads.begin() + index);
+            break;
+        }
+        index++;
+    }
+}
+

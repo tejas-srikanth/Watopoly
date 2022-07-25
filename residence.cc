@@ -2,6 +2,7 @@
 #include "subject.h"
 #include "state.h"
 #include "player.h"
+#include "property.h"
 #include <iostream>
 using namespace std;
 
@@ -22,7 +23,7 @@ void Residence::land(Player &p) {
     s.property = PropertyType::Residence;
     this->setState(s);
     this->notifyObservers();
-    if (!this->getMortgaged()) {
+    if (!(this->getMortgaged())) {
         payFee(p);
     }    
 }

@@ -23,3 +23,5 @@ void Square::bankrupt(Player *p) {
     this->setState(s);
     this->notifyObservers();
 }
+
+Square::~Square() {}
