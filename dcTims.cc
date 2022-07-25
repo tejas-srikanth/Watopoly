@@ -46,3 +46,11 @@ void DCTims::sendOut(Player& p) {
     p.setJail(false);
     p.setJailRounds(0);
 }
+
+int DCTims::getCups(){
+    return totalCups;
+}
+
+void DCTims::addCups() {
+    totalCups++;
+}
