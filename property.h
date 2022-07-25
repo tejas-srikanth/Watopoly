@@ -6,6 +6,7 @@ class Player;
 class Block;
 
 class Property : public Square {
+protected:
     Player *owner = nullptr;
     Block *block;
     int purchaseCost;
@@ -19,6 +20,7 @@ public:
     int getPurchaseCost();
     bool getMortgaged();
     void setOwner(Player *p);
+
     void mortgage(Player *p);
     void unmortgage(Player *p);
     void setMortgage(bool m);

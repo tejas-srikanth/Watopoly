@@ -60,3 +60,22 @@ void Academic::sellImprovements() {
     this->setState(s);
     this->notifyObservers();
 }
+
+void Academic::setOwner(Player *p) {
+    int bi = this->getBoardIndex();
+    if (!owner) {
+        owner->delAssets(bi);
+        owner->delAssets(this);
+        owner->delAcad(this);
+    }
+    owner = p;
+    owner->addAssets(bi);
+    owner->addAssets(this);       
+    owner->addAcad(this);
+    struct State s;
+    s.notifType = StateType::ChangeOwner;
+    s.owner = owner;
+    s.boardIndex = bi;
+    this->setState(s);
+    this->notifyObservers();
+}

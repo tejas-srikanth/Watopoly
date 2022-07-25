@@ -1,6 +1,7 @@
 #include "property.h"
 #include "player.h"
 #include "state.h"
+#include "academic.h"
 class Player;
 
 Property::Property(int bi, int pc, std::string name, bool a) : Square{bi, name, true}, purchaseCost{pc} {}
