@@ -2,6 +2,7 @@
 #define _NEEDLESHALL_H_
 #include "chance.h"
 #include "player.h"
+#include "dcTims.h"
 
 class NeedlesHall : public Chance {
     public:
