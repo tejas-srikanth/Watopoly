@@ -7,7 +7,7 @@
 class GoToTims : public Square {
     DCTims& tims;
     public:
-    GoToTims(int bi, string name, bool prop, DCTims& tims);
+    GoToTims(string name, int bi, DCTims& tims);
     void land(Player& p) override;
 };
 
