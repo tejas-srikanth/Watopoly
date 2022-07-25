@@ -1,5 +1,7 @@
 #include "needlesHall.h"
 
+NeedlesHall::NeedlesHall(std::string name, int index) : Chance(index, name) {}
+
 void NeedlesHall::getEffect(Player& p) {
     int random = rand() % 18 + 1;
     if (random == 1) {
