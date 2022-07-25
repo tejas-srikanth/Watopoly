@@ -54,6 +54,7 @@ class Board{
     TextDisplay* td;
     public:
         Board(int numPlayers);
+        ~Board();
         bool getTesting();
         std::vector<Square*> getSquares();
         std::vector<Player*> getPlayers();
@@ -82,6 +83,7 @@ class Board{
         void raiseMoney(Player* p);
         void negativeBalance(Player* p, Square* sq, int playerIndex);
         void all();
+        bool isInt(string s);
 
 
 };

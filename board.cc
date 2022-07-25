@@ -22,6 +22,17 @@ vector<Player*> Board::getPlayers(){ return players; }
 int Board::getNumPlayers(){ return numPlayers; }
 bool Board::getTesting(){ return testing; }
 
+Board::~Board(){
+    for (auto square: squares){
+        delete square;
+    }
+    for (auto player: players){
+        delete player;
+    }
+}
+
+Board::Board(int numPlayers): numPlayers{numPlayers}{}
+
 void Board::initalizeSquares(){
 
     DCTims* dcTims = new DCTims{"DC Tims", 10};
@@ -80,7 +91,7 @@ void Board::initalizeSquares(){
 
     squares.push_back( new Osap{"OSAP", 0} );
     squares.push_back( properties[0] );
-    squares.push_back( new SLC{"SLC", 2} );
+    squares.push_back( new SLC{"SLC", 2, *dcTims} );
     squares.push_back(properties[1] );
     squares.push_back( new Tuition{"Tuition", 4});
     squares.push_back( properties[2]);
@@ -96,7 +107,7 @@ void Board::initalizeSquares(){
     squares.push_back( properties[9]);
     squares.push_back(properties[10]);
     squares.push_back( properties[11]);
-    squares.push_back( new SLC{"SLC", 17} );
+    squares.push_back( new SLC{"SLC", 17, *dcTims} );
 
     squares.push_back(properties[12]);
     squares.push_back( properties[13]);
@@ -112,11 +123,11 @@ void Board::initalizeSquares(){
     squares.push_back( properties[19]);
     squares.push_back( properties[20]);
     squares.push_back( properties[21]);
-    squares.push_back( new GoToTims{"GoToTims", 30 });
+    squares.push_back( new GoToTims{"GoToTims", 30, *dcTims });
 
     squares.push_back(properties[22]);
     squares.push_back( properties[23]);
-    squares.push_back( new SLC{"SLC", 33});
+    squares.push_back( new SLC{"SLC", 33, *dcTims});
     squares.push_back( properties[24]);
     squares.push_back( properties[25]);
     squares.push_back( new NeedlesHall{"NH", 36 });
@@ -1157,7 +1168,7 @@ void Board::play(){
     }
 }
 
-bool isInt(string s){
+bool Board::isInt(string s){
     for (char c: s){
         if (!isdigit(c)){
             return false;

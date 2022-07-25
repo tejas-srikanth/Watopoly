@@ -1,12 +1,14 @@
 #include "textdisplay.h"
 #include "state.h"
+#include "subject.h"
 #include <string>
 #include <iostream>
 #include <fstream>
 
+class Subject;
 
 TextDisplay::TextDisplay(std::vector<Player*> players){
-    std::vector<int> properties = {1, 3, 4, 6, 7, 9, 11, 12, 14, 17, 19, 21, 23, 26, 28, 29, 31, 33, 34, 36, 38, 40};
+    std::vector<int> properties = {1, 3, 5, 6, 8, 9, 11, 12, 13, 14, 15, 16, 18, 19, 21, 23, 24, 25, 26, 27, 28, 29, 31, 32, 34, 35, 37, 39};
     for (auto player: players){
         positionMap[player] = 0;
     }
@@ -92,41 +94,50 @@ void TextDisplay::notify(Subject& whoNotified){
         unmortgage(gridState.boardIndex);
     }
 
+    else if (gridState.notifType == StateType::Bankrupt){
+        positionMap.erase(gridState.justLanded);
+        for (auto ownerPair: ownerMap){
+            if (ownerPair.second == gridState.justLanded->getPiece()){
+                updateOwner(ownerPair.first, ' ');
+            }
+        }
+    }
+
 }
 
 int TextDisplay::getBoardRowVal(int boardIndex){
     if (0 <= boardIndex && 10 >= boardIndex){
-        return 1;
-    }
-
-    else if (11 <= boardIndex && 19 >= boardIndex){
-        return 1 + 6 * (boardIndex - 10);
-    }
-
-    else if (20 <= boardIndex && 30 >= boardIndex){
         return 61;
     }
 
+    else if (11 <= boardIndex && 19 >= boardIndex){
+        return 1 + 6 * (20 - boardIndex);
+    }
+
+    else if (20 <= boardIndex && 30 >= boardIndex){
+        return 1;
+    }
+
     else if (39 >= boardIndex && 30 <= boardIndex) {
-        return 1 + 6 * (40 - boardIndex);
+        return 1 + 6 * (boardIndex - 30);
     }
 }
 
 int TextDisplay::getBoardColVal(int boardIndex){
     if (0 <= boardIndex && 10 >= boardIndex){
-        return 1 + (boardIndex - 10) * 10;
+        return 1 + (10 - boardIndex) * 10;
     } 
 
     else if (11 <= boardIndex && 19 >= boardIndex){
-        return 91;
+        return 1;
     }
 
     else if (20 <= boardIndex && 30 >= boardIndex){
-        return 1 + (30 - boardIndex) * 10;
+        return 1 + (boardIndex - 20) * 10;
     }
 
     else if (39 >= boardIndex && 30 <= boardIndex){
-        return 1;
+        return 91;
     }
 }
 
