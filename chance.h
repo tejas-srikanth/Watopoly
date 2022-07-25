@@ -11,7 +11,7 @@ class Chance : public Square {
     public:
     Chance(int bi, string name, DCTims& tims);
     void land(Player& p) override;
-    virtual void getEffect(Player &p);
+    virtual void getEffect(Player &p) = 0;
 };
 
 #endif

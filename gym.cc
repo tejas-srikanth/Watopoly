@@ -2,6 +2,8 @@
 #include "subject.h"
 #include "state.h"
 #include "player.h"
+#include <iostream>
+using namespace std;
 
 Gym::Gym( std::string name, int boardIndex, int purchaseCost) : Property{boardIndex, purchaseCost, name} {}
 
@@ -19,7 +21,10 @@ void Gym::land(Player &p) {
 }
 void Gym::payFee(Player &p) {
     int numOfBuildings = this->getState().condition;
-    int cost;
+    int d1 = rand() % 6 + 1;     // d1 in the range 1 to 6
+    int d2 = rand() % 6 + 1;
+    cout << "You rolled a " << d1 << " and a " << d2 << endl;
+    int cost = d1 + d2;
     if (numOfBuildings == 1) {
         cost *= 4;
     } else {

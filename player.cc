@@ -3,8 +3,9 @@
 #include "academic.h"
 #include <vector>
 #include <iostream>
+using namespace std;
 
-Player::Player(std::string n, char p): piece{p}, name{n} {}
+Player::Player(string n, char p): piece{p}, name{n} {}
 
 int Player::getPos() {
     return position;
@@ -34,7 +35,14 @@ void Player::changePos(int pos) {
 }
 void Player::changeBal(int bal) {
     balance += bal;
+    if (bal > 0) {
+        cout << "You gained " << bal << "." << endl;
+    } else {
+        cout << "You paid " << bal << "." << endl;
+    }
+    cout << "Your new balance is: " << balance << endl;
 }
+
 void Player::addAssets(int p) {
     assets.emplace_back(p);
 }
