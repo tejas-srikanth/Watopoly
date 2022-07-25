@@ -5,13 +5,16 @@
 #include "player.h"
 
 class DCTims : public Square {
+    int totalCups = 0;
     public:
     DCTims(string name, int bi);
     void land(Player& p) override;
+    bool useCup(Player& p);
     void goToJail(Player& p);
     void newRound(Player& p);
     int getRound(Player& p);
     void sendOut(Player& p);
+    int getTimsCup(Player& p);
 
 };
 
