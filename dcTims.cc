@@ -2,6 +2,20 @@
 
 DCTims::DCTims(string name, int bi) : Square(bi, name, true) {}
 
+int DCTims::getTimsCup(Player& p) {
+    return p.getCups();
+}
+
+bool DCTims::useCup(Player& p) {
+    int timsCup = this->getTimsCup(p);
+    if (timsCup > 0) {
+        p.setCups(timsCup - 1);
+        return true;
+    }
+    return false;
+}
+
+
 void DCTims::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
