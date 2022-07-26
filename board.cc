@@ -240,7 +240,7 @@ void Board::initialize(){
 
     Block* Arts1 = new Block{vector<int>{1, 3}};
     Block* Arts2 = new Block{vector<int>{6, 8, 9}};
-    Block* Eng = new Block{vector<int>{11, 12, 14}};
+    Block* Eng = new Block{vector<int>{11, 13, 14}};
     Block* Health = new Block{vector<int>{16, 18, 19}};
     Block* Env = new Block{vector<int>{21, 23, 24}};
     Block* Sci1 = new Block{vector<int>{26, 27, 29}};
@@ -344,6 +344,7 @@ bool Board::trade(Player* p1, Player* p2, Property* b1, Property* b2){
 }
 
 bool Board::trade(Player* p1, Player* p2, int m1, Property* b2){
+    cout << "HI!!!!" << p2->getName() << endl;
     if (b2->getOwner() != p2){
         cout << b2->getName() << " is not owned by " << p2->getName() << " they cannot trade this" << endl;
         return false;
@@ -354,7 +355,7 @@ bool Board::trade(Player* p1, Player* p2, int m1, Property* b2){
     }
 
     Block* block2 = b2->getBlock();
-
+    cout << "HI!!!!" << block2 << endl;
     if (getBlockImprovements(block2) != 0){
         cout << "There are improvements in " << b2->getName() << "'s block. So, you cannot trade this." << endl;
         return false;
@@ -543,7 +544,6 @@ void Board::all(){
 }
 
 int rollDie(int max){
-    srand(time(NULL));
     if (max == -1){
         return rand() % 6 + 1;
     } else {
@@ -1095,6 +1095,7 @@ void Board::play(){
 
                     for (auto player: players){
                         if (player->getName().compare(p2Name) == 0){
+                            
                             p2 = player;
                             break;
                         }
