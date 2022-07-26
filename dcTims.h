@@ -15,7 +15,7 @@ class DCTims : public Square {
     void sendOut(Player& p);
     int getCups();
     void addCups();
-    void setCups(unsigned int n);
+    void setCups(int n);
 };
 
 #endif
