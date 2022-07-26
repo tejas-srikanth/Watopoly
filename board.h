@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <utility>
 #include "player.h"
 #include "square.h"
 #include "textdisplay.h"
@@ -59,7 +60,7 @@ class Board{
         std::vector<Square*> getSquares();
         std::vector<Player*> getPlayers();
         int getNumPlayers();
-        void initalizeSquares();
+        void initializeSquares();
         void initialize();
         void roll();
         void next();
@@ -85,6 +86,7 @@ class Board{
         void all();
         bool isInt(string s);
         bool isAcademic(Property* p);
+        std::pair<int, int> rollDice(std::string s1, std::string s2);
 
 
 };

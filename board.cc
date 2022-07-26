@@ -33,7 +33,7 @@ Board::~Board(){
 
 Board::Board(int numPlayers): numPlayers{numPlayers}{}
 
-void Board::initalizeSquares(){
+void Board::initializeSquares(){
 
     DCTims* dcTims = new DCTims{"DC Tims", 10};
 
@@ -193,6 +193,7 @@ void Board::initialize(){
                     break;
                 } else if (c == 'n' || c == 'N'){
                     seeAvail = false;
+                    break;
                 } else {
                     cout << "Try again" << endl;
                 }
@@ -228,7 +229,7 @@ void Board::initialize(){
         }
         players.push_back(new Player{name, piece});
     }
-    initalizeSquares();
+    initializeSquares();
     td = new TextDisplay{players};
 
     for (auto square: squares){
@@ -288,7 +289,6 @@ bool Board::isAcademic(Property* p){
     }
     return false;
 }
-
 
 
 bool Board::trade(Player* p1, Player* p2, Property* b1, Property* b2){
@@ -619,6 +619,34 @@ void Board::auction(Property* building){
     }
 }
 
+pair<int, int> Board::rollDice(string firstNum, string secondNum){
+            int num1 = -1; int num2 = -1;
+            int roll1 = 0, roll2 = 0;
+            if (testing){
+                try{
+                    num1 = stoi(firstNum);
+                } catch (exception& err){
+                    num1 = -1;
+                }
+                
+                try{
+                    num2 = stoi(secondNum);
+                } catch (exception& err){
+                    num2 = -1;
+                }
+
+                roll1 = rollDie(num1);
+                roll2 = rollDie(num2);
+
+            }
+            else {
+                roll1 = rollDie(-1);
+                roll2 = rollDie(-1);
+            }
+            pair<int, int> d = {roll1, roll2};
+            return d;
+}
+
 void Board::landOn(Player* currPlayer, Square* landedSquare){
     int boardIndex = landedSquare->getBoardIndex();
 
@@ -745,7 +773,7 @@ void Board::play(){
             }
 
             numOsap += (currentPos + totalRoll - 1) / numSquares;
-            int newSquarePos = (currPlayer->getPos() + totalRoll) % numSquares;
+            int newSquarePos = (currentPos + totalRoll) % numSquares;
             currPlayer->changeBal(200 * numOsap);
 
             Square* landedSquare = squares[newSquarePos];
