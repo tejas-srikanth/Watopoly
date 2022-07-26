@@ -14,7 +14,7 @@
 #include "observer.h"
 #include <map>
 #include <algorithm>
-#include <time.h>
+#include <ctime>
 using namespace std;
 
 vector<Square*> Board::getSquares(){ return squares; }
@@ -679,15 +679,13 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
             bool hasBought;
             while (yesNo != 'y' && yesNo != 'n') {
                 cout<<"please enter a valid command."<<endl;
-                cin >> yesNo;
-                if (yesNo == 'y'){
-                hasBought = buy(currPlayer, landedProperty);
-                } else if (yesNo == 'n') {
-                    hasBought = false;
-                }
-                
+                cin >> yesNo;                
             }
-            
+            if (yesNo == 'y'){
+                hasBought = buy(currPlayer, landedProperty);
+            } else if (yesNo == 'n') {
+                hasBought = false;
+            }
             if (!hasBought){
                 auction(landedProperty);
             } else {
@@ -962,7 +960,6 @@ void Board::play(){
             if (roll1 == roll2){
                 cout << "You rolled doubles, you're out of jail. Hit enter to continue" << endl;
                 currPlayer->setJail(false);
-                currPlayer->changePos(10 + roll1 + roll2);
                 endTurn = true;
             } else {
                 cout << "You did not roll doubles" << endl;
@@ -1055,20 +1052,12 @@ void Board::play(){
                     
                     else {
                         currPlayer->setJail(false);
-                        currPlayer->changePos(10 + roll1 + roll2);
                         cout << "You saved yourself from bankruptcy and you're out of jail!" << endl;
                         playerIndex = (playerIndex + 1) % players.size();
                         currPlayer = players[playerIndex];
                         continue;
                     }
                     
-                } else {
-                    currPlayer->setJail(false);
-                    currPlayer->changePos(10 + roll1 + roll2);
-                    cout << "You're out of jail!" << endl;
-                    playerIndex = (playerIndex + 1) % players.size();
-                    currPlayer = players[playerIndex];
-                    continue;
                 }
 
 
