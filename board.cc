@@ -9,7 +9,7 @@
 #include "gooseNesting.h"
 #include "dcTims.h"
 #include "goToTims.h"
-#include "coopFee.h"
+#include "coopFee.h"r
 #include "block.h"
 #include "observer.h"
 #include <map>
@@ -543,6 +543,7 @@ void Board::all(){
 }
 
 int rollDie(int max){
+    srand(time(NULL));
     if (max == -1){
         return rand() % 6 + 1;
     } else {
