@@ -47,6 +47,7 @@ void Property::mortgage(Player *p) {
     p->changeBal(this->getPurchaseCost() / 2);
     struct State s;
     s.notifType = StateType::Mortgage;
+    s.boardIndex = this->getBoardIndex();
     this->setState(s);
     this->notifyObservers();
 }
@@ -56,6 +57,7 @@ void Property::unmortgage(Player *p) {
     p->changeBal(this->getPurchaseCost() * (-0.6));
     struct State s;
     s.notifType = StateType::Unmortgage;
+    s.boardIndex = this->getBoardIndex();
     this->setState(s);
     this->notifyObservers();
 } 

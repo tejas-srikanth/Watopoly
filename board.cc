@@ -716,7 +716,6 @@ void Board::play(){
     cout << *(td);
     int numDoubles = 0;
     showOptions(players[playerIndex]);
-    cout << "Enter command: ";
     string commandLine;
 
     while (!gameEnded){
