@@ -36,7 +36,7 @@ Board::Board(int numPlayers): numPlayers{numPlayers}{}
 
 void Board::initializeSquares(){
 
-    DCTims* dcTims = new DCTims{"DC Tims", 10};
+    dcTims = new DCTims{"DC Tims", 10};
 
     academicProperties.push_back( new Academic("ML", 1, 40, 50, MLt));
     academicProperties.push_back( new Academic{"AL", 3, 60, 50, ALt });
@@ -1373,7 +1373,7 @@ void Board::loadGame(std::string filename) {
                 }
             } 
         }       
-    }    
-    //dcTims->setCups(totalCups);
+    }
+    dcTims->setCups(totalCups);
     this->play();
 }
