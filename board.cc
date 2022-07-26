@@ -14,7 +14,7 @@
 #include "observer.h"
 #include <map>
 #include <algorithm>
-#include <time.h>
+#include <ctime>
 using namespace std;
 
 vector<Square*> Board::getSquares(){ return squares; }
