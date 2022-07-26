@@ -205,7 +205,7 @@ void Board::initialize(){
                 for (auto cb: usedPieces){
                     char piece = cb.first;
                     char isUsed = cb.second;
-                    if (!isUsed){
+                    if (!isUsed && i < possiblePieces.size()){
                         cout << optionText[i] << '\t';
                     }
                     i++;
