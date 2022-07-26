@@ -884,6 +884,7 @@ void Board::play(){
                     cout << "It is now the next person's turn. Hit enter to continue." << endl;
                     cout << *(td);
                     showOptions(currPlayer);
+                    numDoubles = 0;
                 }
 
                 else {
