@@ -726,6 +726,7 @@ void Board::play(){
             gameEnded = true;
             break;
         }
+        cout << "Enter command: ";
         getline(cin, commandLine);
         stringstream commandSS = stringstream(commandLine);
         string word;
