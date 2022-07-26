@@ -27,7 +27,7 @@ void Property::setMortgage(bool m){
 
 void Property::setOwner(Player *p) {
     int bi = this->getBoardIndex();
-    if (!owner) {
+    if (owner) {
         owner->delAssets(bi);
         owner->delAssets(this);
     }    

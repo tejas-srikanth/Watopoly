@@ -67,7 +67,7 @@ void Academic::sellImprovements() {
 
 void Academic::setOwner(Player *p) {
     int bi = this->getBoardIndex();
-    if (!owner) {
+    if (owner) {
         owner->delAssets(bi);
         owner->delAssets(this);
         owner->delAcad(this);
