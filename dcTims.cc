@@ -56,3 +56,12 @@ int DCTims::getCups(){
 void DCTims::addCups() {
     totalCups++;
 }
+
+void DCTims::setCups(int n) {
+    if (n <= 4) {
+        totalCups = n;
+    } else {
+        totalCups = 4;
+    }
+}
+
