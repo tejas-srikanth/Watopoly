@@ -38,7 +38,7 @@ void Player::changeBal(int bal) {
     if (bal > 0) {
         cout << "You gained " << bal << "." << endl;
     } else if (bal < 0) {
-        cout << "You paid " << bal << "." << endl;
+        cout << "You paid " << (-1)*bal << "." << endl;
     }
     cout << "Your new balance is: " << balance << endl;
 }

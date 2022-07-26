@@ -53,6 +53,7 @@ void Academic::buyImprovements() {
     this->getOwner()->changeBal(improvementCost*(-1));
     struct State s;
     s.notifType = StateType::BuyImprovements;
+    s.boardIndex = this->getBoardIndex();
     this->setState(s);
     this->notifyObservers();
 }
@@ -61,6 +62,7 @@ void Academic::sellImprovements() {
     this->getOwner()->changeBal(improvementCost/2);
     struct State s;
     s.notifType = StateType::SellImprovements;
+    s.boardIndex = this->getBoardIndex();
     this->setState(s);
     this->notifyObservers();
 }

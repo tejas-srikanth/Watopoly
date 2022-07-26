@@ -716,7 +716,6 @@ void Board::play(){
     cout << *(td);
     int numDoubles = 0;
     showOptions(players[playerIndex]);
-    cout << "Enter command: ";
     string commandLine;
 
     while (!gameEnded){
@@ -726,6 +725,7 @@ void Board::play(){
             gameEnded = true;
             break;
         }
+        cout << "Enter command: ";
         getline(cin, commandLine);
         stringstream commandSS = stringstream(commandLine);
         string word;
@@ -1054,7 +1054,7 @@ void Board::play(){
             }
         }
 
-        else if (move[0].compare("trade")){
+        else if (move[0].compare("trade") == 0){
             if (move.size() == 4){
                 if (isInt(move[2]) && isInt(move[3])){
                     cout << "can't trade money for money" << endl;
@@ -1168,6 +1168,9 @@ void Board::play(){
 
                     trade(currPlayer, p2, b1, b2);
                 }
+            } else {
+                cout << "Please enter a valid command" << endl;
+                continue;
             }
         }
 
