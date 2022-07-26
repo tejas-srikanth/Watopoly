@@ -150,7 +150,7 @@ void Board::initialize(){
         {'T', false}        
     };
     vector<char> possiblePieces = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
-    vector<string> optionText = {"Goose (G)", "GRT Bus (B)", "Time Hortons Doughnut (D)", "Professor (P)", "Student (S)", "Money ($)", "Laptop (L)", "Pink Tie (T)"};
+    vector<string> optionText = {"Goose (G)", "GRT Bus (B)", "Tim Hortons Doughnut (D)", "Professor (P)", "Student (S)", "Money ($)", "Laptop (L)", "Pink Tie (T)"};
     vector<string> names;
 
     for (int i=0; i<numPlayers; ++i){
@@ -193,6 +193,7 @@ void Board::initialize(){
                     break;
                 } else if (c == 'n' || c == 'N'){
                     seeAvail = false;
+                    break;
                 } else {
                     cout << "Try again" << endl;
                 }
@@ -207,6 +208,7 @@ void Board::initialize(){
                     if (!isUsed){
                         cout << optionText[i] << '\t';
                     }
+                    i++;
                 }
             }
 

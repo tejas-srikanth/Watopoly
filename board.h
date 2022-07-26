@@ -59,7 +59,7 @@ class Board{
         std::vector<Square*> getSquares();
         std::vector<Player*> getPlayers();
         int getNumPlayers();
-        void initalizeSquares();
+        void initializeSquares();
         void initialize();
         void roll();
         void next();
