@@ -57,8 +57,10 @@ void DCTims::addCups() {
     totalCups++;
 }
 
-void DCTims::setCups(unsigned int n) {
-    if (n <= 4) {
+void DCTims::setCups(int n) {
+    if (n < 0) {
+        totalCups = 0;
+    } else if (n <= 4) {
         totalCups = n;
     } else {
         totalCups = 4;
