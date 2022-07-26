@@ -40,9 +40,10 @@ void TextDisplay::notify(Subject& whoNotified){
         for (auto& playerPair: positionMap){
             Player* player = playerPair.first;
             if (player == justLanded){
-                int newBoardIndex = gridState.boardIndex;
-                int oldBoardIndex = positionMap[justLanded];
+                newBoardIndex = gridState.boardIndex;
+                oldBoardIndex = positionMap[justLanded];
                 positionMap[justLanded] = newBoardIndex;
+                break;
             }
         }
 

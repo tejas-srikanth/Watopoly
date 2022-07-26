@@ -7,6 +7,7 @@ void Chance::land(Player& p) {
     // setting State s
     struct State s;
     s.notifType = StateType::Landed;
+    s.boardIndex = this->getBoardIndex();
     s.justLanded = &p;
     s.property = PropertyType::Special;
     this->setState(s);

@@ -16,7 +16,8 @@ void DCTims::land(Player& p) {
     p.changePos(this->getBoardIndex());
     // setting State s
     struct State s;
-    s.notifType = StateType::Landed;
+    s.notifType = StateType::Landed;    
+    s.boardIndex = this->getBoardIndex();
     s.justLanded = &p;
     this->setState(s);
     this->notifyObservers();
@@ -32,6 +33,7 @@ void DCTims::goToJail(Player& p) {
     // setting State s
     struct State s;
     s.notifType = StateType::Landed;
+    s.boardIndex = this->getBoardIndex();
     s.justLanded = &p;
     this->setState(s);
     this->notifyObservers();

@@ -9,6 +9,7 @@ void Tuition::land(Player& p) {
     // setting State s
     struct State s;
     s.notifType = StateType::Landed;
+    s.boardIndex = this->getBoardIndex();
     s.justLanded = &p;
     this->setState(s);
     this->notifyObservers();

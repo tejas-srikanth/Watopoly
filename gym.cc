@@ -13,6 +13,7 @@ void Gym::land(Player &p) {
     struct State s;
     s.notifType = StateType::Landed;
     s.justLanded = &p;
+    s.boardIndex = this->getBoardIndex();
     s.owner = this->getOwner();
     s.property = PropertyType::Gym;
     this->setState(s);

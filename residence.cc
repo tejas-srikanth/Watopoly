@@ -18,6 +18,7 @@ void Residence::land(Player &p) {
     // setting State s
     struct State s;
     s.notifType = StateType::Landed;
+    s.boardIndex = this->getBoardIndex();
     s.justLanded = &p;
     s.owner = this->getOwner();
     s.property = PropertyType::Residence;
