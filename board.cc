@@ -679,14 +679,13 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
             bool hasBought;
             while (yesNo != 'y' && yesNo != 'n') {
                 cout<<"please enter a valid command."<<endl;
-                cin >> yesNo;
-                if (yesNo == 'y'){
-                hasBought = buy(currPlayer, landedProperty);
-                } else if (yesNo == 'n') {
-                    hasBought = false;
-                }
+                cin >> yesNo;                
             }
-            
+            if (yesNo == 'y'){
+                hasBought = buy(currPlayer, landedProperty);
+            } else if (yesNo == 'n') {
+                hasBought = false;
+            }
             if (!hasBought){
                 auction(landedProperty);
             } else {
