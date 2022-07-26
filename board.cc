@@ -1364,7 +1364,39 @@ void Board::loadGame(std::string filename) {
         p->changePos(n);
         players.push_back(p);
     }
+    td = new TextDisplay{players};
 
+    for (auto square: squares){
+        square->attach(td);
+
+    }
+
+    Block* Arts1 = new Block{vector<int>{1, 3}};
+    Block* Arts2 = new Block{vector<int>{6, 8, 9}};
+    Block* Eng = new Block{vector<int>{11, 13, 14}};
+    Block* Health = new Block{vector<int>{16, 18, 19}};
+    Block* Env = new Block{vector<int>{21, 23, 24}};
+    Block* Sci1 = new Block{vector<int>{26, 27, 29}};
+    Block* Sci2 = new Block{vector<int>{31, 32, 34}};
+    Block* Math = new Block{vector<int>{37, 39}};
+    Block* Res = new Block{vector<int>{5, 15, 25, 35}};
+    Block* Gyms = new Block{vector<int>{12, 28}};
+
+    allblocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math, Res, Gyms};
+    blocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math};
+
+    for (Block* block: allblocks){
+        for (auto blockPair: block->getOwnership()){ // iterates through the properties in block
+            int boardIndex = blockPair.first;
+            squares[boardIndex]->attach(block);
+            for (auto property: properties){
+                if (property->getBoardIndex() == boardIndex){
+                    property->setBlock(block);
+                    break;
+                }
+            }
+        }
+    }
     for (auto p : properties) {
         myfile >> s1; // prop name        
         myfile>>playerName; //owner
