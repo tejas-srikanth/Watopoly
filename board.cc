@@ -38,7 +38,7 @@ void Board::initializeSquares(){
     DCTims* dcTims = new DCTims{"DC Tims", 10};
 
     academicProperties.push_back( new Academic("ML", 1, 40, 50, MLt));
-    academicProperties.push_back( new Academic{"AL", 2, 60, 50, ALt });
+    academicProperties.push_back( new Academic{"AL", 3, 60, 50, ALt });
     academicProperties.push_back( new Academic{"ECH", 6, 100, 50, ECHt});
     academicProperties.push_back( new Academic("PAS", 8, 100, 50, PASt));
     academicProperties.push_back( new Academic("HH", 9, 120, 50, HHt));
@@ -544,7 +544,6 @@ void Board::all(){
 
 int rollDie(int max){
     if (max == -1){
-        srand(time(NULL));
         return rand() % 6 + 1;
     } else {
         return rand() % max + 1;
@@ -610,9 +609,19 @@ void Board::auction(Property* building){
         if (auctioners.size() == 1){
             Player* winner = auctioners[0];
             cout << "Congrats! " << winner->getName() << " you are the winner!" << endl;
-            bool hasBought = buy(winner, building);
-            if (hasBought){
-                cout << "You bought " << building->getName() << endl;
+            cout << "Would you like to buy this building? (y/n)";
+            char c;
+            cin >> c;
+            if (c == 'y'){
+                bool hasBought = buy(winner, building);
+                if (hasBought){
+                    cout << "You bought " << building->getName() << endl;
+                } else {
+                    cout << "Bank still owns the building" << endl;
+                }
+            } else {
+                cout << "Bank still owns the building" << endl;
+
             }
             auctionEnded = true;
             break;
@@ -737,8 +746,12 @@ void Board::play(){
         if (move.size() == 0){
             continue;
         }
-
-        if (move[0].compare("roll") == 0){
+        
+        if (move[0].compare("quit") == 0){
+            gameEnded = true;
+            break;
+        }
+        else if (move[0].compare("roll") == 0){
             if (currPlayer->getJail()){
                 cout << "You can't roll, you're in jail. Typing in next will take you through the jail steps." << endl;
                 continue;
