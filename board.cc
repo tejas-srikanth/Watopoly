@@ -544,7 +544,6 @@ void Board::all(){
 }
 
 int rollDie(int max){
-    srand(time(NULL));
     if (max == -1){
         return rand() % 6 + 1;
     } else {
