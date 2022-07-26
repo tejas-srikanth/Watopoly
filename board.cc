@@ -240,7 +240,7 @@ void Board::initialize(){
 
     Block* Arts1 = new Block{vector<int>{1, 3}};
     Block* Arts2 = new Block{vector<int>{6, 8, 9}};
-    Block* Eng = new Block{vector<int>{11, 12, 14}};
+    Block* Eng = new Block{vector<int>{11, 13, 14}};
     Block* Health = new Block{vector<int>{16, 18, 19}};
     Block* Env = new Block{vector<int>{21, 23, 24}};
     Block* Sci1 = new Block{vector<int>{26, 27, 29}};
