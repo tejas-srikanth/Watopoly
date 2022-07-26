@@ -544,6 +544,7 @@ void Board::all(){
 }
 
 int rollDie(int max){
+    srand(time(NULL));
     if (max == -1){
         return rand() % 6 + 1;
     } else {
@@ -903,30 +904,6 @@ void Board::play(){
 
             cout << "You are in jail. " << endl;
             bool endTurn = false;
-            if (currPlayer->getCups() > 0){
-                char yn;
-                while (true){
-                    cout << "You have a cup, would you like to use it (y/n): ";
-                    cin >> yn;
-                    if (yn == 'y'){
-                        currPlayer->setJail(false);
-                        dcTims->useCup(*currPlayer);
-                        cout << "You're out of jail, you can roll on the next turn. Press enter to continue." << endl;
-                        endTurn = true;
-                        break;
-                    } else if (yn == 'n'){
-                        cout << "Okay, take your chances then. " << endl;
-                        break;
-                    } else {
-                        continue;
-                    }
-                }
-                if (endTurn){
-                    currPlayer = players[(playerIndex + 1) % players.size()];
-                    playerIndex = (playerIndex + 1) % players.size();
-                    continue;
-                }
-            }
 
             cout << "Try rolling doubles to get out of jail:" << endl;
             int num1 = -1; int num2 = -1;
@@ -960,10 +937,37 @@ void Board::play(){
             if (roll1 == roll2){
                 cout << "You rolled doubles, you're out of jail. Hit enter to continue" << endl;
                 currPlayer->setJail(false);
+                currPlayer->changePos(10 + roll1 + roll2);
                 endTurn = true;
             } else {
                 cout << "You did not roll doubles" << endl;
+                if (currPlayer->getCups() > 0){
+                    char yn;
+                    while (true){
+                        cout << "You have a cup, would you like to use it (y/n): ";
+                        cin >> yn;
+                        if (yn == 'y'){
+                            currPlayer->setJail(false);
+                            currPlayer->changePos(10 + roll1 + roll2);
+                            dcTims->useCup(*currPlayer);
+                            cout << "You're out of jail, you can roll on the next turn. Press enter to continue." << endl;
+                            endTurn = true;
+                            break;
+                        } else if (yn == 'n'){
+                            cout << "Okay, take your chances then. " << endl;
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+                    if (endTurn){
+                        currPlayer = players[(playerIndex + 1) % players.size()];
+                        playerIndex = (playerIndex + 1) % players.size();
+                        continue;
+                    }
+                }
             }
+            
 
             if (endTurn){
                 currPlayer = players[(playerIndex + 1) % players.size()];
@@ -1052,12 +1056,20 @@ void Board::play(){
                     
                     else {
                         currPlayer->setJail(false);
+                        currPlayer->changePos(10 + roll1 + roll2);
                         cout << "You saved yourself from bankruptcy and you're out of jail!" << endl;
                         playerIndex = (playerIndex + 1) % players.size();
                         currPlayer = players[playerIndex];
                         continue;
                     }
                     
+                } else {
+                    currPlayer->setJail(false);
+                    currPlayer->changePos(10 + roll1 + roll2);
+                    cout << "You're out of jail!" << endl;
+                    playerIndex = (playerIndex + 1) % players.size();
+                    currPlayer = players[playerIndex];
+                    continue;
                 }
 
 
