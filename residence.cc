@@ -24,7 +24,7 @@ void Residence::land(Player &p) {
     s.property = PropertyType::Residence;
     this->setState(s);
     this->notifyObservers();
-    if (!(this->getMortgaged())) {
+    if (!(this->getMortgaged()) && this->getOwner()) {
         payFee(p);
     }    
 }

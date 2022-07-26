@@ -27,18 +27,21 @@ void Academic::land(Player &p) {
     this->setState(s);
     // notify Observers
     this->notifyObservers();
-    payFee(p);
+    if (this->getOwner()) {
+        payFee(p);
+    }
 }
 void Academic::payFee(Player &p) {
-    int cost = improvements[improvement] * (-1);
-    if (improvement == 0) {
-        int bal = cost * this->getState().condition;
-        p.changeBal(bal);
-        this->getOwner()->changeBal(bal * (-1));
-    } else {
-        p.changeBal(cost);
-        this->getOwner()->changeBal(cost * (-1));
-    }
+        int cost = improvements[improvement] * (-1);
+        if (improvement == 0) {
+            int bal = cost * this->getState().condition;
+            p.changeBal(bal);
+            this->getOwner()->changeBal(bal * (-1));
+        } else {
+            p.changeBal(cost);
+            this->getOwner()->changeBal(cost * (-1));
+        }
+  
 }
 
 void Academic::setImprovement(int imp){

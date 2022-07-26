@@ -1,6 +1,6 @@
 #include "dcTims.h"
 
-DCTims::DCTims(string name, int bi) : Square(bi, name, true) {}
+DCTims::DCTims(string name, int bi) : Square(bi, name, false) {}
 
 bool DCTims::useCup(Player& p) {
     int timsCup = p.getCups();

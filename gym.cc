@@ -18,18 +18,22 @@ void Gym::land(Player &p) {
     s.property = PropertyType::Gym;
     this->setState(s);
     this->notifyObservers();
-    payFee(p);
+    if (this->getOwner()) {
+        payFee(p);
+    }
 }
 void Gym::payFee(Player &p) {
-    int numOfBuildings = this->getState().condition;
-    int d1 = rand() % 6 + 1;     // d1 in the range 1 to 6
-    int d2 = rand() % 6 + 1;
-    cout << "You rolled a " << d1 << " and a " << d2 << endl;
-    int cost = d1 + d2;
-    if (numOfBuildings == 1) {
-        cost *= 4;
-    } else {
-        cost *= 10;
-    }
-    p.changeBal(cost);
+
+        int numOfBuildings = this->getState().condition;
+        int d1 = rand() % 6 + 1;     // d1 in the range 1 to 6
+        int d2 = rand() % 6 + 1;
+        cout << "You rolled a " << d1 << " and a " << d2 << endl;
+        int cost = d1 + d2;
+        if (numOfBuildings == 1) {
+            cost *= 4;
+        } else {
+            cost *= 10;
+        }
+        p.changeBal(cost);
+    
 }
