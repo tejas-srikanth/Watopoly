@@ -544,6 +544,7 @@ void Board::all(){
 }
 
 int rollDie(int max){
+    srand(time(NULL));
     if (max == -1){
         return rand() % 6 + 1;
     } else {
@@ -1075,6 +1076,11 @@ void Board::play(){
                     continue;
                 } 
 
+                if (move[1] == currPlayer->getName()) {
+                    cout << "can't trade with yourself." <<endl;
+                    continue;
+                }
+
                 else if (isInt(move[2])){
                     Property* b2 = nullptr;
                     Player* p2 = nullptr;
@@ -1160,7 +1166,7 @@ void Board::play(){
                     }
 
                     for (auto player: players){
-                        if (player->getName().compare(prop1Name) == 0){
+                        if (player->getName().compare(player2Name) == 0){
                             p2 = player;
                             break;
                         }
