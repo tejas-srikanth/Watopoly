@@ -1,7 +1,7 @@
 #include "board.h"
 
 int main(int argc, char* argv[]){
-    if (argc == 0) {
+    if (argc == 1) {
         cout << "How many players will we have: ";
         int x;
         cin >> x;
@@ -14,6 +14,6 @@ int main(int argc, char* argv[]){
         b.initialize();
         b.play();
     }
-    
+
     
 }
