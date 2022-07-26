@@ -677,11 +677,16 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
             char yesNo;
             cin >> yesNo;
             bool hasBought;
-            if (yesNo == 'y'){
+            while (yesNo != 'y' && yesNo != 'n') {
+                cout<<"please enter a valid command."<<endl;
+                cin >> yesNo;
+                if (yesNo == 'y'){
                 hasBought = buy(currPlayer, landedProperty);
-            } else {
-                hasBought = false;
+                } else if (yesNo == 'n') {
+                    hasBought = false;
+                }
             }
+            
             if (!hasBought){
                 auction(landedProperty);
             } else {
@@ -1299,7 +1304,7 @@ void Board::saveGame(std::string filename) {
         myfile<<endl;
     }
     myfile.close();
-    exit;
+    return;
 }
 
 void Board::loadGame(std::string filename) {
@@ -1343,6 +1348,5 @@ void Board::loadGame(std::string filename) {
             }
         }        
     }    
-    dcTims->setCups(totalCups);
-
+    //dcTims->setCups(totalCups);
 }
