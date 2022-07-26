@@ -37,7 +37,7 @@ void Player::changeBal(int bal) {
     balance += bal;
     if (bal > 0) {
         cout << "You gained " << bal << "." << endl;
-    } else {
+    } else if (bal < 0) {
         cout << "You paid " << bal << "." << endl;
     }
     cout << "Your new balance is: " << balance << endl;
@@ -79,7 +79,7 @@ void Player::payTenPercent() {
     for (auto a : listOfAcads) {
         netWorth += a->getImprovement() * a->getImprovementCost();
     }
-    this->changeBal(netWorth * (-1));
+    this->changeBal(netWorth * (-0.1));
 }
 
 std::vector<Academic *> Player::getAcads() {
