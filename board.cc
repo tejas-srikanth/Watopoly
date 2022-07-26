@@ -30,15 +30,6 @@ Board::~Board(){
     for (auto player: players){
         delete player;
     }
-    for (auto player: properties){
-        delete player;
-    }
-    for (auto player: academicProperties){
-        delete player;
-    }
-    for (auto player: blocks){
-        delete player;
-    }
     for (auto player: allblocks){
         delete player;
     }
