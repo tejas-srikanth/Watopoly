@@ -503,7 +503,6 @@ bool Board::buy(Player* p, Property* b){
         return false;
     }
     b->setOwner(p);
-    cout << "Congrats, you bought " << b->getName() << endl;
     return true;
 }
 
