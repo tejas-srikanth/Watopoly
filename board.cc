@@ -876,7 +876,7 @@ void Board::play(){
                 }
             }
         }
-        else if (move[0].compare("next")){
+        else if (move[0].compare("next") == 0){
             if (!currPlayer->getJail()){
                 cout << "You can, and must, roll since you are not in jail. Press enter to continue. " << endl;
                 continue;
