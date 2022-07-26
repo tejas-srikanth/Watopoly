@@ -200,12 +200,12 @@ void Board::initialize(){
             }
 
             if (seeAvail){
-                cout << "These are the available pieces:" << endl;
+                cout << "These are the available pieces:\n";
                 int i = 0;
                 for (auto cb: usedPieces){
                     char piece = cb.first;
-                    char isUsed = cb.second;
-                    if (!isUsed){
+                    bool isUsed = cb.second;
+                    if (!isUsed && i < possiblePieces.size()){
                         cout << optionText[i] << '\t';
                     }
                     i++;
