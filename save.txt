@@ -1,0 +1,35 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+void saveGame(std::string filename="watopoly.txt"){
+    ofstream myfile; 
+    myfile.open(filename); // opens the file
+    /*if( !myfile ) { // file couldn't be opened
+        cerr << "Error: file could not be opened" << endl;
+        exit(1);
+    }*/
+
+    myfile << players.size() << endl;
+
+    for (auto p : players) {
+        myfile<<p->getName()<<" "<<p->getPiece()<<" "<<p->getCups()><<" "<<p->getBal()<<" ";
+        int pos = p->getPos();
+        myfile<<pos;
+        if (pos == 10 && p->getJail()) {
+            myfile<<" 1 "<<p->getJailRounds;
+        } else {
+            myfile<<" 0";
+        }
+    }
+
+    for (auto s : property) {
+        myfile<<s.getName();
+        if(s->getOwner()) {
+            myfile<<s->getOwner()->getName()<<" "<<s->getImprovement();
+        } else {
+            myfile<<"BANK 0";
+        }
+        
+    }
+    myfile.close();
+}

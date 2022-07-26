@@ -1,0 +1,47 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+void loadGame(std::string filename="watopoly.txt") {
+    ofstream myfile; 
+    myfile.open(filename); 
+    int n;
+    string s;
+    char c;
+    myfile>>n;
+    initializeSquares();
+    for (int i = 0; i < n; i++) {
+        myfile>>s;
+        if (s.compare("BANK") == 0) {
+            cout << "You cannot be named bank, pick another name." << endl;
+            break;
+        }
+        myfile>>c;
+        Player *p = new Player{s, c};
+        myfile>>n;
+        p->setCups(n);
+        myfile>>n;
+        p->changeBal(n-1500);
+        myfile>>n;
+        p->changePos(n);
+        players.push_back(p);
+    }
+
+    for (auto p : properties) {
+        myfile>>s;
+        for (auto a : players) {
+            if (s == a.getName()) {
+                p.setOwner(a);
+            }
+        }
+        myfile>>n;
+        for (auto a : academicProperties) {
+            if (s == a.getName()) {
+                p->setImprovements(n);
+            }
+        }        
+    }
+    
+    
+
+}
