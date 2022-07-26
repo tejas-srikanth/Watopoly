@@ -4,6 +4,7 @@
 SLC::SLC(string name, int bi, DCTims& tims) : Chance{bi, name, tims} {}
 
 void SLC::getEffect(Player& p) {
+    srand(time(NULL));
     int random = rand() % 24 + 1;
     int position = p.getPos();
     if (random <= 3) {
