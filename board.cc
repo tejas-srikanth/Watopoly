@@ -874,7 +874,7 @@ void Board::play(){
                 }
             }
         }
-        else if (move[0].compare("next")){
+        else if (move[0].compare("next") == 0){
             if (!currPlayer->getJail()){
                 cout << "You can, and must, roll since you are not in jail. Press enter to continue. " << endl;
                 continue;
@@ -1052,7 +1052,7 @@ void Board::play(){
             }
         }
 
-        else if (move[0].compare("trade")){
+        else if (move[0].compare("trade") == 0){
             if (move.size() == 4){
                 if (isInt(move[2]) && isInt(move[3])){
                     cout << "can't trade money for money" << endl;
@@ -1211,6 +1211,11 @@ void Board::play(){
 
         else if (move[0].compare("all") == 0){
             all();
+        }
+
+        else if (move[0].compare("save") == 0){
+            string filename = move[1];
+            saveGame(filename);
         }
 
         else{
