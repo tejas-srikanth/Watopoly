@@ -685,6 +685,7 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
                 } else if (yesNo == 'n') {
                     hasBought = false;
                 }
+                
             }
             
             if (!hasBought){
