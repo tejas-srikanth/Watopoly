@@ -1330,19 +1330,19 @@ void Board::loadGame(std::string filename) {
     myfile.open(filename); 
     int numPlayers;
     int n;
-    string s;
+    string playerName;
     string s1;
     char c;
     myfile>>numPlayers;
     Board::initializeSquares();
     for (int i = 0; i < numPlayers; i++) {
-        myfile>>s;
-        if (s.compare("BANK") == 0) {
+        myfile>>playerName;
+        if (playerName.compare("BANK") == 0) {
             cout << "You cannot be named bank, pick another name." << endl;
             break;
         }
         myfile>>c;
-        Player *p = new Player{s, c};
+        Player *p = new Player{playerName, c};
         myfile>>n;
         totalCups += n;
         p->setCups(n);
@@ -1355,12 +1355,12 @@ void Board::loadGame(std::string filename) {
 
     for (auto p : properties) {
         myfile >> s1; // prop name        
-        myfile>>s; //owner
-        if (s1.compare("BANK") == 0) {
+        myfile>>playerName; //owner
+        if (playerName.compare("BANK") == 0) {
             myfile>>n;
         } else {        
             for (auto a : players) {
-                if (s.compare(a->getName()) == 0) {
+                if (playerName.compare(a->getName()) == 0) {
                     p->setOwner(a);
                     break;
                 }
