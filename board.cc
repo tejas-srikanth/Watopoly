@@ -1238,8 +1238,11 @@ void Board::play(){
         }
 
         else if (move[0].compare("save") == 0){
-            string filename = move[1];
-            saveGame(filename);
+            if (move.size() == 2) {
+                string filename = move[1];
+                saveGame(filename);
+            }            
+            saveGame();
         }
 
         else{
@@ -1277,6 +1280,7 @@ void Board::saveGame(std::string filename) {
         } else {
             myfile<<" 0";
         }
+        myfile<<endl;
     }
 
     for (auto s : properties) {
@@ -1291,9 +1295,10 @@ void Board::saveGame(std::string filename) {
         } else {
             myfile<<"BANK 0";
         }
-        
+        myfile<<endl;
     }
     myfile.close();
+    exit;
 }
 
 void Board::loadGame(std::string filename) {
