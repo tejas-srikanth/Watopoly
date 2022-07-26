@@ -1297,6 +1297,7 @@ void Board::saveGame(std::string filename) {
 }
 
 void Board::loadGame(std::string filename) {
+    int totalCups = 0;
     ifstream myfile; 
     myfile.open(filename); 
     int n;
@@ -1313,6 +1314,7 @@ void Board::loadGame(std::string filename) {
         myfile>>c;
         Player *p = new Player{s, c};
         myfile>>n;
+        totalCups += n;
         p->setCups(n);
         myfile>>n;
         p->changeBal(n-1500);
@@ -1334,8 +1336,7 @@ void Board::loadGame(std::string filename) {
                 a->setImprovement(n);
             }
         }        
-    }
-    
-    
+    }    
+    dcTims->setCups(totalCups);
 
 }
