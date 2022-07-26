@@ -3,8 +3,9 @@
 #include "academic.h"
 #include <vector>
 #include <iostream>
+using namespace std;
 
-Player::Player(std::string n, char p): piece{p}, name{n} {}
+Player::Player(string n, char p): piece{p}, name{n} {}
 
 int Player::getPos() {
     return position;
@@ -34,7 +35,14 @@ void Player::changePos(int pos) {
 }
 void Player::changeBal(int bal) {
     balance += bal;
+    if (bal > 0) {
+        cout << "You gained " << bal << "." << endl;
+    } else {
+        cout << "You paid " << bal << "." << endl;
+    }
+    cout << "Your new balance is: " << balance << endl;
 }
+
 void Player::addAssets(int p) {
     assets.emplace_back(p);
 }
@@ -56,7 +64,7 @@ void Player::delAssets(Property *p) {
     int index = 0;
     for (auto b : listOfAssets) {
         if (b == p) {
-            assets.erase(assets.begin() + index);
+            listOfAssets.erase(listOfAssets.begin() + index);
             break;
         }
         index++;
@@ -91,3 +99,19 @@ int Player::getJailRounds() {
 void Player::setJailRounds(int r) {
     jailRounds = r;
 }
+
+void Player::addAcad(Academic *p) {
+    listOfAcads.emplace_back(p);
+}
+
+void Player::delAcad(Academic *p) {
+    int index = 0;
+    for (auto b : listOfAcads) {
+        if (b == p) {
+            listOfAcads.erase(listOfAcads.begin() + index);
+            break;
+        }
+        index++;
+    }
+}
+

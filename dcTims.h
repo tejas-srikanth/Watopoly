@@ -13,6 +13,8 @@ class DCTims : public Square {
     void goToJail(Player& p);
     void newRound(Player& p);
     void sendOut(Player& p);
+    int getCups();
+    void addCups();
 };
 
 #endif

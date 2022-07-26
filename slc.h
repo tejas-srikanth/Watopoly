@@ -5,7 +5,6 @@
 #include "dcTims.h"
 
 class SLC : public Chance {
-    DCTims& tims;
     public:
     SLC(string name, int bi, DCTims& tims);
     void getEffect(Player& p) override;

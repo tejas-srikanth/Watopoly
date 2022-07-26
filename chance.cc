@@ -1,6 +1,6 @@
 #include "chance.h"
 
-Chance::Chance(int bi, string name) : Square{bi, name, false} {}
+Chance::Chance(int bi, string name, DCTims& tims) : Square{bi, name, false}, tims{tims} {}
 
 void Chance::land(Player& p) {
     p.changePos(this->getBoardIndex());
@@ -12,11 +12,11 @@ void Chance::land(Player& p) {
     this->setState(s);
     this->notifyObservers();
 
-    if (totalCups < 4) {
+    if (tims.getCups() < 4) {
         int random = rand() % 100;
         if (random == 99) {
             p.setCups(p.getCups() + 1);
-            totalCups++;
+            tims.addCups();
         }
     }
     getEffect(p);

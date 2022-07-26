@@ -150,7 +150,7 @@ void Board::initialize(){
         {'T', false}        
     };
     vector<char> possiblePieces = {'G', 'B', 'D', 'P', 'S', '$', 'L', 'T'};
-    vector<string> optionText = {"Goose (G)", "GRT Bus (B)", "Time Hortons Doughnut (D)", "Professor (P)", "Student (S)", "Money ($)", "Laptop (L)", "Pink Tie (T)"};
+    vector<string> optionText = {"Goose (G)", "GRT Bus (B)", "Tim Hortons Doughnut (D)", "Professor (P)", "Student (S)", "Money ($)", "Laptop (L)", "Pink Tie (T)"};
     vector<string> names;
 
     for (int i=0; i<numPlayers; ++i){
@@ -208,6 +208,7 @@ void Board::initialize(){
                     if (!isUsed){
                         cout << optionText[i] << '\t';
                     }
+                    i++;
                 }
             }
 
@@ -1228,3 +1229,84 @@ bool Board::isInt(string s){
     return true;
 }
 
+void Board::saveGame(std::string filename) {
+    ofstream myfile; 
+    myfile.open(filename); // opens the file
+    /*if( !myfile ) { // file couldn't be opened
+        cerr << "Error: file could not be opened" << endl;
+        exit(1);
+    }*/
+
+    myfile << players.size() << endl;
+
+    for (auto p : players) {
+        myfile<<p->getName()<<" "<<p->getPiece()<<" "<<p->getCups()<<" "<<p->getBal()<<" ";
+        int pos = p->getPos();
+        myfile<<pos;
+        if (pos == 10 && p->getJail()) {
+            myfile<<" 1 "<<p->getJailRounds();
+        } else {
+            myfile<<" 0";
+        }
+    }
+
+    for (auto s : properties) {
+        myfile<<s->getName();
+        if(s->getOwner()) {
+            myfile<<s->getOwner()->getName()<<" ";
+            for (auto a : academicProperties) {
+                if (s->getName() == a->getName()) {
+                    a->getImprovement();
+                }
+            }
+        } else {
+            myfile<<"BANK 0";
+        }
+        
+    }
+    myfile.close();
+}
+
+void Board::loadGame(std::string filename) {
+    ifstream myfile; 
+    myfile.open(filename); 
+    int n;
+    string s;
+    char c;
+    myfile>>n;
+    Board::initializeSquares();
+    for (int i = 0; i < n; i++) {
+        myfile>>s;
+        if (s.compare("BANK") == 0) {
+            cout << "You cannot be named bank, pick another name." << endl;
+            break;
+        }
+        myfile>>c;
+        Player *p = new Player{s, c};
+        myfile>>n;
+        p->setCups(n);
+        myfile>>n;
+        p->changeBal(n-1500);
+        myfile>>n;
+        p->changePos(n);
+        players.push_back(p);
+    }
+
+    for (auto p : properties) {
+        myfile>>s;
+        for (auto a : players) {
+            if (s == a->getName()) {
+                p->setOwner(a);
+            }
+        }
+        myfile>>n;
+        for (auto a : academicProperties) {
+            if (s == a->getName()) {
+                a->setImprovement(n);
+            }
+        }        
+    }
+    
+    
+
+}

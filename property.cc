@@ -17,6 +17,10 @@ int Property::getPurchaseCost() {
     return purchaseCost;
 }
 
+bool Property::getMortgaged() {
+    return mortgaged;
+}
+
 void Property::setMortgage(bool m){
     mortgaged = m;
 }

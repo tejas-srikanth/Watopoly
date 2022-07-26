@@ -7,8 +7,8 @@ class Player;
 
 class Square : public Subject {
     int boardIndex;
-    bool property;
     std::string name;
+    bool property;    
 public:
     Square(int bi, string name, bool prop = false);
     virtual void land(Player &p) = 0;
@@ -16,6 +16,7 @@ public:
     std::string getName();
     bool isProperty();
     void bankrupt(Player *p);
+    virtual ~Square();
 };
 
 #endif
