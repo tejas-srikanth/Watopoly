@@ -33,14 +33,19 @@ void Player::setJail(bool b) {
 void Player::changePos(int pos) {
     position = pos;
 }
-void Player::changeBal(int bal) {
+void Player::changeBal(int bal, bool load) {
     balance += bal;
-    if (bal > 0) {
-        cout << "You gained " << bal << "." << endl;
-    } else if (bal < 0) {
-        cout << "You paid " << (-1)*bal << "." << endl;
+    if (!load) {
+        if (bal > 0) {
+            cout << "You gained " << bal << "." << endl;
+        } else if (bal < 0) {
+            cout << "You paid " << (-1)*bal << "." << endl;
+        }
+        cout << "Your new balance is: " << balance << endl;
+    } else {
+        cout << "Your balance is: " << balance << endl;
     }
-    cout << "Your new balance is: " << balance << endl;
+    
 }
 
 void Player::addAssets(int p) {

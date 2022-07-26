@@ -15,6 +15,7 @@
 #include <map>
 #include <algorithm>
 #include <ctime>
+#include <string>
 using namespace std;
 
 vector<Square*> Board::getSquares(){ return squares; }
@@ -1295,16 +1296,18 @@ void Board::saveGame(std::string filename) {
         myfile<<p->getName()<<" "<<p->getPiece()<<" "<<p->getCups()<<" "<<p->getBal()<<" ";
         int pos = p->getPos();
         myfile<<pos;
-        if (pos == 10 && p->getJail()) {
-            myfile<<" 1 "<<p->getJailRounds();
-        } else {
-            myfile<<" 0";
+        if (pos == 10) {
+            if (p->getJail()) {
+                myfile<<" 1 "<<p->getJailRounds();
+            } else {
+                myfile<<" 0";
+            }
         }
         myfile<<endl;
     }
 
     for (auto s : properties) {
-        myfile<<s->getName();
+        myfile<<s->getName()<<" ";
         if(s->getOwner()) {
             myfile<<s->getOwner()->getName()<<" ";
             for (auto a : academicProperties) {
@@ -1325,12 +1328,14 @@ void Board::loadGame(std::string filename) {
     int totalCups = 0;
     ifstream myfile; 
     myfile.open(filename); 
+    int numPlayers;
     int n;
     string s;
+    string s1;
     char c;
-    myfile>>n;
+    myfile>>numPlayers;
     Board::initializeSquares();
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < numPlayers; i++) {
         myfile>>s;
         if (s.compare("BANK") == 0) {
             cout << "You cannot be named bank, pick another name." << endl;
@@ -1342,25 +1347,32 @@ void Board::loadGame(std::string filename) {
         totalCups += n;
         p->setCups(n);
         myfile>>n;
-        p->changeBal(n-1500);
+        p->changeBal(n-1500, true);
         myfile>>n;
         p->changePos(n);
         players.push_back(p);
     }
 
     for (auto p : properties) {
-        myfile>>s;
-        for (auto a : players) {
-            if (s == a->getName()) {
-                p->setOwner(a);
+        myfile >> s1; // prop name        
+        myfile>>s; //owner
+        if (s1.compare("BANK") == 0) {
+            myfile>>n;
+        } else {        
+            for (auto a : players) {
+                if (s.compare(a->getName()) == 0) {
+                    p->setOwner(a);
+                    break;
+                }
             }
-        }
-        myfile>>n;
-        for (auto a : academicProperties) {
-            if (s == a->getName()) {
-                a->setImprovement(n);
-            }
-        }        
+            myfile>>n; //imp
+            for (auto a : academicProperties) {
+                if (s1.compare(a->getName()) == 0) {
+                    a->setImprovement(n);
+                    break;
+                }
+            } 
+        }       
     }    
     //dcTims->setCups(totalCups);
     this->play();

@@ -1,5 +1,7 @@
 #include "board.h"
-
+#include <iostream>
+#include <string>
+using namespace std;
 int main(int argc, char* argv[]){
     if (argc == 1) {
         cout << "How many players will we have: ";
@@ -14,7 +16,8 @@ int main(int argc, char* argv[]){
         b.initialize();
         b.play();
     } else {
-        if (argv[1] == "load") {
+        string tmp = argv[1];
+        if (tmp.compare("-load") == 0) {
             int n;
             string filename = "watopoly.txt";
             if (argc == 3) {
@@ -24,8 +27,8 @@ int main(int argc, char* argv[]){
             myfile.open(filename); 
             myfile>>n;
             Board b{n};
-            b.loadGame();
-        } else if (argv[1] == "testing") {
+            b.loadGame(filename);
+        } else if (tmp.compare("testing") == 0) {
             cout << "How many players will we have: ";
             int x;
             cin >> x;
