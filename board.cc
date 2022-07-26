@@ -513,14 +513,16 @@ bool Board::mortgage(Player* p, Property* b){
         return false;
     }
     b->mortgage(p);
+    return true;
 }
 
 bool Board::unmortgage(Player* p, Property* b){
     if (b->getOwner() != p){
-        cout << "You do not own this property, so you cannot mortgage it " << endl;
+        cout << "You do not own this property, so you cannot unmortgage it " << endl;
         return false;
     }
     b->unmortgage(p);
+    return true;
 }
 
 void Board::setTesting(bool t){ testing = t; }
@@ -657,6 +659,7 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
         for (auto property: properties){
             if (property->getBoardIndex() == landedSquare->getBoardIndex()){
                 landedProperty = property;
+                break;
             }
         }
 
