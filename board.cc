@@ -938,6 +938,7 @@ void Board::play(){
                 cout << "You rolled doubles, you're out of jail. Hit enter to continue" << endl;
                 currPlayer->setJail(false);
                 currPlayer->changePos(10 + roll1 + roll2);
+                landOn(currPlayer, squares[10 + roll1 + roll2]);
                 endTurn = true;
             } else {
                 cout << "You did not roll doubles" << endl;
@@ -949,6 +950,7 @@ void Board::play(){
                         if (yn == 'y'){
                             currPlayer->setJail(false);
                             currPlayer->changePos(10 + roll1 + roll2);
+                            landOn(currPlayer, squares[10 + roll1 + roll2]);
                             dcTims->useCup(*currPlayer);
                             cout << "You're out of jail, you can roll on the next turn. Press enter to continue." << endl;
                             endTurn = true;
@@ -1066,6 +1068,7 @@ void Board::play(){
                 } else {
                     currPlayer->setJail(false);
                     currPlayer->changePos(10 + roll1 + roll2);
+                    landOn(currPlayer, squares[10 + roll1 + roll2]);
                     cout << "You're out of jail!" << endl;
                     playerIndex = (playerIndex + 1) % players.size();
                     currPlayer = players[playerIndex];
@@ -1361,4 +1364,5 @@ void Board::loadGame(std::string filename) {
         }        
     }    
     //dcTims->setCups(totalCups);
+    this->play();
 }
