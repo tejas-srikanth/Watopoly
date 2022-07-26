@@ -344,6 +344,7 @@ bool Board::trade(Player* p1, Player* p2, Property* b1, Property* b2){
 }
 
 bool Board::trade(Player* p1, Player* p2, int m1, Property* b2){
+    cout << "HI!!!!" << p2->getName() << endl;
     if (b2->getOwner() != p2){
         cout << b2->getName() << " is not owned by " << p2->getName() << " they cannot trade this" << endl;
         return false;
@@ -354,7 +355,7 @@ bool Board::trade(Player* p1, Player* p2, int m1, Property* b2){
     }
 
     Block* block2 = b2->getBlock();
-
+    cout << "HI!!!!" << block2 << endl;
     if (getBlockImprovements(block2) != 0){
         cout << "There are improvements in " << b2->getName() << "'s block. So, you cannot trade this." << endl;
         return false;
@@ -1089,6 +1090,7 @@ void Board::play(){
 
                     for (auto player: players){
                         if (player->getName().compare(p2Name) == 0){
+                            
                             p2 = player;
                             break;
                         }
