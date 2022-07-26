@@ -1218,6 +1218,11 @@ void Board::play(){
             all();
         }
 
+        else if (move[0].compare("save") == 0){
+            string filename = move[1];
+            saveGame(filename);
+        }
+
         else{
             cout << "Please enter a valid command" << endl;
             continue;
