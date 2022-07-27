@@ -24,4 +24,12 @@ void Square::bankrupt(Player *p) {
     this->notifyObservers();
 }
 
+void Square::load(Player &p) {
+    struct State s;
+    s.notifType = StateType::Landed;
+    s.justLanded = &p;
+    this->setState(s);
+    this->notifyObservers();
+}
+
 Square::~Square() {}

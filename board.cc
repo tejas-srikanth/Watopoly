@@ -940,6 +940,7 @@ void Board::play(){
                 cout << "You rolled doubles, you're out of jail. Hit enter to continue" << endl;
                 currPlayer->setJail(false);
                 currPlayer->changePos(10 + roll1 + roll2);
+                cout << "You landed on " << squares[10 + roll1 + roll2]->getName() << endl;
                 landOn(currPlayer, squares[10 + roll1 + roll2]);
                 endTurn = true;
             } else {
@@ -952,10 +953,10 @@ void Board::play(){
                         if (yn == 'y'){
                             currPlayer->setJail(false);
                             currPlayer->changePos(10 + roll1 + roll2);
+                            cout << "You're out of jail." << endl;
+                            cout << "You landed on " << squares[10 + roll1 + roll2]->getName() << endl;
                             landOn(currPlayer, squares[10 + roll1 + roll2]);
                             dcTims->useCup(*currPlayer);
-                            cout << "You're out of jail, you can roll on the next turn." << endl;
-                            cout << "It is now the next person's turn. Hit enter to continue." << endl;
                             cout << *(td);
                             showOptions(currPlayer);
                             endTurn = true;
@@ -1077,9 +1078,10 @@ void Board::play(){
                 } else {
                     currPlayer->setJail(false);
                     currPlayer->changePos(10 + roll1 + roll2);
-                    landOn(currPlayer, squares[10 + roll1 + roll2]);
                     cout << "You're out of jail!" << endl;
-                    cout << "It is now the next person's turn. Hit enter to continue.";
+                    cout << "You landed on " << squares[10 + roll1 + roll2]->getName() << endl;                    
+                    landOn(currPlayer, squares[10 + roll1 + roll2]);
+                    cout << "It is now the next person's turn. Hit enter to continue." << endl;
                     cout << *(td);
                     showOptions(currPlayer);
                     endTurn = true;
@@ -1363,6 +1365,16 @@ void Board::loadGame(std::string filename) {
         p->changeBal(n-1500, true);
         myfile>>n;
         p->changePos(n);
+        squares[n]->load(*p);
+        if (n == 10) {
+            myfile>>n;
+            if (n == 1) {
+                p->setJail(true);
+                myfile>>n;
+                p->setJailRounds(n);
+            }
+        }
+        
         players.push_back(p);
     }
     td = new TextDisplay{players};

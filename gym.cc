@@ -18,7 +18,7 @@ void Gym::land(Player &p) {
     s.property = PropertyType::Gym;
     this->setState(s);
     this->notifyObservers();
-    if (this->getOwner()) {
+    if (this->getOwner() && this->getOwner() != &p) {
         payFee(p);
     }
 }

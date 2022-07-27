@@ -24,4 +24,7 @@ void SLC::getEffect(Player& p) {
     } else {
         p.changePos(0); // assuming 0 is always osap
     }
+    cout<<position<<endl;
+    cout<<p.getPos()<<endl;
+    cout<<"Hey"<<endl;
 }

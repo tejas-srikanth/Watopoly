@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
             myfile>>n;
             Board b{n};
             b.loadGame(filename);
-        } else if (tmp.compare("testing") == 0) {
+        } else if (tmp.compare("-testing") == 0) {
             cout << "How many players will we have: ";
             int x;
             cin >> x;
