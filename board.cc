@@ -15,6 +15,7 @@
 #include <map>
 #include <algorithm>
 #include <ctime>
+#include <time.h>
 using namespace std;
 
 vector<Square*> Board::getSquares(){ return squares; }
@@ -544,6 +545,7 @@ void Board::all(){
 }
 
 int rollDie(int max){
+    srand(time(NULL));
     if (max == -1){
         return rand() % 6 + 1;
     } else {
@@ -600,6 +602,7 @@ void Board::auction(Property* building){
                 } else {
                     currentBid = s;
                     cout << endl << "Bidding is now at " << currentBid << endl;
+                    currAuctioner = (currAuctioner + 1) % auctioners.size();
                     break;
                 }
             }
