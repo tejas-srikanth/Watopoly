@@ -132,7 +132,7 @@ int TextDisplay::getBoardRowVal(int boardIndex){
 
 int TextDisplay::getBoardColVal(int boardIndex){
     if (0 <= boardIndex && 10 >= boardIndex){
-        return 1 + (10 - boardIndex) * 10;
+        return 1 + (10 - boardIndex) * 9;
     } 
 
     else if (11 <= boardIndex && 19 >= boardIndex){
@@ -140,7 +140,7 @@ int TextDisplay::getBoardColVal(int boardIndex){
     }
 
     else if (20 <= boardIndex && 30 >= boardIndex){
-        return 1 + (boardIndex - 20) * 10;
+        return 1 + (boardIndex - 20) * 9;
     }
 
     else if (39 >= boardIndex && 30 <= boardIndex){
