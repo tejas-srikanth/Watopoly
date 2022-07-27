@@ -172,6 +172,7 @@ void TextDisplay::showImprovements(int boardIndex){
         } else {
             board[row][col + j] = ' ';
         }
+        i++;
     }
 
 }
