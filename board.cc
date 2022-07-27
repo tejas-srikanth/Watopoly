@@ -706,6 +706,7 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
         if (newPos < 0){
             newPos += numSquares;
         }
+        cout << "You landed on " << landedSquare->getName() << endl;
         landOn(currPlayer, squares[newPos]);
 
     }
