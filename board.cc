@@ -758,13 +758,13 @@ void Board::checkBankrupt(Player *currPlayer, Square *landedSquare, int playerIn
         }    
         if (bankrupt){
             if (landedSquare) {
-                cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
                 landedSquare->bankrupt(currPlayer);
                 if (landedSquare->isProperty()) {
                     Player *owner;
                     for (auto p : properties) {
                         if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
                             owner = p->getOwner();
+                            break;
                         }
                     }
                     OweMoneyBankrupt(currPlayer, owner); // gives player's assets to owner
@@ -795,27 +795,22 @@ void Board::checkBankrupt(Player *currPlayer, Square *landedSquare, int playerIn
 }
 
 void Board::RegBankrupt(Player *currPlayer) {
-    cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
-    for (int asset: currPlayer->getAssets()){
-        Property* theProp;
-        for (auto prop: properties){
-            if (prop->getBoardIndex() == asset){
-                prop->setOwner(nullptr);
-                prop->setMortgage(false);
-                theProp = prop;
-            }
-        }
+    cout << "You are now bankrupt, you will be removed from the game.";
+    for (auto asset: currPlayer->getAssetPointers()){
+        asset->setOwner(nullptr);
+        asset->setMortgage(false);
         for (auto acadProp: academicProperties){
-            if (acadProp->getBoardIndex() == asset){
+            if (acadProp->getBoardIndex() == asset->getBoardIndex()){
                 acadProp->setImprovement(0);
+                break;
             }
         }
-        auction(theProp);
+        auction(asset);
     }
 }
 
 void Board::OweMoneyBankrupt(Player *currPlayer, Player *owner) {
-    cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
+    cout << "You are now bankrupt, you will be removed from the game.";
     for (auto asset: currPlayer->getAssetPointers()){
         asset->setOwner(owner);
         if (asset->getMortgaged()) {
@@ -995,7 +990,7 @@ void Board::play(){
             }
             cout << "You rolled: " << roll1 << " " << roll2 << endl;
             if (roll1 == roll2){
-                cout << "You rolled doubles, you're out of jail. Hit enter to continue" << endl;
+                cout << "You rolled doubles, you're out of jail." << endl;
                 currPlayer->setJail(false);
                 currPlayer->changePos(10 + roll1 + roll2);
                 cout << "You landed on " << squares[10 + roll1 + roll2]->getName() << endl;
@@ -1037,6 +1032,7 @@ void Board::play(){
             if (endTurn){
                 currPlayer = players[(playerIndex + 1) % players.size()];
                 playerIndex = (playerIndex + 1) % players.size();
+                cout << *td;
                 continue;
             }
             bool isPaying = false;
@@ -1114,6 +1110,7 @@ void Board::play(){
                         delete currPlayer;
                         playerIndex = playerIndex % players.size();
                         currPlayer = players[playerIndex];
+                        cout << *(td);
                         continue;
                     } else {
                         currPlayer->setJail(false);
@@ -1123,6 +1120,7 @@ void Board::play(){
                         endTurn = true;
                         playerIndex = (playerIndex + 1) % players.size();
                         currPlayer = players[playerIndex];
+                        cout << *(td);
                         continue;
                     }
                 } else {  // player's balance is above 0
@@ -1142,6 +1140,7 @@ void Board::play(){
                 currPlayer->setJailRounds(currPlayer->getJailRounds() + 1);
                 playerIndex = (playerIndex + 1) % players.size();
                 currPlayer = players[playerIndex];
+                cout << *(td);
                 continue;
             }
         }

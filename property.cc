@@ -32,14 +32,16 @@ void Property::setOwner(Player *p) {
         owner->delAssets(this);
     }    
     owner = p;
-    owner->addAssets(bi);
-    owner->addAssets(this);
-    struct State s;
-    s.notifType = StateType::ChangeOwner;
-    s.owner = owner;
-    s.boardIndex = bi;
-    this->setState(s);
-    this->notifyObservers();
+    if (p) {
+        owner->addAssets(bi);
+        owner->addAssets(this);
+        struct State s;
+        s.notifType = StateType::ChangeOwner;
+        s.owner = owner;
+        s.boardIndex = bi;
+        this->setState(s);
+        this->notifyObservers();
+    }
 }
 
 void Property::mortgage(Player *p) {

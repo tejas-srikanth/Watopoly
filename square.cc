@@ -19,6 +19,7 @@ std::string Square::getName() {
 void Square::bankrupt(Player *p) {
     struct State s;
     s.notifType = StateType::Bankrupt;
+    s.boardIndex = boardIndex;
     s.justLanded = p;
     this->setState(s);
     this->notifyObservers();

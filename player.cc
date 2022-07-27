@@ -55,7 +55,7 @@ void Player::changeBal(int bal, bool load) {
 }
 
 void Player::addAssets(int p) {
-    assets.emplace_back(p);
+    assets.push_back(p);
 }
 void Player::delAssets(int p) {
     int index = 0;
@@ -69,7 +69,7 @@ void Player::delAssets(int p) {
 }
 
 void Player::addAssets(Property *p) {
-    listOfAssets.emplace_back(p);
+    listOfAssets.push_back(p);
 }
 void Player::delAssets(Property *p) {
     int index = 0;
@@ -112,7 +112,7 @@ void Player::setJailRounds(int r) {
 }
 
 void Player::addAcad(Academic *p) {
-    listOfAcads.emplace_back(p);
+    listOfAcads.push_back(p);
 }
 
 void Player::delAcad(Academic *p) {
