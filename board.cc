@@ -1349,8 +1349,10 @@ void Board::loadGame(std::string filename) {
     string playerName;
     string s1;
     char c;
+    vector<int> playerPositions;
     myfile>>numPlayers;
     Board::initializeSquares();
+
     for (int i = 0; i < numPlayers; i++) {
         myfile>>playerName;
         if (playerName.compare("BANK") == 0) {
@@ -1366,7 +1368,7 @@ void Board::loadGame(std::string filename) {
         p->changeBal(n-1500, true);
         myfile>>n;
         p->changePos(n);
-        squares[n]->load(*p);
+        playerPositions.push_back(n);
         if (n == 10) {
             myfile>>n;
             if (n == 1) {
@@ -1378,6 +1380,7 @@ void Board::loadGame(std::string filename) {
         
         players.push_back(p);
     }
+
     td = new TextDisplay{players};
 
     for (auto square: squares){
@@ -1411,6 +1414,12 @@ void Board::loadGame(std::string filename) {
             }
         }
     }
+
+    for (int i = 0; i < numPlayers; i++) {
+        squares[playerPositions[i]]->load(*players[i]);
+    }
+    
+    
     for (auto p : properties) {
         myfile >> s1; // prop name        
         myfile>>playerName; //owner
