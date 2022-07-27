@@ -706,7 +706,6 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
         if (newPos < 0){
             newPos += numSquares;
         }
-        cout << "You landed on " << landedSquare->getName() << endl;
         landOn(currPlayer, squares[newPos]);
 
     }
@@ -732,7 +731,7 @@ void Board::raiseMoney(Player* p){
 void Board::checkBankrupt(Player *currPlayer, int playerIndex) {
     if (currPlayer->getBal() < 0){
                 cout << "You currently owe more money than you have. Type in one of the following:" << endl;
-                cout << "bankrupt (to declare bankrupcy and drop out)" << endl;
+                cout << "bankruptcy (to declare bankrupcy and drop out)" << endl;
                 cout << "raise (to raise money to avoid bankruptcy)" << endl;
                 cout << "Type in your choice here: ";
                 string s;
