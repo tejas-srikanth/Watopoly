@@ -127,7 +127,7 @@ void TextDisplay::notify(Subject& whoNotified){
         positionMap.erase(gridState.justLanded);
         for (auto ownerPair: ownerMap){
             if (ownerPair.second == gridState.justLanded->getPiece()){
-                updateOwner(ownerPair.first, ' ');
+                updateOwner(gridState.boardIndex, ' ');
             }
         }
     }

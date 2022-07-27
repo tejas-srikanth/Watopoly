@@ -35,12 +35,12 @@ void Block::academicBlock(Subject &whoFrom) {
     struct State wF = whoFrom.getState();
     Player *owner = wF.owner;
     bool monopoly = true;
-    std::map<int, Player*>::iterator it = ownership.begin();
-    while (it != ownership.end()) {
-        if (it->second != owner) {
+    for (auto pair : ownership) {
+        if (pair.second != owner) {
             monopoly = false;
             break;
         }
+        
     }
     if (monopoly) {        
         wF.condition = 2;
@@ -54,9 +54,8 @@ void Block::resgymBlock(Subject &whoFrom) {
     struct State wF = whoFrom.getState();
     Player *owner = wF.owner;
     int num = 0;
-    std::map<int, Player*>::iterator it = ownership.begin();
-    while (it != ownership.end()) {
-        if (it->second == owner) {
+    for (auto pair : ownership) {
+        if (pair.second == owner) {
             num++;
         }
     }
