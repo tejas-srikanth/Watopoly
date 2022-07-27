@@ -666,7 +666,6 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
     int boardIndex = landedSquare->getBoardIndex();
 
     if (landedSquare->isProperty()){
-        landedSquare->land(*currPlayer);
         Property* landedProperty;
         for (auto property: properties){
             if (property->getBoardIndex() == landedSquare->getBoardIndex()){
@@ -696,7 +695,8 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
             }
 
         } else {
-            landedProperty->payFee(*currPlayer);
+
+            landedSquare->land(*currPlayer);
         }
     }
 
@@ -1079,7 +1079,7 @@ void Board::play(){
                     currPlayer->changePos(10 + roll1 + roll2);
                     landOn(currPlayer, squares[10 + roll1 + roll2]);
                     cout << "You're out of jail!" << endl;
-                    cout << "It is now the next person's turn. Hit enter to continue." << endl;
+                    cout << "It is now the next person's turn. Hit enter to continue.";
                     cout << *(td);
                     showOptions(currPlayer);
                     endTurn = true;
@@ -1093,7 +1093,7 @@ void Board::play(){
             }
 
             else {
-                cout << "You have skipped your turn, press enter to continue." << endl;
+                cout << "You have skipped your turn, press enter to continue.";
                 currPlayer->setJailRounds(currPlayer->getJailRounds() + 1);
                 playerIndex = (playerIndex + 1) % players.size();
                 currPlayer = players[playerIndex];
