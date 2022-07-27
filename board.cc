@@ -717,16 +717,16 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
 }
 
 void Board::raiseMoney(Player* p){
-    for (int asset: p->getAssets()){
-        for (auto property: academicProperties){
-            if (property->getBoardIndex() == asset){
-                for (int i=0; i<property->getImprovement(); ++i){
-                    improve(p, property, 's'); // sell improvements
-                }
-                mortgage(p, property); // mortgage property
-            }
+    for (auto asset: p->getAcads()){
+        for (int i=0; i<asset->getImprovement(); ++i){
+            improve(p, asset, 's'); // sell improvements
         }
+        mortgage(p, asset); // mortgage property
     }
+    for (auto asset : p->getAssetPointers()) {
+        mortgage(p, asset);
+    }
+
 }
 
 void Board::checkBankrupt(Player *currPlayer, Square *landedSquare, int playerIndex) {
