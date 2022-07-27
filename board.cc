@@ -700,9 +700,10 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
         }
     }
 
-    else if (boardIndex == 2 || boardIndex == 33){ // landed on SLC (or NH, whichever moves)
+    else if (boardIndex == 2 || boardIndex == 17 || boardIndex == 33) {
         landedSquare->land(*currPlayer);
         int newPos = currPlayer->getPos();
+        cout<<"HEHEHEHEH"<<newPos<<endl;
         if (newPos < 0){
             newPos += numSquares;
         }
@@ -725,6 +726,90 @@ void Board::raiseMoney(Player* p){
             }
         }
     }
+}
+
+
+void Board::checkBankrupt(Square *landedSquare, Player *currPlayer, int playerIndex) {
+    if (currPlayer->getBal() < 0){
+                cout << "You currently owe more money than you have. Type in one of the following:" << endl;
+                cout << "bankruptcy (to declare bankrupcy and drop out)" << endl;
+                cout << "raise (to raise money to avoid bankruptcy)" << endl;
+                cout << "Type in your choice here: ";
+                string s;
+                cin >> s;
+                bool bankrupt = false;
+                if (s.compare("raise") == 0){
+                    raiseMoney(currPlayer);
+
+                    if (currPlayer->getBal() < 0){
+                        bankrupt = true;
+                    }
+                } else if (s.compare("bankrupt") == 0){
+                    bankrupt = true;
+                }
+
+                if (bankrupt){
+                    cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
+                    landedSquare->bankrupt(currPlayer);
+                    if (landedSquare->isProperty()) {
+                        Player *owner;
+                        for (auto p : properties) {
+                            if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
+                                owner = p->getOwner();
+                            }
+                        }
+                        for (auto asset: currPlayer->getAssetPointers()){
+                            asset->setOwner(owner);
+                            if (asset->getMortgaged()) {
+                                owner->changeBal((-0.1) * asset->getPurchaseCost());
+                                // choose whether to unmortgage
+                                cout<<"would you like to unmortgage "<<asset->getName()<<" ? (y/n)"<<endl;
+                                char yesNo;
+                                cin >> yesNo;
+                                while (yesNo != 'y' && yesNo != 'n') {
+                                    cout<<"Try again." <<endl;
+                                    cin >> yesNo;
+                                }
+                                if (yesNo == 'y') {
+                                    owner->changeBal((-0.5) * asset->getPurchaseCost());
+                                } else {
+                                    owner->changeBal((-0.1) * asset->getPurchaseCost());
+                                }
+                            }
+                        }
+                        checkBankrupt
+                    } else {
+                        for (int asset: currPlayer->getAssets()){
+                            Property* theProp;
+                            for (auto prop: properties){
+                                if (prop->getBoardIndex() == asset){
+                                    prop->setOwner(nullptr);
+                                    prop->setMortgage(false);
+                                    theProp = prop;
+                                }
+                            }
+
+                            for (auto acadProp: academicProperties){
+                                if (acadProp->getBoardIndex() == asset){
+                                    acadProp->setImprovement(0);
+                                }
+                            }
+
+                            auction(theProp);
+                        }
+                    }
+                    players.erase(players.begin() + playerIndex);
+                    numPlayers--;
+                    if (players.size() == 1){
+                        cout << "Game's over! " << players[0]->getName() << " has won." << endl;
+                        return;
+                    }
+                } 
+                
+                else {
+                    cout << "You saved yourself from bankruptcy!" << endl;
+                }
+}
 }
 
 void Board::play(){
@@ -827,31 +912,58 @@ void Board::play(){
                 if (bankrupt){
                     cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
                     landedSquare->bankrupt(currPlayer);
+                    if (landedSquare->isProperty()) {
+                        Player *owner;
+                        for (auto p : properties) {
+                            if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
+                                owner = p->getOwner();
+                            }
+                        }
+                        for (auto asset: currPlayer->getAssetPointers()){
+                            asset->setOwner(owner);
+                            if (asset->getMortgaged()) {
+                                owner->changeBal((-0.1) * asset->getPurchaseCost());
+                                // choose whether to unmortgage
+                                cout<<"would you like to unmortgage "<<asset->getName()<<" ? (y/n)"<<endl;
+                                char yesNo;
+                                cin >> yesNo;
+                                while (yesNo != 'y' && yesNo != 'n') {
+                                    cout<<"Try again." <<endl;
+                                    cin >> yesNo;
+                                }
+                                if (yesNo == 'y') {
+                                    owner->changeBal((-0.5) * asset->getPurchaseCost());
+                                } else {
+                                    owner->changeBal((-0.1) * asset->getPurchaseCost());
+                                }
+                            }
+                        }
+                    } else {
+                        for (int asset: currPlayer->getAssets()){
+                            Property* theProp;
+                            for (auto prop: properties){
+                                if (prop->getBoardIndex() == asset){
+                                    prop->setOwner(nullptr);
+                                    prop->setMortgage(false);
+                                    theProp = prop;
+                                }
+                            }
+
+                            for (auto acadProp: academicProperties){
+                                if (acadProp->getBoardIndex() == asset){
+                                    acadProp->setImprovement(0);
+                                }
+                            }
+
+                            auction(theProp);
+                        }
+                    }
                     players.erase(players.begin() + playerIndex);
                     numPlayers--;
                     if (players.size() == 1){
                         cout << "Game's over! " << players[0]->getName() << " has won." << endl;
                         return;
                     }
-                    for (int asset: currPlayer->getAssets()){
-                        Property* theProp;
-                        for (auto prop: properties){
-                            if (prop->getBoardIndex() == asset){
-                                prop->setOwner(nullptr);
-                                theProp = prop;
-                            }
-                        }
-
-                        for (auto acadProp: academicProperties){
-                            if (acadProp->getBoardIndex() == asset){
-                                acadProp->setMortgage(false);
-                                acadProp->setImprovement(0);
-                            }
-                        }
-
-                        auction(theProp);
-                    }
-                    
                 } 
                 
                 else {
@@ -1348,8 +1460,10 @@ void Board::loadGame(std::string filename) {
     string playerName;
     string s1;
     char c;
+    vector<int> playerPositions;
     myfile>>numPlayers;
     Board::initializeSquares();
+
     for (int i = 0; i < numPlayers; i++) {
         myfile>>playerName;
         if (playerName.compare("BANK") == 0) {
@@ -1365,7 +1479,7 @@ void Board::loadGame(std::string filename) {
         p->changeBal(n-1500, true);
         myfile>>n;
         p->changePos(n);
-        squares[n]->load(*p);
+        playerPositions.push_back(n);
         if (n == 10) {
             myfile>>n;
             if (n == 1) {
@@ -1377,6 +1491,7 @@ void Board::loadGame(std::string filename) {
         
         players.push_back(p);
     }
+
     td = new TextDisplay{players};
 
     for (auto square: squares){
@@ -1410,6 +1525,12 @@ void Board::loadGame(std::string filename) {
             }
         }
     }
+
+    for (int i = 0; i < numPlayers; i++) {
+        squares[playerPositions[i]]->load(*players[i]);
+    }
+    
+    
     for (auto p : properties) {
         myfile >> s1; // prop name        
         myfile>>playerName; //owner

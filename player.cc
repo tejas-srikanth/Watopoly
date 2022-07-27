@@ -16,6 +16,11 @@ int Player::getBal() {
 std::vector<int> Player::getAssets() {
     return assets;
 }
+
+std::vector<Property *> Player::getAssetPointers() {
+    return listOfAssets;
+}
+
 char Player::getPiece() {
     return piece;
 }

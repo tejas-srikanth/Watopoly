@@ -64,6 +64,29 @@ void TextDisplay::notify(Subject& whoNotified){
         
     }
 
+    else if (gridState.notifType == StateType::Load){
+        Player* justLanded = gridState.justLanded;
+        int newBoardIndex = -1;
+        for (auto& playerPair: positionMap){
+            Player* player = playerPair.first;
+            if (player == justLanded){
+                newBoardIndex = gridState.boardIndex;
+                positionMap[justLanded] = newBoardIndex;
+                break;
+            }
+        }
+
+        std::string newSquarePlayers = "";
+        for (auto& playerPair: positionMap){
+            Player* player = playerPair.first;
+            int onSquare = playerPair.second;
+            if (onSquare == newBoardIndex){
+                newSquarePlayers += player->getPiece();
+            }
+        }
+        updatePlayersOnSquare(newBoardIndex, newSquarePlayers);        
+    }
+
     else if (gridState.notifType == StateType::BuyImprovements){
         int building = gridState.boardIndex;
         buildingImprovements[building]++;

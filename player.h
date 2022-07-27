@@ -22,6 +22,7 @@ public:
     int getBal();
     std::vector<int> getAssets();
     std::vector<Academic *> getAcads();
+    std::vector<Property *> getAssetPointers();
     char getPiece();
     std::string getName();
     bool getJail();
