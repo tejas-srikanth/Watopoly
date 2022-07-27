@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <ctime>
 #include <string>
+#include <iostream>
 using namespace std;
 
 vector<Square*> Board::getSquares(){ return squares; }
@@ -728,61 +729,114 @@ void Board::raiseMoney(Player* p){
     }
 }
 
-
-void Board::checkBankrupt(Player *currPlayer, int playerIndex) {
-    if (currPlayer->getBal() < 0){
+void Board::checkBankrupt(Player *currPlayer, Square *landedSquare, int playerIndex) {
+    bool bankrupt = false;
+    if (currPlayer->getBal() < 0) {
+        cout << "You currently owe more money than you have. Type in one of the following:" << endl;
+        cout << "bankrupt (to declare bankrupcy and drop out)" << endl;
+        cout << "raise (to raise money to avoid bankruptcy)" << endl;
+        cout << "Type in your choice here: ";
+        string s;
+        cin >> s;
+        while (true) {
+            if (s.compare("raise") == 0){
+                raiseMoney(currPlayer);
+                if (currPlayer->getBal() < 0){
+                    bankrupt = true;
+                    break;
+                }
+            } else if (s.compare("bankrupt") == 0){
+                bankrupt = true;
+                break;
+            } else {
                 cout << "You currently owe more money than you have. Type in one of the following:" << endl;
                 cout << "bankrupt (to declare bankrupcy and drop out)" << endl;
                 cout << "raise (to raise money to avoid bankruptcy)" << endl;
                 cout << "Type in your choice here: ";
-                string s;
-                cin >> s;
-                bool bankrupt = false;
-                if (s.compare("raise") == 0){
-                    raiseMoney(currPlayer);
-
-                    if (currPlayer->getBal() < 0){
-                        bankrupt = true;
+                cin>>s;
+            }
+        }
+    }
+    if (bankrupt){
+        if (landedSquare) {
+            cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
+            landedSquare->bankrupt(currPlayer);
+            if (landedSquare->isProperty()) {
+                Player *owner;
+                for (auto p : properties) {
+                    if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
+                        owner = p->getOwner();
                     }
-                } else if (s.compare("bankrupt") == 0){
-                    bankrupt = true;
                 }
-
-                if (bankrupt){
-                    cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
-
-                for (int asset: currPlayer->getAssets()){
-                            Property* theProp;
-                            for (auto prop: properties){
-                                if (prop->getBoardIndex() == asset){
-                                    prop->setOwner(nullptr);
-                                    prop->setMortgage(false);
-                                    theProp = prop;
-                                }
-                            }
-
-                            for (auto acadProp: academicProperties){
-                                if (acadProp->getBoardIndex() == asset){
-                                    acadProp->setImprovement(0);
-                                }
-                            }
-
-                            auction(theProp);
-                        }
+                OweMoneyBankrupt(currPlayer, owner); // gives player's assets to owner
+                int ownerIndex = 0;
+                for (auto pl : players) {
+                    if (pl == owner) {
+                        break;
                     }
-                    players.erase(players.begin() + playerIndex);
-                    numPlayers--;
-                    if (players.size() == 1){
-                        cout << "Game's over! " << players[0]->getName() << " has won." << endl;
-                        return;
-                    }
-                } 
-                
-                else {
-                    cout << "You saved yourself from bankruptcy!" << endl;
+                    ownerIndex++;
                 }
+                checkBankrupt(owner, nullptr, ownerIndex); // check whether the owner is bankrupt
+            } else {
+                RegBankrupt(currPlayer);
+            }
+        } else {
+            RegBankrupt(currPlayer);
+        }
+        players.erase(players.begin() + playerIndex);
+        numPlayers--;
+        if (players.size() == 1){
+            cout << "Game's over! " << players[0]->getName() << " has won." << endl;
+            return;
+        }
+    } else {
+        cout << "You saved yourself from bankruptcy!" << endl;
+    }
 }
 
+void Board::RegBankrupt(Player *currPlayer) {
+    cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
+    for (int asset: currPlayer->getAssets()){
+        Property* theProp;
+        for (auto prop: properties){
+            if (prop->getBoardIndex() == asset){
+                prop->setOwner(nullptr);
+                prop->setMortgage(false);
+                theProp = prop;
+            }
+        }
+        for (auto acadProp: academicProperties){
+            if (acadProp->getBoardIndex() == asset){
+                acadProp->setImprovement(0);
+            }
+        }
+        auction(theProp);
+    }
+}
+
+void Board::OweMoneyBankrupt(Player *currPlayer, Player *owner) {
+    cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
+    for (auto asset: currPlayer->getAssetPointers()){
+        asset->setOwner(owner);
+        if (asset->getMortgaged()) {
+            owner->changeBal((-0.1) * asset->getPurchaseCost());
+            // choose whether to unmortgage
+            cout<<owner->getName()<<", would you like to unmortgage "<<asset->getName()<<" ? (y/n)"<<endl;
+            char yesNo;
+            cin >> yesNo;
+            while (yesNo != 'y' && yesNo != 'n') {
+                cout<<"Try again." <<endl;
+                cin >> yesNo;
+            }
+            if (yesNo == 'y') {
+                owner->changeBal((-0.5) * asset->getPurchaseCost());
+                asset->setMortgage(false);
+            } else {
+                owner->changeBal((-0.1) * asset->getPurchaseCost());
+            }
+        }
+    }
+} 
 
 void Board::play(){
     int playerIndex = 0;
@@ -799,6 +853,7 @@ void Board::play(){
             gameEnded = true;
             break;
         }
+        showOptions(players[playerIndex]);
         cout << "Enter command: ";
         getline(cin, commandLine);
         stringstream commandSS = stringstream(commandLine);
@@ -863,88 +918,7 @@ void Board::play(){
 
             landOn(currPlayer, landedSquare);
 
-            if (currPlayer->getBal() < 0){
-                cout << "You currently owe more money than you have. Type in one of the following:" << endl;
-                cout << "bankruptcy (to declare bankrupcy and drop out)" << endl;
-                cout << "raise (to raise money to avoid bankruptcy)" << endl;
-                cout << "Type in your choice here: ";
-                string s;
-                cin >> s;
-                bool bankrupt = false;
-                if (s.compare("raise") == 0){
-                    raiseMoney(currPlayer);
-
-                    if (currPlayer->getBal() < 0){
-                        bankrupt = true;
-                    }
-                } else if (s.compare("bankrupt") == 0){
-                    bankrupt = true;
-                }
-
-                if (bankrupt){
-                    cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
-                    landedSquare->bankrupt(currPlayer);
-                    if (landedSquare->isProperty()) {
-                        Player *owner;
-                        for (auto p : properties) {
-                            if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
-                                owner = p->getOwner();
-                            }
-                        }
-                        for (auto asset: currPlayer->getAssetPointers()){
-                            asset->setOwner(owner);
-                            if (asset->getMortgaged()) {
-                                owner->changeBal((-0.1) * asset->getPurchaseCost());
-                                // choose whether to unmortgage
-                                cout<<"would you like to unmortgage "<<asset->getName()<<" ? (y/n)"<<endl;
-                                char yesNo;
-                                cin >> yesNo;
-                                while (yesNo != 'y' && yesNo != 'n') {
-                                    cout<<"Try again." <<endl;
-                                    cin >> yesNo;
-                                }
-                                if (yesNo == 'y') {
-                                    owner->changeBal((-0.5) * asset->getPurchaseCost());
-                                } else {
-                                    owner->changeBal((-0.1) * asset->getPurchaseCost());
-                                }
-                            }
-                        }
-                        checkBankrupt(owner, playerIndex);
-                    } else {
-                        for (int asset: currPlayer->getAssets()){
-                            Property* theProp;
-                            for (auto prop: properties){
-                                if (prop->getBoardIndex() == asset){
-                                    prop->setOwner(nullptr);
-                                    prop->setMortgage(false);
-                                    theProp = prop;
-                                }
-                            }
-
-                            for (auto acadProp: academicProperties){
-                                if (acadProp->getBoardIndex() == asset){
-                                    acadProp->setImprovement(0);
-                                }
-                            }
-
-                            auction(theProp);
-                        }
-                    }
-                    players.erase(players.begin() + playerIndex);
-                    numPlayers--;
-                    if (players.size() == 1){
-                        cout << "Game's over! " << players[0]->getName() << " has won." << endl;
-                        return;
-                    }
-                } 
-                
-                else {
-                    cout << "You saved yourself from bankruptcy!" << endl;
-                    continue;
-                }
-                
-            }
+            checkBankrupt(currPlayer, landedSquare, playerIndex);
 
             if (roll1 != roll2 || currPlayer->getBal() < 0 || currPlayer->getJail()){
                 numDoubles = 0;
@@ -1036,14 +1010,13 @@ void Board::play(){
                         cout << "You have a cup, would you like to use it (y/n): ";
                         cin >> yn;
                         if (yn == 'y'){
+                            dcTims->useCup(*currPlayer);
                             currPlayer->setJail(false);
-                            currPlayer->changePos(10 + roll1 + roll2);
                             cout << "You're out of jail." << endl;
                             cout << "You landed on " << squares[10 + roll1 + roll2]->getName() << endl;
+                            currPlayer->changePos(10 + roll1 + roll2);
                             landOn(currPlayer, squares[10 + roll1 + roll2]);
-                            dcTims->useCup(*currPlayer);
                             cout << *(td);
-                            showOptions(currPlayer);
                             endTurn = true;
                             break;
                         } else if (yn == 'n'){
