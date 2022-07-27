@@ -46,6 +46,12 @@ void Academic::payFee(Player &p) {
 
 void Academic::setImprovement(int imp){
     improvement = imp;
+    struct State s;
+    s.notifType = StateType::SetImprovements;
+    s.boardIndex = this->getBoardIndex();
+    s.condition = imp;
+    this->setState(s);
+    this->notifyObservers();
 }
 
 void Academic::buyImprovements() {
