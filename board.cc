@@ -458,7 +458,6 @@ bool Board::improve(Player* p, Academic* b, char action){
     if (action == 'b'){
 
         vector<Academic*> theBlock = getBuildings(b->getBlock());
-        int totalImprovementCost = 0;
         for (auto academicBuilding: theBlock){
             if (academicBuilding->getOwner() != p){
                 cout << "You don't own all the buildings in this block" << endl;
@@ -934,7 +933,7 @@ void Board::play(){
                 }
                 cout << "It is now the next person's turn. Hit enter to continue." << endl;
                 cout << *(td);
-                showOptions(currPlayer);
+                continue;
             }
 
             else {
@@ -948,8 +947,8 @@ void Board::play(){
                     currPlayer = players[playerIndex];
                     cout << "It is now the next person's turn. Hit enter to continue." << endl;
                     cout << *(td);
-                    showOptions(currPlayer);
                     numDoubles = 0;
+                    continue;
                 }
 
                 else {
@@ -1043,11 +1042,9 @@ void Board::play(){
             bool isPaying = false;
             if (currPlayer->getJailRounds() == 3){
                 isPaying = true;
-            } 
-            else{
+            } else {
                 char yn;
                 while (true){
-                    
                     cout << "Do you want to pay 50 dollars to get out of jail (y/n): " << endl;
                     cin  >> yn;
                     if (yn == 'y'){
@@ -1118,41 +1115,29 @@ void Board::play(){
                         playerIndex = playerIndex % players.size();
                         currPlayer = players[playerIndex];
                         continue;
-                    } 
-                    
-                    else {
+                    } else {
                         currPlayer->setJail(false);
                         currPlayer->changePos(10 + roll1 + roll2);
                         cout << "You saved yourself from bankruptcy and you're out of jail!" << endl;
-                        cout << "It is now the next person's turn. Hit enter to continue." << endl;
                         cout << *(td);
-                        showOptions(currPlayer);
                         endTurn = true;
                         playerIndex = (playerIndex + 1) % players.size();
                         currPlayer = players[playerIndex];
                         continue;
                     }
-                    
-                } else {
+                } else {  // player's balance is above 0
                     currPlayer->setJail(false);
                     currPlayer->changePos(10 + roll1 + roll2);
                     cout << "You're out of jail!" << endl;
                     cout << "You landed on " << squares[10 + roll1 + roll2]->getName() << endl;                    
                     landOn(currPlayer, squares[10 + roll1 + roll2]);
-                    cout << "It is now the next person's turn. Hit enter to continue." << endl;
                     cout << *(td);
-                    showOptions(currPlayer);
                     endTurn = true;
                     playerIndex = (playerIndex + 1) % players.size();
                     currPlayer = players[playerIndex];
                     continue;
                 }
-
-
-
-            }
-
-            else {
+            } else { // if player chooses not to pay
                 cout << "You have skipped your turn."<<endl;
                 currPlayer->setJailRounds(currPlayer->getJailRounds() + 1);
                 playerIndex = (playerIndex + 1) % players.size();
