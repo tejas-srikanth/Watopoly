@@ -39,6 +39,7 @@ void Player::changePos(int pos) {
     position = pos;
 }
 void Player::changeBal(int bal, bool load) {
+    cout<<"Player "<<this->name<<":"<<endl;
     balance += bal;
     if (!load) {
         if (bal > 0) {

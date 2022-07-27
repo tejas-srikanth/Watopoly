@@ -703,7 +703,6 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
     else if (boardIndex == 2 || boardIndex == 17 || boardIndex == 33) {
         landedSquare->land(*currPlayer);
         int newPos = currPlayer->getPos();
-        cout<<"HEHEHEHEH"<<newPos<<endl;
         if (newPos < 0){
             newPos += numSquares;
         }
