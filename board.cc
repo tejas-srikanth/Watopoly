@@ -356,6 +356,7 @@ bool Board::trade(Player* p1, Player* p2, int m1, Property* b2){
 
     if (m1 > p1->getBal()){
         cout << "You do not have enough money to make this trade. " << endl;
+        return false;
     }
 
     Block* block2 = b2->getBlock();
@@ -707,7 +708,7 @@ void Board::landOn(Player* currPlayer, Square* landedSquare){
         if (newPos < 0){
             newPos += numSquares;
         }
-        cout << "You landed on " << landedSquare->getName() << endl;
+        cout << "You landed on " << squares[newPos]->getName() << endl;
         landOn(currPlayer, squares[newPos]);
 
     }
@@ -755,42 +756,42 @@ void Board::checkBankrupt(Player *currPlayer, Square *landedSquare, int playerIn
                 cout << "Type in your choice here: ";
                 cin>>s;
             }
-        }
-    }
-    if (bankrupt){
-        if (landedSquare) {
-            cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
-            landedSquare->bankrupt(currPlayer);
-            if (landedSquare->isProperty()) {
-                Player *owner;
-                for (auto p : properties) {
-                    if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
-                        owner = p->getOwner();
+        }    
+        if (bankrupt){
+            if (landedSquare) {
+                cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
+                landedSquare->bankrupt(currPlayer);
+                if (landedSquare->isProperty()) {
+                    Player *owner;
+                    for (auto p : properties) {
+                        if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
+                            owner = p->getOwner();
+                        }
                     }
-                }
-                OweMoneyBankrupt(currPlayer, owner); // gives player's assets to owner
-                int ownerIndex = 0;
-                for (auto pl : players) {
-                    if (pl == owner) {
-                        break;
+                    OweMoneyBankrupt(currPlayer, owner); // gives player's assets to owner
+                    int ownerIndex = 0;
+                    for (auto pl : players) {
+                        if (pl == owner) {
+                            break;
+                        }
+                        ownerIndex++;
                     }
-                    ownerIndex++;
+                    checkBankrupt(owner, nullptr, ownerIndex); // check whether the owner is bankrupt
+                } else {
+                    RegBankrupt(currPlayer);
                 }
-                checkBankrupt(owner, nullptr, ownerIndex); // check whether the owner is bankrupt
             } else {
                 RegBankrupt(currPlayer);
             }
+            players.erase(players.begin() + playerIndex);
+            numPlayers--;
+            if (players.size() == 1){
+                cout << "Game's over! " << players[0]->getName() << " has won." << endl;
+                return;
+            }
         } else {
-            RegBankrupt(currPlayer);
+            cout << "You saved yourself from bankruptcy!" << endl;
         }
-        players.erase(players.begin() + playerIndex);
-        numPlayers--;
-        if (players.size() == 1){
-            cout << "Game's over! " << players[0]->getName() << " has won." << endl;
-            return;
-        }
-    } else {
-        cout << "You saved yourself from bankruptcy!" << endl;
     }
 }
 
@@ -843,7 +844,6 @@ void Board::play(){
     bool gameEnded = false;
     cout << *(td);
     int numDoubles = 0;
-    showOptions(players[playerIndex]);
     string commandLine;
 
     while (!gameEnded){
@@ -1153,7 +1153,7 @@ void Board::play(){
             }
 
             else {
-                cout << "You have skipped your turn, press enter to continue.";
+                cout << "You have skipped your turn."<<endl;
                 currPlayer->setJailRounds(currPlayer->getJailRounds() + 1);
                 playerIndex = (playerIndex + 1) % players.size();
                 currPlayer = players[playerIndex];
