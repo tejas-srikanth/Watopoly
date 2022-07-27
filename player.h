@@ -27,7 +27,7 @@ public:
     bool getJail();
     void setJail(bool b);
     void changePos(int pos);
-    void changeBal(int bal);
+    void changeBal(int bal, bool load = false);
     void addAssets(int p);
     void delAssets(int p);
     void addAssets(Property *p);

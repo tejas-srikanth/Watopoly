@@ -2,7 +2,7 @@
 #define __STATE__
 class Player;
 enum class StateType { Landed, BuyImprovements, SellImprovements, ChangeOwner, Mortgage, 
-    Unmortgage, Bankrupt };
+    Unmortgage, Bankrupt, SetImprovements };
 enum class PropertyType { Academic, Residence, Gym, Special};
 
 struct State {

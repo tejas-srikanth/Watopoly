@@ -77,6 +77,12 @@ void TextDisplay::notify(Subject& whoNotified){
         showImprovements(gridState.boardIndex);
     }
 
+    else if (gridState.notifType == StateType::SetImprovements){
+        int building = gridState.boardIndex;
+        buildingImprovements[building] = gridState.condition;
+        showImprovements(gridState.boardIndex);
+    }
+
     else if (gridState.notifType == StateType::ChangeOwner){
         int boardIndex = gridState.boardIndex;
         Player* owner = gridState.owner;

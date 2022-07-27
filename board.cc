@@ -15,7 +15,7 @@
 #include <map>
 #include <algorithm>
 #include <ctime>
-#include <time.h>
+#include <string>
 using namespace std;
 
 vector<Square*> Board::getSquares(){ return squares; }
@@ -30,13 +30,16 @@ Board::~Board(){
     for (auto player: players){
         delete player;
     }
+    for (auto player: allblocks){
+        delete player;
+    }
 }
 
 Board::Board(int numPlayers): numPlayers{numPlayers}{}
 
 void Board::initializeSquares(){
 
-    DCTims* dcTims = new DCTims{"DC Tims", 10};
+    dcTims = new DCTims{"DC Tims", 10};
 
     academicProperties.push_back( new Academic("ML", 1, 40, 50, MLt));
     academicProperties.push_back( new Academic{"AL", 3, 60, 50, ALt });
@@ -345,7 +348,6 @@ bool Board::trade(Player* p1, Player* p2, Property* b1, Property* b2){
 }
 
 bool Board::trade(Player* p1, Player* p2, int m1, Property* b2){
-    cout << "HI!!!!" << p2->getName() << endl;
     if (b2->getOwner() != p2){
         cout << b2->getName() << " is not owned by " << p2->getName() << " they cannot trade this" << endl;
         return false;
@@ -356,7 +358,6 @@ bool Board::trade(Player* p1, Player* p2, int m1, Property* b2){
     }
 
     Block* block2 = b2->getBlock();
-    cout << "HI!!!!" << block2 << endl;
     if (getBlockImprovements(block2) != 0){
         cout << "There are improvements in " << b2->getName() << "'s block. So, you cannot trade this." << endl;
         return false;
@@ -505,6 +506,7 @@ bool Board::buy(Player* p, Property* b){
         return false;
     }
     b->setOwner(p);
+    p->changeBal((-1) * purchaseCost);
     return true;
 }
 
@@ -545,7 +547,6 @@ void Board::all(){
 }
 
 int rollDie(int max){
-    srand(time(NULL));
     if (max == -1){
         return rand() % 6 + 1;
     } else {
@@ -602,7 +603,6 @@ void Board::auction(Property* building){
                 } else {
                     currentBid = s;
                     cout << endl << "Bidding is now at " << currentBid << endl;
-                    currAuctioner = (currAuctioner + 1) % auctioners.size();
                     break;
                 }
             }
@@ -906,30 +906,6 @@ void Board::play(){
 
             cout << "You are in jail. " << endl;
             bool endTurn = false;
-            if (currPlayer->getCups() > 0){
-                char yn;
-                while (true){
-                    cout << "You have a cup, would you like to use it (y/n): ";
-                    cin >> yn;
-                    if (yn == 'y'){
-                        currPlayer->setJail(false);
-                        dcTims->useCup(*currPlayer);
-                        cout << "You're out of jail, you can roll on the next turn. Press enter to continue." << endl;
-                        endTurn = true;
-                        break;
-                    } else if (yn == 'n'){
-                        cout << "Okay, take your chances then. " << endl;
-                        break;
-                    } else {
-                        continue;
-                    }
-                }
-                if (endTurn){
-                    currPlayer = players[(playerIndex + 1) % players.size()];
-                    playerIndex = (playerIndex + 1) % players.size();
-                    continue;
-                }
-            }
 
             cout << "Try rolling doubles to get out of jail:" << endl;
             int num1 = -1; int num2 = -1;
@@ -963,10 +939,42 @@ void Board::play(){
             if (roll1 == roll2){
                 cout << "You rolled doubles, you're out of jail. Hit enter to continue" << endl;
                 currPlayer->setJail(false);
+                currPlayer->changePos(10 + roll1 + roll2);
+                landOn(currPlayer, squares[10 + roll1 + roll2]);
                 endTurn = true;
             } else {
                 cout << "You did not roll doubles" << endl;
+                if (currPlayer->getCups() > 0){
+                    char yn;
+                    while (true){
+                        cout << "You have a cup, would you like to use it (y/n): ";
+                        cin >> yn;
+                        if (yn == 'y'){
+                            currPlayer->setJail(false);
+                            currPlayer->changePos(10 + roll1 + roll2);
+                            landOn(currPlayer, squares[10 + roll1 + roll2]);
+                            dcTims->useCup(*currPlayer);
+                            cout << "You're out of jail, you can roll on the next turn." << endl;
+                            cout << "It is now the next person's turn. Hit enter to continue." << endl;
+                            cout << *(td);
+                            showOptions(currPlayer);
+                            endTurn = true;
+                            break;
+                        } else if (yn == 'n'){
+                            cout << "Okay, take your chances then. " << endl;
+                            break;
+                        } else {
+                            continue;
+                        }
+                    }
+                    if (endTurn){
+                        currPlayer = players[(playerIndex + 1) % players.size()];
+                        playerIndex = (playerIndex + 1) % players.size();
+                        continue;
+                    }
+                }
             }
+            
 
             if (endTurn){
                 currPlayer = players[(playerIndex + 1) % players.size()];
@@ -1055,12 +1063,29 @@ void Board::play(){
                     
                     else {
                         currPlayer->setJail(false);
+                        currPlayer->changePos(10 + roll1 + roll2);
                         cout << "You saved yourself from bankruptcy and you're out of jail!" << endl;
+                        cout << "It is now the next person's turn. Hit enter to continue." << endl;
+                        cout << *(td);
+                        showOptions(currPlayer);
+                        endTurn = true;
                         playerIndex = (playerIndex + 1) % players.size();
                         currPlayer = players[playerIndex];
                         continue;
                     }
                     
+                } else {
+                    currPlayer->setJail(false);
+                    currPlayer->changePos(10 + roll1 + roll2);
+                    landOn(currPlayer, squares[10 + roll1 + roll2]);
+                    cout << "You're out of jail!" << endl;
+                    cout << "It is now the next person's turn. Hit enter to continue." << endl;
+                    cout << *(td);
+                    showOptions(currPlayer);
+                    endTurn = true;
+                    playerIndex = (playerIndex + 1) % players.size();
+                    currPlayer = players[playerIndex];
+                    continue;
                 }
 
 
@@ -1284,16 +1309,18 @@ void Board::saveGame(std::string filename) {
         myfile<<p->getName()<<" "<<p->getPiece()<<" "<<p->getCups()<<" "<<p->getBal()<<" ";
         int pos = p->getPos();
         myfile<<pos;
-        if (pos == 10 && p->getJail()) {
-            myfile<<" 1 "<<p->getJailRounds();
-        } else {
-            myfile<<" 0";
+        if (pos == 10) {
+            if (p->getJail()) {
+                myfile<<" 1 "<<p->getJailRounds();
+            } else {
+                myfile<<" 0";
+            }
         }
         myfile<<endl;
     }
 
     for (auto s : properties) {
-        myfile<<s->getName();
+        myfile<<s->getName()<<" ";
         if(s->getOwner()) {
             myfile<<s->getOwner()->getName()<<" ";
             for (auto a : academicProperties) {
@@ -1314,42 +1341,84 @@ void Board::loadGame(std::string filename) {
     int totalCups = 0;
     ifstream myfile; 
     myfile.open(filename); 
+    int numPlayers;
     int n;
-    string s;
+    string playerName;
+    string s1;
     char c;
-    myfile>>n;
+    myfile>>numPlayers;
     Board::initializeSquares();
-    for (int i = 0; i < n; i++) {
-        myfile>>s;
-        if (s.compare("BANK") == 0) {
+    for (int i = 0; i < numPlayers; i++) {
+        myfile>>playerName;
+        if (playerName.compare("BANK") == 0) {
             cout << "You cannot be named bank, pick another name." << endl;
             break;
         }
         myfile>>c;
-        Player *p = new Player{s, c};
+        Player *p = new Player{playerName, c};
         myfile>>n;
         totalCups += n;
         p->setCups(n);
         myfile>>n;
-        p->changeBal(n-1500);
+        p->changeBal(n-1500, true);
         myfile>>n;
         p->changePos(n);
         players.push_back(p);
     }
+    td = new TextDisplay{players};
 
-    for (auto p : properties) {
-        myfile>>s;
-        for (auto a : players) {
-            if (s == a->getName()) {
-                p->setOwner(a);
+    for (auto square: squares){
+        square->attach(td);
+
+    }
+
+    Block* Arts1 = new Block{vector<int>{1, 3}};
+    Block* Arts2 = new Block{vector<int>{6, 8, 9}};
+    Block* Eng = new Block{vector<int>{11, 13, 14}};
+    Block* Health = new Block{vector<int>{16, 18, 19}};
+    Block* Env = new Block{vector<int>{21, 23, 24}};
+    Block* Sci1 = new Block{vector<int>{26, 27, 29}};
+    Block* Sci2 = new Block{vector<int>{31, 32, 34}};
+    Block* Math = new Block{vector<int>{37, 39}};
+    Block* Res = new Block{vector<int>{5, 15, 25, 35}};
+    Block* Gyms = new Block{vector<int>{12, 28}};
+
+    allblocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math, Res, Gyms};
+    blocks = {Arts1, Arts2, Eng, Health, Env, Sci1, Sci2, Math};
+
+    for (Block* block: allblocks){
+        for (auto blockPair: block->getOwnership()){ // iterates through the properties in block
+            int boardIndex = blockPair.first;
+            squares[boardIndex]->attach(block);
+            for (auto property: properties){
+                if (property->getBoardIndex() == boardIndex){
+                    property->setBlock(block);
+                    break;
+                }
             }
         }
-        myfile>>n;
-        for (auto a : academicProperties) {
-            if (s == a->getName()) {
-                a->setImprovement(n);
+    }
+    for (auto p : properties) {
+        myfile >> s1; // prop name        
+        myfile>>playerName; //owner
+        if (playerName.compare("BANK") == 0) {
+            myfile>>n;
+        } else {        
+            for (auto a : players) {
+                if (playerName.compare(a->getName()) == 0) {
+                    p->setOwner(a);
+                    break;
+                }
             }
-        }        
-    }    
-    //dcTims->setCups(totalCups);
+            myfile>>n; //imp
+            for (auto a : academicProperties) {
+                if (s1.compare(a->getName()) == 0) {
+                    a->setImprovement(n);
+                    break;
+                }
+            } 
+        }       
+    }
+    dcTims->setCups(totalCups);
+    this->play();
 }

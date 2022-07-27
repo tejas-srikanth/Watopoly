@@ -3,6 +3,7 @@
 NeedlesHall::NeedlesHall(string name, int bi, DCTims& tims) : Chance{bi, name, tims} {}
 
 void NeedlesHall::getEffect(Player& p) {
+    srand(time(NULL));
     int random = rand() % 18 + 1;
     if (random == 1) {
         p.changeBal(-200);
