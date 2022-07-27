@@ -4,7 +4,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
 class Subject;
 
 TextDisplay::TextDisplay(std::vector<Player*> players){
