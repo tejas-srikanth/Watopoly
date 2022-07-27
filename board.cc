@@ -729,7 +729,7 @@ void Board::raiseMoney(Player* p){
 }
 
 
-void Board::checkBankrupt(Square *landedSquare, Player *currPlayer, int playerIndex) {
+void Board::checkBankrupt(Player *currPlayer, int playerIndex) {
     if (currPlayer->getBal() < 0){
                 cout << "You currently owe more money than you have. Type in one of the following:" << endl;
                 cout << "bankruptcy (to declare bankrupcy and drop out)" << endl;
@@ -750,36 +750,8 @@ void Board::checkBankrupt(Square *landedSquare, Player *currPlayer, int playerIn
 
                 if (bankrupt){
                     cout << "You are now bankrupt, you will be removed from the game. Hit enter to continue. ";
-                    landedSquare->bankrupt(currPlayer);
-                    if (landedSquare->isProperty()) {
-                        Player *owner;
-                        for (auto p : properties) {
-                            if (landedSquare->getBoardIndex() == p->getBoardIndex()) {
-                                owner = p->getOwner();
-                            }
-                        }
-                        for (auto asset: currPlayer->getAssetPointers()){
-                            asset->setOwner(owner);
-                            if (asset->getMortgaged()) {
-                                owner->changeBal((-0.1) * asset->getPurchaseCost());
-                                // choose whether to unmortgage
-                                cout<<"would you like to unmortgage "<<asset->getName()<<" ? (y/n)"<<endl;
-                                char yesNo;
-                                cin >> yesNo;
-                                while (yesNo != 'y' && yesNo != 'n') {
-                                    cout<<"Try again." <<endl;
-                                    cin >> yesNo;
-                                }
-                                if (yesNo == 'y') {
-                                    owner->changeBal((-0.5) * asset->getPurchaseCost());
-                                } else {
-                                    owner->changeBal((-0.1) * asset->getPurchaseCost());
-                                }
-                            }
-                        }
-                        checkBankrupt
-                    } else {
-                        for (int asset: currPlayer->getAssets()){
+
+                for (int asset: currPlayer->getAssets()){
                             Property* theProp;
                             for (auto prop: properties){
                                 if (prop->getBoardIndex() == asset){
@@ -810,7 +782,7 @@ void Board::checkBankrupt(Square *landedSquare, Player *currPlayer, int playerIn
                     cout << "You saved yourself from bankruptcy!" << endl;
                 }
 }
-}
+
 
 void Board::play(){
     int playerIndex = 0;
@@ -938,6 +910,7 @@ void Board::play(){
                                 }
                             }
                         }
+                        checkBankrupt(owner, playerIndex);
                     } else {
                         for (int asset: currPlayer->getAssets()){
                             Property* theProp;

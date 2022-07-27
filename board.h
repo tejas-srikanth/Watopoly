@@ -82,13 +82,12 @@ class Board{
         void showOptions(Player* p);
         void landOn(Player* p, Square* sq);
         void raiseMoney(Player* p);
-        void negativeBalance(Player* p, Square* sq, int playerIndex);
         void all();
         bool isInt(string s);
         bool isAcademic(Property* p);
         std::pair<int, int> rollDice(std::string s1, std::string s2);
         //void playerBankruptcy(Player* p1, Player* p2);
-        void checkBankrupt(Square *landedSquare, Player * currPlayer);
+        void checkBankrupt(Player * currPlayer, int pi);
 
 
 };
