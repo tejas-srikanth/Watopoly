@@ -954,7 +954,10 @@ void Board::play(){
                             currPlayer->changePos(10 + roll1 + roll2);
                             landOn(currPlayer, squares[10 + roll1 + roll2]);
                             dcTims->useCup(*currPlayer);
-                            cout << "You're out of jail, you can roll on the next turn. Press enter to continue." << endl;
+                            cout << "You're out of jail, you can roll on the next turn." << endl;
+                            cout << "It is now the next person's turn. Hit enter to continue." << endl;
+                            cout << *(td);
+                            showOptions(currPlayer);
                             endTurn = true;
                             break;
                         } else if (yn == 'n'){
@@ -1062,6 +1065,10 @@ void Board::play(){
                         currPlayer->setJail(false);
                         currPlayer->changePos(10 + roll1 + roll2);
                         cout << "You saved yourself from bankruptcy and you're out of jail!" << endl;
+                        cout << "It is now the next person's turn. Hit enter to continue." << endl;
+                        cout << *(td);
+                        showOptions(currPlayer);
+                        endTurn = true;
                         playerIndex = (playerIndex + 1) % players.size();
                         currPlayer = players[playerIndex];
                         continue;
@@ -1072,6 +1079,10 @@ void Board::play(){
                     currPlayer->changePos(10 + roll1 + roll2);
                     landOn(currPlayer, squares[10 + roll1 + roll2]);
                     cout << "You're out of jail!" << endl;
+                    cout << "It is now the next person's turn. Hit enter to continue." << endl;
+                    cout << *(td);
+                    showOptions(currPlayer);
+                    endTurn = true;
                     playerIndex = (playerIndex + 1) % players.size();
                     currPlayer = players[playerIndex];
                     continue;
