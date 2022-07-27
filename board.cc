@@ -1362,6 +1362,14 @@ void Board::loadGame(std::string filename) {
         myfile>>n;
         p->changeBal(n-1500, true);
         myfile>>n;
+        if (n == 10) {
+            myfile>>n;
+            if (n == 1) {
+                p->setJail(true);
+                myfile>>n;
+                p->setJailRounds(n);
+            }
+        }
         p->changePos(n);
         players.push_back(p);
     }

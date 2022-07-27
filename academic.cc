@@ -27,7 +27,7 @@ void Academic::land(Player &p) {
     this->setState(s);
     // notify Observers
     this->notifyObservers();
-    if (this->getOwner()) {
+    if (this->getOwner() && this->getOwner() != &p) {
         payFee(p);
     }
 }
